@@ -22,7 +22,7 @@ class ReviewsFragment :
             rv.adapter = reviewsAdapter
 
             viewModel.productReviews.observeState(viewLifecycleOwner, {
-                //
+                //////
                 if(it.result.isNullOrEmpty()){
                     contentEmtpy.root.visibility = View.VISIBLE
                     rv.visibility = View.GONE
