@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center_horizontal"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <com.github.florent37.shapeofview.shapes.RoundRectView
+        android:id="@+id/vg_image"
+        android:layout_height="120dp"
+        android:layout_width="135dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        app:shape_roundRect_topLeftRadius="20dp"
+        app:shape_roundRect_topRightRadius="20dp"
+        app:shape_roundRect_bottomLeftRadius="20dp"
+        app:shape_roundRect_bottomRightRadius="20dp">
+
+        <View
+            android:id="@+id/iv"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:background="#F8F8FA"
+            tools:ignore="ContentDescription" />
+
+    </com.github.florent37.shapeofview.shapes.RoundRectView>
+
+    <View
+        android:id="@+id/tv_title"
+        android:layout_height="24dp"
+        android:layout_width="120dp"
+        android:layout_toEndOf="@id/vg_image"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="64dp"
+        android:background="@drawable/bg_placeholder"
+        tools:ignore="RelativeOverlap" />
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_below="@id/vg_image"
+        android:layout_marginStart="140dp"
+        android:background="#F8F8FA" />
+
+</RelativeLayout>
+

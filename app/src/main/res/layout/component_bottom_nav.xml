@@ -1,0 +1,130 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="56dp"
+    android:layout_width="match_parent"
+    android:layout_alignParentBottom="true"
+    android:background="@color/md_white_1000"
+    app:cardBackgroundColor="@color/md_white_1000">
+
+    <LinearLayout
+        android:id="@+id/vg_main"
+        android:layout_height="40dp"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_grey_corners_20">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_home"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:checkable="true"
+            android:backgroundTint="@color/sl_bottom_nav_icons"
+            app:icon="@drawable/sl_home"
+            style="@style/Button.Icon"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_catalog"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:checkable="true"
+            android:backgroundTint="@color/sl_bottom_nav_icons"
+            app:icon="@drawable/sl_catalog"
+            style="@style/Button.Icon"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_qr"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:checkable="true"
+            android:backgroundTint="@color/sl_bottom_nav_icons"
+            app:icon="@drawable/sl_qr"
+            style="@style/Button.Icon"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cart"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:checkable="true"
+            android:backgroundTint="@color/sl_bottom_nav_icons"
+            app:icon="@drawable/sl_cart"
+            style="@style/Button.Icon"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_acconut"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:checkable="true"
+            android:backgroundTint="@color/sl_bottom_nav_icons"
+            app:icon="@drawable/sl_account"
+            style="@style/Button.Icon"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/vg_product_details"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:background="@drawable/bg_grey_corners_20"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_back"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/sl_bottom_nav_icons"
+            app:icon="@drawable/ic_arrow_left"
+            style="@style/Button.Icon"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_share"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            app:icon="@drawable/ic_share_outlined"
+            style="@style/Button.Icon"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_like"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            app:iconTint="@null"
+            app:icon="@drawable/ic_like_outlined"
+            style="@style/Button.Icon"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_to_cart"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:text="В корзину"
+            app:icon="@drawable/ic_cart_outlined"
+            app:iconGravity="textEnd"
+            style="@style/Button.Primary"/>
+
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>

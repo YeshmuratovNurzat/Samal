@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "712788701134",
+    "firebase_url": "https://samal-karaganda.firebaseio.com",
+    "project_id": "samal-karaganda",
+    "storage_bucket": "samal-karaganda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712788701134:android:5a78219bdb9e83bd12859f",
+        "android_client_info": {
+          "package_name": "kz.fime.samal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712788701134-6ssukat0oh8men47e5l8as22j21doftd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnE_Wei7Fd-FPnbkeCOqE9f8PIrqtcmXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712788701134-6ssukat0oh8men47e5l8as22j21doftd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

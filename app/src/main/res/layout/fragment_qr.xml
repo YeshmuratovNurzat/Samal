@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/qr_scanner"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:autoFocusButtonVisible="false"
+        app:flashButtonVisible="false"
+        app:frameColor="@android:color/transparent"
+        app:frameCornersRadius="24dp" />
+
+    <LinearLayout
+        android:id="@+id/vg_error_permission"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:background="@color/black"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="24sp"
+            android:fontFamily="@font/gilroy_bold"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:text="Разрешите доступ" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:fontFamily="@font/gilroy_regular"
+            android:textSize="15sp"
+            android:textColor="#E8E8ED"
+            android:textAlignment="center"
+            android:text="Чтобы сканировать QR-коды, нужен доступ к камере" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_request_permission"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="15sp"
+            style="@style/Button.Primary"
+            android:backgroundTint="#1AF8F8FA"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/white"
+            android:text="Предоставить доступ" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/vg_error_auth"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@color/md_white_1000"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_height="120dp"
+            android:layout_width="180dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_cat_unauthorized"
+            android:scaleType="fitCenter"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="24sp"
+            android:fontFamily="@font/gilroy_bold"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:text="Авторизуйтесь" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="15sp"
+            android:fontFamily="@font/gilroy_regular"
+            android:textColor="#545459"
+            android:textAlignment="center"
+            android:text="Для пользования QR-оплатой необходимо авторизоваться в приложении" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_auth"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="16dp"
+            style="@style/Button.Primary"
+            android:text="Войти или зарегистрироваться" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/vg_bottom_bar"
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_dark_grey_corners_20">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_home"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            app:icon="@drawable/ic_home_outlined"
+            app:iconTint="@color/white"
+            style="@style/Button.Icon"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_catalog"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            app:icon="@drawable/ic_catalog_outlined"
+            app:iconTint="@color/white"
+            style="@style/Button.Icon"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_qr"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/accent"
+            app:icon="@drawable/sl_qr"
+            style="@style/Button.Icon"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cart"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            app:icon="@drawable/ic_cart_outlined"
+            app:iconTint="@color/white"
+            style="@style/Button.Icon"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_acconut"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            app:icon="@drawable/ic_account_outlined"
+            app:iconTint="@color/white"
+            style="@style/Button.Icon"/>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:title="QR-оплата"
+        app:menu="@menu/menu_qr"
+        app:titleTextColor="@color/md_black_1000"
+        app:titleTextAppearance="@style/Text.H1"/>
+
+</FrameLayout>

@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Samal</string>
+
+
+    <!-- Welcome Page -->
+    <string name="welcome_info_1">Найдется все</string>
+    <string name="welcome_info_2">Оплата онлайн</string>
+    <string name="welcome_info_3">Доставка</string>
+    <string name="welcome_info_details_1">Ищите и заказывайте посуду, технику, игрушки и многое другое среди тысяч товаров</string>
+    <string name="welcome_info_details_2">Привяжите карту, оплачивайте в одно нажатие, копите и тратьте бонусы</string>
+    <string name="welcome_info_details_3">Заказывайте доставку до двери, либо забирайте заказы с пунктов самовывоза</string>
+
+
+    <string name="continue_text">Продолжить</string>
+
+    <string name="profile">Профиль</string>
+    <string name="orders">Заказы</string>
+    <string name="about">О компании</string>
+    <string name="faq">Вопросы и ответы</string>
+    <string name="contacts">Контакты и адрес</string>
+    <string name="number">Номер</string>
+    <string name="name">Имя</string>
+    <string name="email">Email</string>
+    <string name="photo">Фото</string>
+    <string name="phone">Номер</string>
+    <string name="main_card">Основная карта</string>
+    <string name="main_address">Основной адрес</string>
+
+    <string name="enter_email">Указать email</string>
+    <string name="add_delivery_address">Добавить адрес доставки</string>
+    <string name="add_photo">Добавить фотографию</string>
+    <string name="change_photo">Изменить фотографию</string>
+    <string name="add_card">Привязать карту</string>
+
+    <string name="registration_text">Похоже, мы с вами незнакомы. Укажите свое имя, чтобы мы знали как к вам обращаться</string>
+    <string name="otp_text">%s, мы отправили вам SMS с кодом подтверждения на номер %s</string>
+    <string name="you_changing_number">Вы меняете номер на %s. Мы отправили вам SMS с кодом подтверждения на ваш старый номер %s</string>
+
+    <string name="x_balance">%1s Б</string>
+
+    <!-- PUSH NOTIFICATIONS -->
+    <string name="default_notification_channel_id">fcm_default_channel</string>
+    <string name="default_notification_channel_name">Уведомления по умолчанию</string>
+
+</resources>

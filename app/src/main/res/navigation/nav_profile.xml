@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_profile"
+    app:startDestination="@id/profile">
+
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="kz.fime.samal.ui.profile.ProfileFragment" />
+    <fragment
+        android:id="@+id/cardsFragment"
+        android:name="kz.fime.samal.ui.profile.CardsFragment"
+        android:label="CardsFragment" >
+
+        <action
+            android:id="@+id/action_cardsFragment_to_addCardFragment"
+            app:destination="@id/addCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCardFragment"
+        android:name="kz.fime.samal.ui.profile.AddCardFragment"
+        android:label="AddCardFragment" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+
+    <action
+        android:id="@+id/toCardsFragment"
+        app:destination="@id/cardsFragment"
+        />
+
+    <fragment
+        android:id="@+id/favorites"
+        android:name="kz.fime.samal.ui.profile.favorites.FavoritesFragment" />
+    <action
+        android:id="@+id/action_global_favorites"
+        app:destination="@id/favorites"/>
+
+    <fragment
+        android:id="@+id/orders"
+        android:name="kz.fime.samal.ui.profile.orders.OrdersFragment" >
+
+        <action
+            android:id="@+id/toOrderDetailsFragment"
+            app:destination="@id/orderDetailsFragment"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="kz.fime.samal.ui.profile.orders.OrderDetailFragment"
+        tools:layout="@layout/fragment_order_detail"
+        >
+        <argument
+            android:name="id"
+            app:argType="string"
+            app:nullable="false"
+            />
+
+        <argument
+            android:name="orderNumber"
+            app:argType="integer"
+            app:nullable="false"
+            />
+
+    </fragment>
+    <action
+        android:id="@+id/action_global_orders"
+        app:destination="@id/orders"/>
+
+    <fragment
+        android:id="@+id/notifications"
+        android:name="kz.fime.samal.ui.profile.notifications.NotificationsFragment" />
+    <action
+        android:id="@+id/action_global_notifications"
+        app:destination="@id/notifications"/>
+
+    <fragment
+        android:id="@+id/product_details"
+        android:name="kz.fime.samal.ui.home.product.ProductDetailsFragment" />
+    <action
+        android:id="@+id/action_global_product_details"
+        app:destination="@id/product_details"/>
+
+    <dialog
+        android:id="@+id/clear_favorites"
+        android:name="kz.fime.samal.ui.profile.favorites.ClearFavoritesDialog" />
+    <action
+        android:id="@+id/action_global_clear_favorites"
+        app:destination="@id/clear_favorites"/>
+
+    <fragment
+        android:id="@+id/addresses"
+        android:name="kz.fime.samal.ui.profile.address.AddressesFragment" />
+    <action
+        android:id="@+id/action_global_addresses"
+        app:destination="@id/addresses"/>
+
+    <dialog
+        android:id="@+id/add_address"
+        android:name="kz.fime.samal.ui.profile.address.AddAddressDialog" />
+    <action
+        android:id="@+id/action_global_add_address"
+        app:destination="@id/add_address"/>
+
+    <dialog
+        android:id="@+id/log_out"
+        android:name="kz.fime.samal.ui.profile.edit.LogOutDialog" />
+    <action
+        android:id="@+id/action_global_log_out"
+        app:destination="@id/log_out"/>
+
+    <dialog
+        android:id="@+id/edit_phone"
+        android:name="kz.fime.samal.ui.profile.edit.EditPhoneDialog" />
+    <dialog
+        android:id="@+id/change_number"
+        android:name="kz.fime.samal.ui.profile.ChangeNumberDialog"
+        >
+        <argument
+            android:name="phone_number"
+            app:argType="string"
+            app:nullable="false"
+            />
+    </dialog>
+    <action
+        android:id="@+id/action_global_edit_phone"
+        app:destination="@id/change_number"/>
+    <action
+        android:id="@+id/to_otp_dialog"
+        app:destination="@id/otpDialog"
+        />
+    <dialog
+        android:id="@+id/otpDialog"
+        android:name="kz.fime.samal.ui.profile.OTPDialog"
+        />
+    <dialog
+        android:id="@+id/edit_name"
+        android:name="kz.fime.samal.ui.profile.ChangeNameDialog" />
+    <action
+        android:id="@+id/action_global_edit_name"
+        app:destination="@id/edit_name"/>
+
+    <dialog
+        android:id="@+id/edit_email"
+        android:name="kz.fime.samal.ui.profile.ChangeEmailDialog" />
+    <action
+        android:id="@+id/action_global_edit_email"
+        app:destination="@id/edit_email"/>
+
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="kz.fime.samal.ui.profile.faq.FaqFragment"
+        android:label="FaqFragment" />
+
+    <action
+        android:id="@+id/toFaqFragment"
+        app:destination="@id/faqFragment"
+        />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="kz.fime.samal.ui.profile.ContactsFragment"
+        android:label="AboutFragment"
+        />
+
+    <action
+        android:id="@+id/toAboutFragment"
+        app:destination="@id/aboutFragment"
+        />
+    <dialog
+        android:id="@+id/edit_photo"
+        android:name="kz.fime.samal.ui.profile.ChangePhotoDialog"
+        >
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="true"
+            />
+    </dialog>
+    <action
+        android:id="@+id/toChangePhoto"
+        app:destination="@id/edit_photo"
+        />
+
+</navigation>

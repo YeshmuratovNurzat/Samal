@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:elevation="0dp">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="exitUntilCollapsed|scroll|snap"
+                app:titleEnabled="false">
+
+                <FrameLayout
+                    android:layout_height="375dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="20dp"
+                    app:layout_collapseMode="none">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/vp_images"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent" />
+
+                    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                        android:id="@+id/dots_images"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginBottom="10dp"
+                        style="@style/DotsIndicator"/>
+
+                </FrameLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_category"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="20dp"
+                    tools:text="Соковыжималки"
+                    android:textSize="12sp"
+                    android:textColor="#262629"/>
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="20dp"
+                    tools:text="KUVINGS C7000S"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#262629"/>
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="20dp"
+                    tools:text="184 990₸ "
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="#262629"/>
+
+                <View
+                    android:layout_height="1dp"
+                    android:layout_width="match_parent"
+                    android:background="#F8F8FA"/>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    tools:background="@color/black"
+                    android:layout_marginStart="8dp"
+                    style="@style/Tabs" />
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_details"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <ImageButton
+        android:id="@+id/ib_close"
+        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_close_rounded_40"
+        tools:ignore="ContentDescription" />
+
+</FrameLayout>

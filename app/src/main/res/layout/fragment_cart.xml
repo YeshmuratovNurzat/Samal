@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/md_white_1000">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:title="Корзина"
+        app:menu="@menu/menu_cart"
+        app:titleTextColor="@color/md_black_1000"
+        app:titleTextAppearance="@style/Text.H1"/>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <FrameLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <FrameLayout
+                android:id="@+id/vg_main"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_items"
+                    android:paddingBottom="140dp"
+                    style="@style/RecyclerView" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_order"
+                    android:layout_marginBottom="70dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_gravity="bottom"
+                    android:text="Оформить заказ"
+                    style="@style/Button.Primary" />
+
+            </FrameLayout>
+
+            <include
+                android:id="@+id/content_empty"
+                android:visibility="gone"
+                layout="@layout/content_cart_empty" />
+
+        </FrameLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>

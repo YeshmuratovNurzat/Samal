@@ -1,0 +1,10 @@
+package kz.fime.samal.utils
+
+enum class RequestCodeEnums(val id: Int) {
+    REQUEST_LOGOUT_DIALOG(1001),
+    REQUEST_CHANGE_NUMBER_DIALOG(1002),
+    REQUEST_OTP_DIALOG(1003),
+    REQUEST_CHANGE_NAME_DIALOG(1004),
+    REQUEST_CHANGE_EMAIL_DIALOG(1005),
+    RESULT_LOAD_IMG(1006),
+}

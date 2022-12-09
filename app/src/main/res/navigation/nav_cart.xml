@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_cart"
+    app:startDestination="@id/cart">
+
+
+    <fragment
+        android:id="@+id/cart"
+        android:name="kz.fime.samal.ui.cart.CartFragment" />
+
+    <fragment
+        android:id="@+id/shop"
+        android:name="kz.fime.samal.ui.catalog.shop.ShopFragment" />
+    <action
+        android:id="@+id/action_global_shop"
+        app:destination="@id/shop"/>
+
+    <dialog
+        android:id="@+id/clear_cart"
+        android:name="kz.fime.samal.ui.cart.ClearCartDialog" />
+    <action
+        android:id="@+id/action_global_clear_cart"
+        app:destination="@id/clear_cart"/>
+
+    <dialog
+        android:id="@+id/order_cart"
+        android:name="kz.fime.samal.ui.cart.OrderCartDialog" />
+    <action
+        android:id="@+id/action_global_order_cart"
+        app:destination="@id/order_cart"/>
+
+    <fragment
+        android:id="@+id/category_products"
+        android:name="kz.fime.samal.ui.catalog.category.CategoryProductsFragment" />
+    <action
+        android:id="@+id/action_global_category_products"
+        app:destination="@id/category_products"/>
+
+    <fragment
+        android:id="@+id/product_details"
+        android:name="kz.fime.samal.ui.home.product.ProductDetailsFragment" />
+    <action
+        android:id="@+id/action_global_product_details"
+        app:destination="@id/product_details"/>
+
+    <dialog
+        android:id="@+id/add_address"
+        android:name="kz.fime.samal.ui.profile.address.AddAddressDialog" />
+    <action
+        android:id="@+id/action_global_add_address"
+        app:destination="@id/add_address"/>
+
+    <dialog
+        android:id="@+id/order_successful"
+        android:name="kz.fime.samal.ui.cart.order.OrderSuccessfulDialog" />
+    <action
+        android:id="@+id/action_global_order_successful"
+        app:destination="@id/order_successful"/>
+</navigation>

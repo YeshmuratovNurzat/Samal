@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
+
+    <View
+        android:layout_height="4dp"
+        android:layout_width="50dp"
+        android:layout_marginBottom="6dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_bsf_handle" />
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_bsf"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="Как это работает?"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="24dp">
+
+            <ImageView
+                android:id="@+id/iv1"
+                android:layout_height="120dp"
+                android:layout_width="120dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_qr1"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/iv1"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/gilroy_bold"
+                android:text="Как это работает?"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/iv1"
+                android:layout_below="@id/tv1"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:lineSpacingMultiplier="1.3"
+                android:fontFamily="@font/gilroy_regular"
+                android:text="Попросите продавца показать вам QR-код для оплаты"
+                android:textColor="#545459"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_height="1px"
+            android:layout_width="match_parent"
+            android:layout_marginStart="140dp"
+            android:background="#F8F8FA" />
+
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="24dp">
+
+            <ImageView
+                android:id="@+id/iv2"
+                android:layout_height="120dp"
+                android:layout_width="120dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_qr2"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/iv2"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/gilroy_bold"
+                android:text="Оплачивайте"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/iv2"
+                android:layout_below="@id/tv2"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:lineSpacingMultiplier="1.3"
+                android:fontFamily="@font/gilroy_regular"
+                android:text="Вы можете оплачивать с привязанной банковской карты"
+                android:textColor="#545459"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_height="1px"
+            android:layout_width="match_parent"
+            android:layout_marginStart="140dp"
+            android:background="#F8F8FA" />
+
+        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="24dp">
+
+            <ImageView
+                android:id="@+id/iv3"
+                android:layout_height="120dp"
+                android:layout_width="120dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_qr3"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/iv3"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/gilroy_bold"
+                android:text="Экономьте"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/iv3"
+                android:layout_below="@id/tv3"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:lineSpacingMultiplier="1.3"
+                android:fontFamily="@font/gilroy_regular"
+                android:text="За оплату мы даем бонусы, которые можно потом тратить"
+                android:textColor="#545459"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="24dp"
+            android:text="Понятно, закрыть"
+            style="@style/Button.Primary" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

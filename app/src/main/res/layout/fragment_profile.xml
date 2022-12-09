@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:ignore="ContentDescription">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="#F7F7F9"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/srl">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:title="@string/profile"
+            app:menu="@menu/menu_profile"
+            app:titleTextColor="@color/md_black_1000"
+            app:titleTextAppearance="@style/Text.H1"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_marginTop="56dp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            android:clipToPadding="false"
+            android:paddingBottom="80dp">
+
+            <FrameLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <View
+                    android:layout_height="150dp"
+                    android:layout_width="match_parent"
+                    android:background="#F7F7F9"/>
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cv_auth"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginHorizontal="20dp"
+                        app:cardCornerRadius="24dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:background="@color/white"
+                            android:layout_marginVertical="20dp"
+                            tools:ignore="ContentDescription">
+
+                            <ImageView
+                                android:src="@drawable/ic_cat_unauthorized"
+                                style="@style/ImageCat"/>
+
+                            <TextView
+                                android:layout_marginTop="14dp"
+                                android:layout_marginHorizontal="20dp"
+                                android:textAlignment="center"
+                                android:text="Сохраняйте в избранное, заказывайте товары, покупайте всего в пару действий"
+                                style="@style/Text.P2"/>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_auth"
+                                android:layout_height="40dp"
+                                android:layout_width="wrap_content"
+                                android:layout_marginTop="24dp"
+                                android:textAppearance="@style/Text.B2"
+                                android:text="Войти или зарегистрироваться"
+                                style="@style/Button.Primary"/>
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <RelativeLayout
+                        android:id="@+id/vg_user_info"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginHorizontal="20dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/iv_user_photo"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_avatar_placeholder" />
+
+                        <TextView
+                            android:id="@+id/tv_user_name"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginHorizontal="10dp"
+                            tools:text="Name Surname"
+                            style="@style/Text.H3"
+                            android:layout_toEndOf="@id/iv_user_photo"
+                            android:layout_toStartOf="@id/tv_user_balance"/>
+
+                        <TextView
+                            android:id="@+id/tv_user_phone"
+                            android:layout_marginBottom="2dp"
+                            android:layout_marginHorizontal="10dp"
+                            tools:text="+7 (707) 441 4242"
+                            style="@style/Text.P2"
+                            android:layout_below="@id/tv_user_name"
+                            android:layout_toEndOf="@id/iv_user_photo"
+                            android:layout_toStartOf="@id/tv_user_balance"/>
+
+                        <TextView
+                            android:id="@+id/tv_user_balance"
+                            android:paddingVertical="5dp"
+                            android:paddingHorizontal="10dp"
+                            android:background="@drawable/bg_accent_10dp"
+                            tools:text="100.0 Б"
+                            style="@style/Text.H4"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cv_pages"
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginHorizontal="20dp"
+                        app:cardCornerRadius="24dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:padding="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_orders"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.0"
+                                android:drawablePadding="8dp"
+                                app:drawableTopCompat="@drawable/ic_orders"
+                                android:textAlignment="center"
+                                android:text="Мои заказы"
+                                style="@style/Text.B3" />
+
+                            <TextView
+                                android:id="@+id/tv_notifications"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.0"
+                                android:drawablePadding="8dp"
+                                app:drawableTopCompat="@drawable/ic_notifications"
+                                android:textAlignment="center"
+                                android:text="Уведомления"
+                                style="@style/Text.B3" />
+
+                            <TextView
+                                android:id="@+id/tv_bookmarks"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.0"
+                                android:drawablePadding="8dp"
+                                app:drawableTopCompat="@drawable/ic_favs"
+                                android:textAlignment="center"
+                                android:text="Избранное"
+                                style="@style/Text.B3" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <RelativeLayout
+                        android:id="@+id/vg_profile"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="30dp"
+                        android:paddingHorizontal="20dp" >
+
+                        <ImageView
+                            android:id="@+id/_iv_profile"
+                            android:layout_height="40dp"
+                            android:layout_width="40dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_profile"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/_tv_profile"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginStart="10dp"
+                            android:text="Профиль"
+                            style="@style/Text.H5"
+                            android:layout_toEndOf="@id/_iv_profile"/>
+
+                        <TextView
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginStart="10dp"
+                            android:text="Управляйте своими данными"
+                            style="@style/Text.P2"
+                            android:layout_below="@id/_tv_profile"
+                            android:layout_toEndOf="@id/_iv_profile"/>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/vg_profile_info"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:paddingVertical="5dp"
+                        android:background="@drawable/bg_gray_98_16dp"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/vg_phone"
+                            android:layout_height="60dp"
+                            android:layout_width="match_parent" >
+
+                            <LinearLayout
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="60dp"
+                                android:orientation="vertical"
+                                android:layout_centerVertical="true">
+
+                                <TextView
+                                    android:text="Номер"
+                                    android:layout_marginBottom="8dp"
+                                    style="@style/Text.C3" />
+
+                                <TextView
+                                    android:id="@+id/tv_phone"
+                                    tools:text="+7 (707) 441 4242"
+                                    style="@style/Text.B4" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_height="40dp"
+                                android:layout_width="40dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:padding="8dp"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/ic_nav_arrow_right"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_height="1dp"
+                            android:layout_width="match_parent"
+                            android:layout_marginHorizontal="20dp"
+                            android:background="@color/gray_93" />
+
+                        <RelativeLayout
+                            android:id="@+id/vg_name"
+                            android:layout_height="60dp"
+                            android:layout_width="match_parent" >
+
+                            <LinearLayout
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="60dp"
+                                android:orientation="vertical"
+                                android:layout_centerVertical="true">
+
+                                <TextView
+                                    android:text="Имя"
+                                    android:layout_marginBottom="8dp"
+                                    style="@style/Text.C3" />
+
+                                <TextView
+                                    android:id="@+id/tv_name"
+                                    tools:text="Асылхан"
+                                    style="@style/Text.B4" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_height="40dp"
+                                android:layout_width="40dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:padding="8dp"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/ic_nav_arrow_right"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_height="1dp"
+                            android:layout_width="match_parent"
+                            android:layout_marginHorizontal="20dp"
+                            android:background="@color/gray_93" />
+
+                        <RelativeLayout
+                            android:id="@+id/vg_email"
+                            android:layout_height="60dp"
+                            android:layout_width="match_parent" >
+
+                            <LinearLayout
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="60dp"
+                                android:orientation="vertical"
+                                android:layout_centerVertical="true">
+
+                                <TextView
+                                    android:text="Email"
+                                    android:layout_marginBottom="8dp"
+                                    style="@style/Text.C3" />
+
+                                <TextView
+                                    android:id="@+id/tv_email"
+                                    tools:text="Указать email"
+                                    style="@style/Text.B4" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_height="40dp"
+                                android:layout_width="40dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:padding="8dp"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/ic_nav_arrow_right"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_height="1dp"
+                            android:layout_width="match_parent"
+                            android:layout_marginHorizontal="20dp"
+                            android:background="@color/gray_93" />
+
+                        <RelativeLayout
+                            android:id="@+id/vg_photo"
+                            android:layout_height="60dp"
+                            android:layout_width="match_parent" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="60dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.C3"
+                                    android:layout_marginBottom="8dp"
+                                    android:text="Фото" />
+
+                                <TextView
+                                    android:id="@+id/tv_photo"
+                                    style="@style/Text.B4"
+                                    android:text="Добавить фотографию" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_height="40dp"
+                                android:layout_width="40dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:padding="8dp"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/ic_nav_arrow_right"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_height="1dp"
+                            android:layout_width="match_parent"
+                            android:visibility="gone"
+                            android:layout_marginHorizontal="20dp"
+                            android:background="@color/gray_93" />
+
+                        <RelativeLayout
+                            android:id="@+id/vg_password"
+                            android:layout_height="60dp"
+                            android:layout_width="match_parent"
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="60dp"
+                                android:orientation="vertical"
+                                android:layout_centerVertical="true">
+
+                                <TextView
+                                    android:text="Сменить пароль"
+                                    style="@style/Text.B4" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_height="40dp"
+                                android:layout_width="40dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:padding="8dp"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/ic_nav_arrow_right"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/vg_orders"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="30dp"
+                        android:paddingHorizontal="20dp" >
+
+                        <ImageView
+                            android:id="@+id/_iv_orders"
+                            android:layout_height="40dp"
+                            android:layout_width="40dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_orders_yellow"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/_tv_orders"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginStart="10dp"
+                            android:text="Заказы"
+                            style="@style/Text.H5"
+                            android:layout_toEndOf="@id/_iv_orders"/>
+
+                        <TextView
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginStart="10dp"
+                            android:text="Банковские карты и адреса"
+                            style="@style/Text.P2"
+                            android:layout_below="@id/_tv_orders"
+                            android:layout_toEndOf="@id/_iv_orders"/>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/vg_orders_info"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:paddingVertical="5dp"
+                        android:background="@drawable/bg_gray_98_16dp"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/vg_cards"
+                            android:layout_height="60dp"
+                            android:layout_width="match_parent" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="60dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/cardHint"
+                                    style="@style/Text.C3"
+                                    android:layout_marginBottom="8dp"
+                                    android:text="Основная карта" />
+
+                                <TextView
+                                    android:id="@+id/tv_card"
+                                    style="@style/Text.B4"
+                                    android:text="Привязать карту" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_height="40dp"
+                                android:layout_width="40dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:padding="8dp"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/ic_nav_arrow_right"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_height="1dp"
+                            android:layout_width="match_parent"
+                            android:layout_marginHorizontal="20dp"
+                            android:background="@color/gray_93" />
+
+                        <RelativeLayout
+                            android:id="@+id/vg_address"
+                            android:layout_height="60dp"
+                            android:layout_width="match_parent" >
+
+                            <LinearLayout
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="60dp"
+                                android:orientation="vertical"
+                                android:layout_centerVertical="true">
+
+                                <TextView
+                                    android:text="Основной адрес"
+                                    android:layout_marginBottom="8dp"
+                                    style="@style/Text.C3" />
+
+                                <TextView
+                                    android:id="@+id/tv_address"
+                                    android:text="Добавить адрес доставки"
+                                    style="@style/Text.B4" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_height="40dp"
+                                android:layout_width="40dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:padding="8dp"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/ic_nav_arrow_right"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/vg_about"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="30dp"
+                        android:paddingHorizontal="20dp" >
+
+                        <ImageView
+                            android:id="@+id/_iv_about"
+                            android:layout_height="40dp"
+                            android:layout_width="40dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_about"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/_tv_about"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginStart="10dp"
+                            android:text="О компании"
+                            style="@style/Text.H5"
+                            android:layout_toEndOf="@id/_iv_about"/>
+
+                        <TextView
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginStart="10dp"
+                            android:text="Узнайте о нас больше"
+                            style="@style/Text.P2"
+                            android:layout_below="@id/_tv_about"
+                            android:layout_toEndOf="@id/_iv_about"/>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/vg_about_info"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:paddingVertical="5dp"
+                        android:background="@drawable/bg_gray_98_16dp"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/vg_about_company"
+                            android:layout_height="60dp"
+                            android:layout_width="match_parent" >
+
+                            <LinearLayout
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="60dp"
+                                android:orientation="vertical"
+                                android:layout_centerVertical="true">
+
+                                <TextView
+                                    android:text="О компании"
+                                    style="@style/Text.B4" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_height="40dp"
+                                android:layout_width="40dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:padding="8dp"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/ic_nav_arrow_right"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_height="1dp"
+                            android:layout_width="match_parent"
+                            android:layout_marginHorizontal="20dp"
+                            android:background="@color/gray_93" />
+
+                        <RelativeLayout
+                            android:id="@+id/vg_faq"
+                            android:layout_height="60dp"
+                            android:layout_width="match_parent" >
+
+                            <LinearLayout
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="60dp"
+                                android:orientation="vertical"
+                                android:layout_centerVertical="true">
+
+                                <TextView
+                                    android:text="Вопросы и ответы"
+                                    style="@style/Text.B4" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_height="40dp"
+                                android:layout_width="40dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:padding="8dp"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/ic_nav_arrow_right"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_height="1dp"
+                            android:layout_width="match_parent"
+                            android:layout_marginHorizontal="20dp"
+                            android:visibility="gone"
+                            android:background="@color/gray_93" />
+
+                        <RelativeLayout
+                            android:id="@+id/vg_contacts"
+                            android:layout_height="60dp"
+                            android:visibility="gone"
+                            android:layout_width="match_parent" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="60dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.B4"
+                                    android:text="Контакты и адрес" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_height="40dp"
+                                android:layout_width="40dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:padding="8dp"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/ic_nav_arrow_right"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</FrameLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="13dp"
+    android:layout_marginBottom="10dp">
+
+    <RelativeLayout
+        android:id="@+id/vg_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_profile" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/Text.H6"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/iv"
+            tools:text="Асылхaн" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/Text.C3"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_toEndOf="@+id/iv"
+            tools:text="01.11.2020" />
+
+        <RatingBar
+            android:id="@+id/rb"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12.33dp"
+            android:layout_toStartOf="@+id/iv_arrow"
+            android:isIndicator="false"
+            android:theme="@style/StarRatingBar" />
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_arrow_down_24"
+            app:tint="#B2B2B8" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_review"
+        style="@style/Text.C3"
+        android:layout_below="@+id/vg_info"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:lines="2"
+        tools:text="Равным образом сложившаяся структура организации в значительной степени обуславливает создание дальнейших направлений развития. Разнообразный и богатый опыт реализация намеченных плановых заданий способствует подготовки и реализации форм развития. " />
+</RelativeLayout>

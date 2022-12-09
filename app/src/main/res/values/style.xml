@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextInputLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="boxCornerRadiusTopStart">5dp</item>
+        <item name="boxCornerRadiusTopEnd">5dp</item>
+        <item name="boxCornerRadiusBottomStart">5dp</item>
+        <item name="boxCornerRadiusBottomEnd">5dp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="boxStrokeColor">@color/gray_16</item>
+        <item name="boxBackgroundColor">@color/background</item>
+        <item name="hintTextAppearance">@style/EditTextHint</item>
+    </style>
+
+
+    <style name="TextInputLayoutExposed" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="boxCornerRadiusTopStart">5dp</item>
+        <item name="boxCornerRadiusTopEnd">5dp</item>
+        <item name="boxCornerRadiusBottomStart">5dp</item>
+        <item name="boxCornerRadiusBottomEnd">5dp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="boxStrokeColor">@color/gray_16</item>
+        <item name="boxBackgroundColor">@color/background</item>
+        <item name="hintTextAppearance">@style/EditTextHint</item>
+    </style>
+
+    <style name="SearchInputLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="boxStrokeColor">@android:color/transparent</item>
+        <item name="boxBackgroundColor">@color/background</item>
+        <item name="startIconTint">@color/black</item>
+        <item name="startIconDrawable">@drawable/ic_search_24</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="android:hint">Поиск</item>
+        <item name="hintTextAppearance">@style/EditTextHint</item>
+    </style>
+
+    <style name="EditText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:fontFamily">@font/gilroy_regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/gray_8</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+
+    <style name="EditTextHint">
+        <item name="android:fontFamily">@font/gilroy_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/gray_35</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+
+    <style name="SearchTextHint">
+        <item name="android:fontFamily">@font/gilroy_regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/gray_35</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+
+    <style name="Toolbar">
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="titleTextAppearance">@style/Text.H1</item>
+    </style>
+
+    <style name="Tabs">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="tabGravity">start</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabIndicator">@android:color/transparent</item>
+        <item name="tabIndicatorColor">@android:color/transparent</item>
+        <item name="tabSelectedTextColor">@color/black</item>
+        <item name="tabTextColor">@color/md_grey_600</item>
+        <item name="tabTextAppearance">@style/Text.B2</item>
+        <item name="titleTextAppearance">@style/Text.H1</item>
+    </style>
+
+    <style name="ImageCat" >
+        <item name="android:layout_height">120dp</item>
+        <item name="android:layout_width">180dp</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+
+    <style name="DotsIndicator">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="dotsColor">#80F8F8FA</item>
+        <item name="selectedDotColor">@color/white</item>
+        <item name="dotsCornerRadius">3dp</item>
+        <item name="dotsSize">5dp</item>
+        <item name="dotsSpacing">5dp</item>
+        <item name="dotsWidthFactor">3</item>
+        <item name="progressMode">false</item>
+    </style>
+
+    <style name="ScrollView" >
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbars">none</item>
+    </style>
+
+    <style name="RecyclerView" >
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
+    </style>
+
+    <style name="RecyclerView.Grid" >
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbars">none</item>
+        <item name="layoutManager">androidx.recyclerview.widget.GridLayoutManager</item>
+    </style>
+
+    <style name="StarRatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/star</item>
+        <item name="colorControlActivated">@color/star</item>
+    </style>
+</resources>

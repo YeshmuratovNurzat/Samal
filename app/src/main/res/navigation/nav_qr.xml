@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_qr"
+    app:startDestination="@id/qr">
+
+
+    <fragment
+        android:id="@+id/qr"
+        android:name="kz.fime.samal.ui.qr.QRFragment" />
+
+    <dialog
+        android:id="@+id/qr_info"
+        android:name="kz.fime.samal.ui.qr.QRInfoDialog" /><action android:id="@+id/action_global_qr_info" app:destination="@id/qr_info"/>
+
+
+
+</navigation>

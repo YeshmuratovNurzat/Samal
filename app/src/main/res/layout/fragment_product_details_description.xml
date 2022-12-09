@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="20dp"
+        android:lineSpacingMultiplier="1.2"
+        tools:text="Соковыжималка Kuvings Whole Slow Juicer Chef CS600 используется в барах, кафе, ресторанах и других местах общественного питания с большой проходимостью посетителей для отжима и получения сока из твёрдых и мягких овощей, фруктов, орехов, ягод, трав, иголок хвойных растений, пророщенных семян овса, пшеницы, ржи и чечевицы. Корпус выполнен из нержавеющей стали, шнек - из пластика трайтан, чаша для сбора сока - из термопластикого материала ультем, верхняя и нижняя крышки - из пластика. В комплект поставки входят 2 насадки и набор стрейнеров (смузи, сорбет)."
+        android:textSize="15sp"
+        android:textColor="#545459"/>
+
+</androidx.core.widget.NestedScrollView>

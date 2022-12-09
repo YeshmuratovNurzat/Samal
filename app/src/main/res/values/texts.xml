@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Typography-->
+
+    <style name="Text.H1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="fontFamily">@font/gilroy_bold</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/gray_8</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Text.H2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="fontFamily">@font/gilroy_bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/gray_16</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Text.H3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="fontFamily">@font/gilroy_medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/gray_8</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Text.H4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="fontFamily">@font/gilroy_bold</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/gray_16</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Text.H5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="fontFamily">@font/gilroy_semi_bold</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/gray_8</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Text.H6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="fontFamily">@font/gilroy_semi_bold</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/gray_16</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Text.C3" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="fontFamily">@font/gilroy_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/gray_16</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Text.B1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="fontFamily">@font/gilroy_semi_bold</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/gray_16</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Text.B2" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="fontFamily">@font/gilroy_semi_bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/gray_16</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Text.B3" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="fontFamily">@font/gilroy_medium</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/gray_8</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Text.B4" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="fontFamily">@font/gilroy_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray_16</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Text.P2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="fontFamily">@font/gilroy_regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/gray_35</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+</resources>

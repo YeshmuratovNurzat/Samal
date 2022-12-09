@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_auth"
+    app:startDestination="@id/auth">
+
+
+    <fragment
+        android:id="@+id/auth"
+        android:name="kz.fime.samal.ui.auth.AuthFragment" />
+    <fragment
+        android:id="@+id/registration"
+        android:name="kz.fime.samal.ui.auth.RegistrationFragment" />
+    <fragment
+        android:id="@+id/login"
+        android:name="kz.fime.samal.ui.auth.LoginFragment" />
+    <fragment
+        android:id="@+id/password"
+        android:name="kz.fime.samal.ui.auth.PasswordFragment" />
+    <fragment
+        android:id="@+id/otp"
+        android:name="kz.fime.samal.ui.auth.OTPFragment" />
+    <action
+        android:id="@+id/action_auth_to_register"
+        app:destination="@+id/registration" />
+    <action
+        android:id="@+id/action_auth_to_login"
+        app:destination="@+id/login" />
+    <action
+        android:id="@+id/action_auth_to_password"
+        app:destination="@+id/password" />
+    <action
+        android:id="@+id/action_auth_to_otp"
+        app:destination="@+id/otp" />
+
+</navigation>

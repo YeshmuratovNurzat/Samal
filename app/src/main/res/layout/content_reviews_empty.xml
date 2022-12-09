@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:ignore="ContentDescription">
+
+    <ImageView
+        android:src="@drawable/ic_cat_empty_reviews"
+        style="@style/ImageCat"/>
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textAlignment="center"
+        android:text="Ой, тут пусто"
+        style="@style/Text.H2"/>
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textAlignment="center"
+        android:text="На данный товар пока нет отзывов. Не забудьте оставить свой после покупки"
+        style="@style/Text.P2"/>
+
+
+</LinearLayout>

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/vg_main_container"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:background="@color/black"
+    android:background="@android:color/transparent"
+    tools:ignore="ContentDescription">
+
+    <View
+        android:layout_height="4dp"
+        android:layout_width="50dp"
+        android:layout_marginBottom="6dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_bsf_handle" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/sv"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            android:id="@+id/vg_sv"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/bg_bsf"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_to_pay"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                tools:text="К оплате 5 800₸"
+                style="@style/Text.H1" />
+
+            <TextView
+                android:id="@+id/tv_incoming_bonus"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:textColor="@color/green"
+                tools:text="+107 Б с этой покупки"
+                style="@style/Text.H5" />
+
+            <LinearLayout
+                android:layout_height="60dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:id="@+id/vg_payment_method"
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/gray_98"
+                    android:background="@drawable/bg_white_corners_20">
+
+                    <ImageView
+                        android:layout_height="40dp"
+                        android:layout_width="40dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_centerVertical="true"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_baseline_more_horiz_24" />
+
+                    <TextView
+                        android:id="@+id/tv_payment_method"
+                        android:layout_marginStart="45dp"
+                        android:layout_marginEnd="45dp"
+                        android:layout_centerVertical="true"
+                        android:text="Способ \nоплаты"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        tools:text="Картой\n•••• 4412"
+                        style="@style/Text.H5" />
+
+                    <ImageView
+                        android:id="@+id/iv_payment_method_dropdown"
+                        android:layout_height="40dp"
+                        android:layout_width="40dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:padding="6dp"
+                        app:tint="@color/gray_72"
+                        android:src="@drawable/ic_arrow_down_24" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/vg_bonus"
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:backgroundTint="@color/gray_98"
+                    android:background="@drawable/bg_white_corners_20">
+
+                    <ImageView
+                        android:id="@+id/iv_bonus"
+                        android:layout_height="40dp"
+                        android:layout_width="40dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_centerVertical="true"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_bonus_disabled_24" />
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginStart="45dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_bonus"
+                            tools:text="4 342 Б"
+                            style="@style/Text.H5" />
+
+                        <TextView
+                            android:id="@+id/tv_bonus_info"
+                            tools:text="Не тратить"
+                            style="@style/Text.P2" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_payment_options"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
+                style="@style/RecyclerView" />
+
+            <RelativeLayout
+                android:id="@+id/vg_delivery_method"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/gray_98">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_rounded_12"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_delivery_24" />
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_delivery_method"
+                        android:text="Способ доставки"
+                        style="@style/Text.H5" />
+
+                    <TextView
+                        android:id="@+id/tv_delivery_info"
+                        android:layout_marginTop="2dp"
+                        android:text="Выберите способ доставки"
+                        style="@style/Text.P2" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_delivery_method_dropdown"
+                    android:layout_height="40dp"
+                    android:layout_width="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:padding="6dp"
+                    app:tint="@color/gray_72"
+                    android:src="@drawable/ic_arrow_down_24" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/vg_delivery_options"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_delivery_options"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false"
+                    style="@style/RecyclerView" />
+
+                <RelativeLayout
+                    android:id="@+id/vg_delivery_pick_up"
+                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="@color/gray_98">
+
+                    <ImageView
+                        android:layout_height="40dp"
+                        android:layout_width="40dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_arrow_right_24"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_marginEnd="60dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:text="Выбрать пункт самовывоза"
+                        style="@style/Text.P2" />
+
+                    <View
+                        android:layout_height="1px"
+                        android:layout_width="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_98"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/vg_add_new_address"
+                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="@color/gray_98">
+
+                    <ImageView
+                        android:layout_height="40dp"
+                        android:layout_width="40dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_arrow_right_24"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_marginEnd="60dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:text="Добавить новый адрес"
+                        style="@style/Text.P2" />
+
+                    <View
+                        android:layout_height="1px"
+                        android:layout_width="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_98"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_item_count"
+                android:layout_gravity="start"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="4 позиций"
+                style="@style/Text.H5" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_items"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:nestedScrollingEnabled="false"
+                android:backgroundTint="@color/gray_98"
+                android:background="@drawable/bg_white_corners_20"
+                style="@style/RecyclerView" />
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="24dp"
+                android:text="Оформить заказ"
+                style="@style/Button.Primary" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+</LinearLayout>

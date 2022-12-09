@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_catalog"
+    app:startDestination="@id/catalog">
+
+
+    <fragment
+        android:id="@+id/catalog"
+        android:name="kz.fime.samal.ui.catalog.CatalogFragment" />
+
+    <fragment
+        android:id="@+id/category_products"
+        android:name="kz.fime.samal.ui.catalog.category.CategoryProductsFragment" />
+    <action
+        android:id="@+id/action_global_category_products"
+        app:destination="@id/category_products"/>
+
+    <fragment
+        android:id="@+id/product_details"
+        android:name="kz.fime.samal.ui.home.product.ProductDetailsFragment" />
+    <action
+        android:id="@+id/action_global_product_details"
+        app:destination="@id/product_details"/>
+
+    <fragment
+        android:id="@+id/subcategories"
+        android:name="kz.fime.samal.ui.catalog.subcategory.SubcategoryFragment"
+        />
+    <action
+        android:id="@+id/action_global_subcategories"
+        app:destination="@id/subcategories"/>
+
+    <fragment
+        android:id="@+id/shop"
+        android:name="kz.fime.samal.ui.catalog.shop.ShopFragment" />
+    <action
+        android:id="@+id/action_global_shop"
+        app:destination="@id/shop"/>
+    <fragment
+        android:id="@+id/search"
+        android:name="kz.fime.samal.ui.home.pages.SearchFragment" >
+    </fragment>
+</navigation>
