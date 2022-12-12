@@ -8,6 +8,7 @@ data class ProductDetailed(
     val shop_uuid: String?,
     val name: String?,
     val description: String?,
+    val properties: List<ProductProperties>?,
     val categories: List<Item>,
     val price: Item?,
     val images: List<Image>?,
@@ -35,3 +36,12 @@ data class OptionData(
     var selected: Boolean?,
     val product_variant_id: List<Int>?
 )
+
+data class ProductProperties(
+    val name: String?,
+    val value: String?){
+
+    fun getProperties() : String {
+        return "$name: $value"
+    }
+}
