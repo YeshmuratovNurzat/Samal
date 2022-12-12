@@ -54,7 +54,7 @@ class MainRepository (private val service: SamalApi) {
 
     suspend fun getClientAddressDetails(addressId: String) = call { service.getClientAddressDetails(addressId) }
 
-    suspend fun addClientAddress(cityId: Int, name: String, street: String, houseNumber: String, apartment: String, isDefault: Boolean) = call {
+    suspend fun addClientAddress(cityId: Int, name: String, street: String, houseNumber: String, apartment: String, isDefault: Boolean, latitude: String, longitude: String) = call {
         val body = Item()
         body["city_id"] = cityId
         body["name"] = name
@@ -62,6 +62,8 @@ class MainRepository (private val service: SamalApi) {
         body["house_number"] = houseNumber
         body["apartment"] = apartment
         body["default"] = isDefault
+        body["latitude"] = latitude
+        body["longitude"] = longitude
         service.addClientAddress(body)
     }
 

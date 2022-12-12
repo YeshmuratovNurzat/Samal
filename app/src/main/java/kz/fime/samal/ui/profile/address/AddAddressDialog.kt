@@ -47,7 +47,7 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
                 if (viewModel.cities.value is State.Success) {
                     val cityId = ((viewModel.cities.value as State.Success<List<Item>>).result?.first { it.getOrNull("name", "")!! == city }).getOrNull("id", 0)!!
 
-                    viewModel.addAddress(cityId, name, street, houseNumber, apartment, true)
+                    viewModel.addAddress(cityId, name, street, houseNumber, apartment, false,"43.231633","76.854583")
                     dismiss()
                 }
 

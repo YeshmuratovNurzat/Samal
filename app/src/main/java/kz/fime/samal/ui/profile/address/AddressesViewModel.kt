@@ -27,8 +27,8 @@ class AddressesViewModel @Inject constructor(
     private val addAddressRequest = NetworkRequestEvent<Nothing>(CoroutineScope(Dispatchers.IO), ::load)
     val addAddress = addAddressRequest.liveData
 
-    fun addAddress(cityId: Int, name: String, street: String, houseNumber: String, apartment: String, isDefault: Boolean){
-        addAddressRequest.call { mainRepository.addClientAddress(cityId, name, street, houseNumber, apartment, isDefault) }
+    fun addAddress(cityId: Int, name: String, street: String, houseNumber: String, apartment: String, isDefault: Boolean, latitude: String, longitude: String){
+        addAddressRequest.call { mainRepository.addClientAddress(cityId, name, street, houseNumber, apartment, isDefault, latitude, longitude) }
     }
 
 }
