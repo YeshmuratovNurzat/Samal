@@ -70,7 +70,7 @@ class ProductDetailsFragment: BindingFragment<FragmentProductDetailsBinding>(Fra
                         if (productDetailed.options.isNullOrEmpty()){
 
                         viewModel.addCartItem(
-                            //productDetailed.shop_uuid!!   ->  ошибка NullPointerException
+                            //productDetailed.shop_uuid!!   -> shop_uuid возвращает null ошибка NullPointerException
                             product.shop_slug,
                             product.product_slug,
                             productDetailed.product_variants!![0].product_variant_id

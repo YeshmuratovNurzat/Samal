@@ -6,10 +6,14 @@
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/content_addresses_empty.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/dialog_add_address.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_addresses.xml" value="0.22239583333333332" />
+        <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_home_widgets.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_product_details.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_product_details_reviews.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_profile.xml" value="0.22239583333333332" />
+        <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/item_banner.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/item_review.xml" value="0.536" />
+        <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/item_widget.xml" value="0.22239583333333332" />
       </map>
     </option>
   </component>
