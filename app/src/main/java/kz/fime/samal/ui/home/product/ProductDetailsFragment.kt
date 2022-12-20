@@ -58,7 +58,7 @@ class ProductDetailsFragment: BindingFragment<FragmentProductDetailsBinding>(Fra
                 Timber.d("Got: %s", it)
                 it.result?.let { productDetailed ->
                     imagesAdapter.submitList(productDetailed.images)
-                    tvName.text = product.name
+                    tvName.text = productDetailed.name
                     tvCategory.text = productDetailed.categories.firstOrNull().getOrNull("name", "")
                     tvPrice.text = "${productDetailed.price.getOrNull("min", "")} ₸"
 
