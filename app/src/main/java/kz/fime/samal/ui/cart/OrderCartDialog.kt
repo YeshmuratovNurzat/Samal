@@ -10,6 +10,7 @@ import kz.fime.samal.data.base.State
 import kz.fime.samal.databinding.DialogCartOrderBinding
 import kz.fime.samal.ui.base.observeEvent
 import kz.fime.samal.ui.base.observeState
+import kz.fime.samal.ui.cart.adapters.CardAdapter
 import kz.fime.samal.ui.cart.adapters.CartItem
 import kz.fime.samal.ui.cart.adapters.CartOptionAdapter
 import kz.fime.samal.ui.cart.adapters.PaymentOptionAdapter
@@ -18,6 +19,7 @@ import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingBottomSheetFragment
 import kz.fime.samal.utils.extensions.InnerItem
 import kz.fime.samal.utils.extensions.getOrNull
+import okhttp3.internal.trimSubstring
 import timber.log.Timber
 
 class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(DialogCartOrderBinding::inflate) {
@@ -39,6 +41,13 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
         binding.run {
             val cartOptionsAdapter = CartOptionAdapter()
             rvItems.adapter = cartOptionsAdapter
+
+            val cardAdapter = CardAdapter {
+                tvPaymentMethod.text = "Картой\n•••• ${it.getOrNull("card_hash","")?.substring(12,16)}"
+                iv.setImageResource(R.drawable.ic_master_card)
+                paymentSlug = it.getOrNull("slug","card")!!
+            }
+            rvCard.adapter = cardAdapter
 
             val paymentOptionsAdapter = PaymentOptionAdapter {
                 tvPaymentMethod.text = it.getOrNull("name", "")
@@ -105,11 +114,13 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
                 })
                 paymentCards.liveData.observeState(viewLifecycleOwner, {
                     Timber.d("Cards: %s", it)
+                    cardAdapter.submitList(it.result)
                 })
                 deliveryTypes.liveData.observeState(viewLifecycleOwner, {
                     Timber.d("Delivery: %s", it)
                 })
                 paymentTypes.liveData.observeState(viewLifecycleOwner, {
+                    Timber.d("Payment: %s", it)
                     paymentOptionsAdapter.submitList(it.result)
                 })
                 clientAddresses.liveData.observeState(viewLifecycleOwner, {
@@ -193,11 +204,13 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
 //                .addTransition(Fade()))
             if (show){
                 rvPaymentOptions.visibility = View.VISIBLE
+                rvCard.visibility = View.VISIBLE
                 vgPaymentMethod.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray_93))
                 ivPaymentMethodDropdown.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.gray_8))
                 ivPaymentMethodDropdown.setImageResource(R.drawable.ic_arrow_up_24)
             } else {
                 rvPaymentOptions.visibility = View.GONE
+                rvCard.visibility = View.GONE
                 vgPaymentMethod.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray_98))
                 ivPaymentMethodDropdown.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.gray_72))
                 ivPaymentMethodDropdown.setImageResource(R.drawable.ic_arrow_down_24)
