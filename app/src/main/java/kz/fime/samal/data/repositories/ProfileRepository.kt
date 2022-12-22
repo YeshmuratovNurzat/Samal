@@ -156,6 +156,22 @@ class ProfileRepository constructor(private val service: SamalApi, gson: Gson) :
     }
 
     @SuppressLint("CheckResult")
+    fun deleteCard(cardId: String) : LiveData<Resource<CardsResponse>>{
+        val tempLiveData: MutableLiveData<Resource<CardsResponse>> = MutableLiveData()
+        service.deleteCard(cardId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { tempLiveData.postValue(Resource.loading(null)) }
+            .subscribe({
+                tempLiveData.postValue(Resource.success(it))
+            },{
+                tempLiveData.postValue(getError(it))
+            })
+
+        return tempLiveData
+    }
+
+    @SuppressLint("CheckResult")
     fun loadFaq() : LiveData<Resource<FaqResponse>> {
         val tempLiveData: MutableLiveData<Resource<FaqResponse>> = MutableLiveData()
         service

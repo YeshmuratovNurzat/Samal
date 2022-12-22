@@ -91,6 +91,9 @@ interface SamalApi {
 
     // Catalog
 
+    @GET("client/type/sort")
+    suspend fun getTypeSort(@Body body: Item) : Response<ApiResponse<Item>>
+
     // Cart
 
     @GET("client/basket")
@@ -184,6 +187,9 @@ interface SamalApi {
 
     @POST("client/card")
     fun addCard(): Observable<AddCardResponse>
+
+    @DELETE("client/card/{{card_id}}")
+    fun deleteCard(@Path("card_id") cardId : String) : Observable<CardsResponse>
 
     @GET("client/profile")
     suspend fun getProfile(): Response<ApiResponse<Profile>>

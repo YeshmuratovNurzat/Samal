@@ -47,4 +47,11 @@ class CatalogRepository (private val service: SamalApi) {
 
     suspend fun getReviews(shopSlug: String, productSlug: String) = call { service.getReviews(shopSlug, productSlug) }
 
+    suspend fun getTypeSort(name: String, sortBy: String, sortDir : String) = call {
+        val body = Item()
+        body["name"] = name
+        body["sortBy"] = sortBy
+        body["sortDir"] = sortDir
+        service.getTypeSort(body)
+    }
 }

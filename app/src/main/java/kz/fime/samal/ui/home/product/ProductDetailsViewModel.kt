@@ -7,6 +7,7 @@ import kz.fime.samal.data.models.Review
 import kz.fime.samal.data.repositories.CatalogRepository
 import kz.fime.samal.data.repositories.MainRepository
 import kz.fime.samal.ui.base.BaseViewModel
+import kz.fime.samal.utils.extensions.Item
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,6 +43,13 @@ class ProductDetailsViewModel @Inject constructor(
 
     fun addCartItem(shopId: String, productSlug: String, productVariant: Int){
         addCartItemRequest.call { catalogRepository.addCartItem(shopId, productSlug, productVariant) }
+    }
+
+    private val getTypeSortRequest = NetworkRequestEvent<Item>()
+    val getTypeSort = getTypeSortRequest.liveData
+
+    fun getTypeSort(name : String, sortBy : String, sortDir : String){
+        getTypeSortRequest.call { catalogRepository.getTypeSort(name, sortBy, sortDir) }
     }
 
     private val toggleFavoritesRequest = NetworkRequestEvent<Nothing>()

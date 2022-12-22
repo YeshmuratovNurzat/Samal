@@ -16,8 +16,8 @@ class PaymentOptionAdapter(
     override fun bind(item: Item, binding: ItemPaymentOptionBinding) {
         binding.run {
             tvDescription.text = item.getOrNull("name", "")
+            iv.loadUrl(item.getOrNull(""))
             vgContainer.setOnClickListener { onItemClick.invoke(item) }
         }
     }
-
 }
