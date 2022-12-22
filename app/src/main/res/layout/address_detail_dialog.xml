@@ -36,28 +36,20 @@
 
             <TextView
                 android:id="@+id/tv_toolbar_title"
-                android:text="Новый адрес"
+                android:text="Изменить адрес"
                 android:layout_gravity="center"
                 style="@style/Text.H3" />
 
+            <ImageView
+                android:id="@+id/address_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/ic_delete_24"/>
+
         </FrameLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="25dp">
-
-            <fragment
-                android:id="@+id/location"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"/>
-
-        </androidx.cardview.widget.CardView>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="20dp"
@@ -147,6 +139,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_main_address"
+            android:text="Назначить основным адресом"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            style="@style/Text.H5" />
 
         <Button
             android:id="@+id/btn_save"

@@ -66,6 +66,7 @@
                     android:background="@drawable/bg_white_corners_20">
 
                     <ImageView
+                        android:id="@+id/iv"
                         android:layout_height="40dp"
                         android:layout_width="40dp"
                         android:layout_marginStart="5dp"
@@ -138,6 +139,13 @@
                 </RelativeLayout>
 
             </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_card"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
+                style="@style/RecyclerView" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_payment_options"
@@ -307,8 +315,5 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-
-
 
 </LinearLayout>

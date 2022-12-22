@@ -3,13 +3,18 @@ package kz.fime.samal.ui.profile.address
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kz.fime.samal.R
+import kz.fime.samal.data.models.City
 import kz.fime.samal.databinding.FragmentAddressesBinding
 import kz.fime.samal.ui.base.observeState
+import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingFragment
+import kz.fime.samal.utils.extensions.InnerItem
+import kz.fime.samal.utils.extensions.getOrNull
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -24,7 +29,16 @@ class AddressesFragment: BindingFragment<FragmentAddressesBinding>(FragmentAddre
             viewModel.load()
             srl.setOnRefreshListener { viewModel.load() }
 
-            val addressesAdapter = AddressesAdapter {}
+            val addressesAdapter = AddressesAdapter {
+                findNavController().navigate(R.id.action_global_addressDetailDialog,
+                    bundleOf(
+                        Pair("name", it.getOrNull("name", "")),
+                        Pair("address_slug", it.getOrNull("address_slug", "")),
+                        Pair("street", it.getOrNull("street", "")),
+                        Pair("house_number", it.getOrNull("house_number", "")),
+                        Pair("apartment", it.getOrNull("apartment", "")),
+                        Pair("city", it.getOrNull<InnerItem>("city").let { it.getOrNull("name", "") })))
+            }
             rvItems.adapter = addressesAdapter
             viewModel.addresses.observeState(viewLifecycleOwner, {
                 if (it.result.isNullOrEmpty()) {
@@ -39,6 +53,10 @@ class AddressesFragment: BindingFragment<FragmentAddressesBinding>(FragmentAddre
 
             viewModel.addAddress.observe(viewLifecycleOwner){
                 Log.d("MyLog","addAddress == ${it.peekContent()}")
+            }
+
+            viewModel.deleteAddress.observe(viewLifecycleOwner){
+                MessageUtils.postMessage("Success")
             }
 
             val addAddress = { _: View ->

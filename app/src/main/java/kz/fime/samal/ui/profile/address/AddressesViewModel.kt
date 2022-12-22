@@ -31,4 +31,10 @@ class AddressesViewModel @Inject constructor(
         addAddressRequest.call { mainRepository.addClientAddress(cityId, name, street, houseNumber, apartment, isDefault, latitude, longitude) }
     }
 
+    private val deleteAddressRequest = NetworkRequestEvent<Nothing>(CoroutineScope(Dispatchers.IO), ::load)
+    val deleteAddress = deleteAddressRequest.liveData
+
+    fun deleteAddress(addressId: String){
+        deleteAddressRequest.call { mainRepository.deleteClientAddress(addressId) }
+    }
 }
