@@ -18,20 +18,21 @@
         android:id="@+id/cards_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:paddingBottom="45dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cards_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="20dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/add_card_btn"
-            app:layout_constraintVertical_bias="0.0"
-            />
+            app:layout_constraintVertical_bias="0.0"/>
 
         <Button
             android:id="@+id/add_card_btn"
@@ -44,8 +45,7 @@
             android:text="+ Привязать карту"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -96,8 +96,7 @@
             android:fontFamily="@font/gilroy_light"
             app:layout_constraintTop_toBottomOf="@id/add_card_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <Button
             android:id="@+id/add_card_empty_btn"
@@ -110,8 +109,7 @@
             android:text="+ Привязать карту"
             app:layout_constraintTop_toBottomOf="@id/add_card_description"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

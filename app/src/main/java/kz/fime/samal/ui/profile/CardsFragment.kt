@@ -11,6 +11,7 @@ import kz.fime.samal.data.models.CardsResponse
 import kz.fime.samal.data.models.custom.Status
 import kz.fime.samal.databinding.FragmentCardsBinding
 import kz.fime.samal.ui.base.handleException
+import kz.fime.samal.ui.cart.adapters.CardAdapter
 import kz.fime.samal.utils.binding.BindingFragment
 import retrofit2.Response
 
@@ -50,6 +51,12 @@ class CardsFragment : BindingFragment<FragmentCardsBinding>(FragmentCardsBinding
                 Status.SUCCESS -> {
                     it.data?.let {
                         drawCards(it)
+                        val cardsAdapter = CardsAdapter{ card ->
+                            findNavController().navigate(R.id.cardDeleteDialog,
+                                bundleOf(Pair("card_id",card.card_id),Pair("card_hash",card.card_hash)))
+                        }
+                        binding.cardsRv.adapter = cardsAdapter
+                        cardsAdapter.submitList(it.body()?.data)
                     }
                 }
                 Status.ERROR -> {

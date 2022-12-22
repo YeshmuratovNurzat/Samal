@@ -9,6 +9,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
+import androidx.navigation.fragment.findNavController
 import kz.fime.samal.databinding.FragmentAddCardBinding
 import kz.fime.samal.utils.binding.BindingFragment
 
@@ -18,6 +19,7 @@ class AddCardFragment : BindingFragment<FragmentAddCardBinding>(FragmentAddCardB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.toolbar.setOnClickListener { findNavController().navigateUp() }
         initWebView()
     }
 
