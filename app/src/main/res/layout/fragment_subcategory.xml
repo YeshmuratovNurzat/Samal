@@ -10,7 +10,6 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/menu_home_widget"
         app:navigationIcon="@drawable/ic_back_24dp"
         tools:title="Категория"
         app:titleCentered="true"

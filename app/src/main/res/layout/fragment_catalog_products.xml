@@ -13,11 +13,20 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/menu_home_widget"
         app:navigationIcon="@drawable/ic_back_24dp"
         app:title="Хит продаж"
         app:titleCentered="true"
-        app:titleTextAppearance="@style/Text.H3" />
+        app:titleTextAppearance="@style/Text.H3" >
+
+        <ImageView
+            android:id="@+id/filter_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:padding="15dp"
+            android:src="@drawable/ic_filter_24" />
+
+    </kz.fime.samal.utils.components.MaterialToolbar>
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

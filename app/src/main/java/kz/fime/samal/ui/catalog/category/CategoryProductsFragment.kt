@@ -37,6 +37,10 @@ class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(
             toolbar.setTitle(arguments?.getString("name"))
             toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
+            filterIcon.setOnClickListener {
+                findNavController().navigate(R.id.filtersDialog)
+            }
+
             val slug = arguments?.getString("slug")!!
 
             viewModel.getProducts(slug, null)
