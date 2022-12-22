@@ -71,6 +71,12 @@ class ProfileViewModel2 @Inject constructor(
             profileRepository.addCard()
         }
 
+    private val _deleteCard = MutableLiveData<String>()
+    val resultDeleteCard: LiveData<Resource<CardsResponse>> = Transformations
+        .switchMap(_deleteCard) {
+            profileRepository.deleteCard(it)
+        }
+
     private val _loadFaq = MutableLiveData<Unit>()
     val resultLoadFaq: LiveData<Resource<FaqResponse>> = Transformations
         .switchMap(_loadFaq) {
@@ -102,6 +108,10 @@ class ProfileViewModel2 @Inject constructor(
 
     fun addCard() {
         _addCard.postValue(Unit)
+    }
+
+    fun deleteCard(cardId : String){
+        _deleteCard.postValue(cardId)
     }
 
     fun logoutUser() {

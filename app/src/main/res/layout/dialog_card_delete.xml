@@ -82,7 +82,7 @@
                 style="@style/Text.H5" />
 
             <Button
-                android:id="@+id/btn_ok"
+                android:id="@+id/btn_delete_card"
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
