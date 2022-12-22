@@ -103,7 +103,7 @@
         android:name="kz.fime.samal.ui.profile.address.AddAddressDialog" />
     <action
         android:id="@+id/action_global_add_address"
-        app:destination="@id/add_address"/>
+        app:destination="@id/add_address" />
 
     <dialog
         android:id="@+id/log_out"
@@ -148,7 +148,7 @@
         android:name="kz.fime.samal.ui.profile.ChangeEmailDialog" />
     <action
         android:id="@+id/action_global_edit_email"
-        app:destination="@id/edit_email"/>
+        app:destination="@id/edit_email" />
 
     <fragment
         android:id="@+id/faqFragment"
@@ -184,5 +184,33 @@
         android:id="@+id/toChangePhoto"
         app:destination="@id/edit_photo"
         />
+    <dialog
+        android:id="@+id/googleMapDialog"
+        android:name="kz.fime.samal.ui.profile.address.GoogleMapDialog"
+        android:label="GoogleMapDialog" />
+    <action
+        android:id="@+id/action_global_googleMapDialog"
+        app:destination="@id/googleMapDialog" />
+    <dialog
+        android:id="@+id/cardDeleteDialog"
+        android:name="kz.fime.samal.ui.profile.CardDeleteDialog"
+        android:label="CardDeleteDialog" />
+    <action
+        android:id="@+id/action_global_cardDeleteDialog"
+        app:destination="@id/cardDeleteDialog" />
+    <dialog
+        android:id="@+id/addressDetailDialog"
+        android:name="kz.fime.samal.ui.profile.address.AddressDetailDialog"
+        android:label="AddressDetailDialog" />
+    <action
+        android:id="@+id/action_global_addressDetailDialog"
+        app:destination="@id/addressDetailDialog" />
+    <fragment
+        android:id="@+id/addressDeleteDialog"
+        android:name="kz.fime.samal.ui.profile.address.AddressDeleteDialog"
+        android:label="AddressDeleteDialog" />
+    <action
+        android:id="@+id/action_global_addressDeleteDialog"
+        app:destination="@id/addressDeleteDialog" />
 
 </navigation>

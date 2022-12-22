@@ -42,4 +42,11 @@
         android:id="@+id/search"
         android:name="kz.fime.samal.ui.home.pages.SearchFragment" >
     </fragment>
+    <dialog
+        android:id="@+id/filtersDialog"
+        android:name="kz.fime.samal.ui.catalog.category.FiltersDialog"
+        android:label="FiltersDialog" />
+    <action
+        android:id="@+id/action_global_filtersDialog"
+        app:destination="@id/filtersDialog" />
 </navigation>
