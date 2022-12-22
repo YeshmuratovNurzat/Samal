@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/white"
+    android:fillViewport="true"
     android:orientation="vertical">
 
     <FrameLayout
@@ -16,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:paddingBottom="30dp"
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -23,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="5"
+                tools:itemCount="3"
                 tools:listitem="@layout/item_product_properties" />
 
             <TextView
@@ -32,11 +34,31 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:lineSpacingMultiplier="1.2"
                 android:textColor="#545459"
                 android:textSize="15sp"
                 tools:text="Соковыжималка Kuvings Whole Slow Juicer Chef CS600 используется в барах, кафе, ресторанах и других местах общественного питания с большой проходимостью посетителей для отжима и получения сока из твёрдых и мягких овощей, фруктов, орехов, ягод, трав, иголок хвойных растений, пророщенных семян овса, пшеницы, ржи и чечевицы. Корпус выполнен из нержавеющей стали, шнек - из пластика трайтан, чаша для сбора сока - из термопластикого материала ультем, верхняя и нижняя крышки - из пластика. В комплект поставки входят 2 насадки и набор стрейнеров (смузи, сорбет)." />
+
+            <TextView
+                android:id="@+id/shop_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textColor="#0096FF"
+                android:textSize="15sp"
+                android:text="Адрес магазина"/>
+
+            <TextView
+                android:id="@+id/view_store_products"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="46dp"
+                android:textColor="#0096FF"
+                android:textSize="15sp"
+                android:text="Посмотреть все товары магазина"/>
+
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

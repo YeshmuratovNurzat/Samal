@@ -10,7 +10,6 @@
         android:id="@+id/tv_properties"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lineSpacingMultiplier="1.2"
         android:layout_marginStart="20dp"
         tools:text="Мощность:"
         android:textSize="15sp"
