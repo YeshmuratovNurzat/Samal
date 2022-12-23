@@ -15,6 +15,7 @@ import kz.fime.samal.ui.cart.adapters.CartItem
 import kz.fime.samal.ui.cart.adapters.CartOptionAdapter
 import kz.fime.samal.ui.cart.adapters.PaymentOptionAdapter
 import kz.fime.samal.ui.profile.address.AddressesAdapter
+import kz.fime.samal.ui.profile.address.AddressesViewModel
 import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingBottomSheetFragment
 import kz.fime.samal.utils.extensions.InnerItem
@@ -126,6 +127,7 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
                 clientAddresses.liveData.observeState(viewLifecycleOwner, {
                     Timber.d("Addresses: %s", it)
                     addressesAdapter.submitList(it.result)
+                    viewModel.loadAddress()
                 })
                 pickUpLocations.liveData.observeState(viewLifecycleOwner, {
                     Timber.d("Pickups: %s", it)

@@ -32,6 +32,10 @@ class CartViewModel @Inject constructor(
         getCartItemsRequest.call()
     }
 
+    fun loadAddress(){
+        clientAddresses.call()
+    }
+
     private val clearCartRequest = NetworkRequest { cartRepository.clearCart() }
     val clearCart = clearCartRequest.liveData
 
