@@ -1,13 +1,10 @@
 package kz.fime.samal.ui.cart.adapters
 
-import kz.fime.samal.databinding.ItemCartOptionBinding
-import kz.fime.samal.databinding.ItemCartProductBinding
+import kz.fime.samal.R
 import kz.fime.samal.databinding.ItemPaymentOptionBinding
 import kz.fime.samal.utils.binding.BindingRvAdapter
-import kz.fime.samal.utils.extensions.InnerItem
 import kz.fime.samal.utils.extensions.Item
 import kz.fime.samal.utils.extensions.getOrNull
-import kz.fime.samal.utils.extensions.loadUrl
 
 class PaymentOptionAdapter(
     private val onItemClick: (item: Item) -> Unit
@@ -16,7 +13,15 @@ class PaymentOptionAdapter(
     override fun bind(item: Item, binding: ItemPaymentOptionBinding) {
         binding.run {
             tvDescription.text = item.getOrNull("name", "")
-            iv.loadUrl(item.getOrNull(""))
+
+            when(item.getOrNull("payment_id",1.0)){
+
+                1.0 -> { iv.setImageResource(R.drawable.ic_cash) }
+
+                2.0 -> { iv.setImageResource(R.drawable.ic_baseline_add_24) }
+
+                5.0 -> { iv.setImageResource(R.drawable.ic_installment) }
+            }
             vgContainer.setOnClickListener { onItemClick.invoke(item) }
         }
     }
