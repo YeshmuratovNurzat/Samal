@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kz.fime.samal.R
 import kz.fime.samal.data.models.City
 import kz.fime.samal.databinding.FragmentAddressesBinding
+import kz.fime.samal.ui.base.observeEvent
 import kz.fime.samal.ui.base.observeState
 import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingFragment
@@ -34,10 +35,13 @@ class AddressesFragment: BindingFragment<FragmentAddressesBinding>(FragmentAddre
                     bundleOf(
                         Pair("name", it.getOrNull("name", "")),
                         Pair("address_slug", it.getOrNull("address_slug", "")),
+                        Pair("address_id", it.getOrNull("address_id", "")),
                         Pair("street", it.getOrNull("street", "")),
                         Pair("house_number", it.getOrNull("house_number", "")),
                         Pair("apartment", it.getOrNull("apartment", "")),
-                        Pair("city", it.getOrNull<InnerItem>("city").let { it.getOrNull("name", "") })))
+                        Pair("default", it.getOrNull("default", false)),
+                        Pair("city", it.getOrNull<InnerItem>("city").let { it.getOrNull("name", "") }),
+                        Pair("city_id", it.getOrNull<InnerItem>("city").let { it.getOrNull("city_id", 0) })))
             }
             rvItems.adapter = addressesAdapter
             viewModel.addresses.observeState(viewLifecycleOwner, {
@@ -55,9 +59,13 @@ class AddressesFragment: BindingFragment<FragmentAddressesBinding>(FragmentAddre
                 Log.d("MyLog","addAddress == ${it.peekContent()}")
             }
 
-            viewModel.deleteAddress.observe(viewLifecycleOwner){
-                MessageUtils.postMessage("Success")
+            viewModel.updateAddress.observe(viewLifecycleOwner){
+                Log.d("MyLog","updateAddress == ${it.peekContent()}")
             }
+
+            viewModel.deleteAddress.observeEvent(viewLifecycleOwner, {
+                MessageUtils.postMessage("Success")
+            })
 
             val addAddress = { _: View ->
                 findNavController().navigate(R.id.action_global_add_address)

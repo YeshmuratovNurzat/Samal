@@ -1,16 +1,24 @@
 package kz.fime.samal.ui.profile.address
 
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import kz.fime.samal.R
 import kz.fime.samal.data.base.State
 import kz.fime.samal.databinding.DialogAddAddressBinding
@@ -68,7 +76,7 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
 
                         val currentLatLng = LatLng(latitude?.toDouble() ?: 0.0,
                             longitude?.toDouble() ?: 0.0)
-                        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,10f))
+                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,10f))
 
                         googleMap.setOnMapClickListener {
                             findNavController().navigate(R.id.action_global_googleMapDialog,
@@ -84,6 +92,7 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
                 val street = etStreet.text.toString()
                 val houseNumber = etHouse.text.toString()
                 val apartment = etApartment.text.toString()
+
                 if (name.isEmpty() || city.isEmpty() || street.isEmpty() || houseNumber.isEmpty() || apartment.isEmpty()) {
                     MessageUtils.postMessage("Заполните все поля!")
                     return@setOnClickListener

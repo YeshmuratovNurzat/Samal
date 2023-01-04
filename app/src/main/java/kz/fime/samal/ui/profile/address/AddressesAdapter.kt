@@ -20,5 +20,4 @@ class AddressesAdapter(
             root.setOnClickListener { onItemClick.invoke(item) }
         }
     }
-
 }

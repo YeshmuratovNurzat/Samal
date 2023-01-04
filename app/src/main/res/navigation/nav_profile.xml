@@ -205,12 +205,12 @@
     <action
         android:id="@+id/action_global_addressDetailDialog"
         app:destination="@id/addressDetailDialog" />
-    <fragment
-        android:id="@+id/addressDeleteDialog"
-        android:name="kz.fime.samal.ui.profile.address.AddressDeleteDialog"
-        android:label="AddressDeleteDialog" />
+    <dialog
+        android:id="@+id/deleteAddressDialog"
+        android:name="kz.fime.samal.ui.profile.address.DeleteAddressDialog"
+        android:label="DeleteAddressDialog" />
     <action
-        android:id="@+id/action_global_addressDeleteDialog"
-        app:destination="@id/addressDeleteDialog" />
+        android:id="@+id/action_global_deleteAddressDialog"
+        app:destination="@id/deleteAddressDialog" />
 
 </navigation>
