@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:name=".App"
@@ -15,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Samal"
         tools:ignore="AllowBackup">
+
         <activity
             android:name=".ui.LauncherActivity"
             android:screenOrientation="portrait">
@@ -46,6 +49,10 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB6JyF-tIQrvex8ci_a3hFt_QxxVUdrsX8"/>
 
 
     </application>
