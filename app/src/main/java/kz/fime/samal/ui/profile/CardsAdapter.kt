@@ -9,8 +9,8 @@ class CardsAdapter(private val onItemClick: (item: CardsResponse.UserCards) -> U
 
     override fun bind(item: CardsResponse.UserCards, binding: ItemCardsBinding) {
         binding.run {
-            cardName.text = item.card_id
-            cardNumber.text = item.card_hash
+            tvTitle.text = item.card_id
+            tvSubtitle.text = "••••${item.card_hash.substring(12,16)}"
             vgContainer.setOnClickListener { onItemClick.invoke(item) }
         }
     }
