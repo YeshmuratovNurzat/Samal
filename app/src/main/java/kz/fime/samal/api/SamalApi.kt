@@ -92,7 +92,7 @@ interface SamalApi {
     // Catalog
 
     @GET("client/type/sort")
-    suspend fun getTypeSort(@Body body: Item) : Response<ApiResponse<Item>>
+    suspend fun getTypeSort() : Response<ApiResponse<List<Item>>>
 
     // Cart
 
@@ -153,6 +153,9 @@ interface SamalApi {
 
     @POST("client/order")
     suspend fun placeOrder(@Body body: Item): Response<ApiResponse<Item>>
+
+    @GET("client/installment")
+    suspend fun getInstallment(): Response<ApiResponse<List<Item>>>
 
     @GET("client/order")
     suspend fun getOrders(): Response<ApiResponse<List<Item>>>

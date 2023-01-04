@@ -28,12 +28,15 @@ class CartViewModel @Inject constructor(
     private val getCartItemsRequest = NetworkRequest { cartRepository.getCartItems() }
     val cartItems = getCartItemsRequest.liveData
 
+    private val getClientAddressRequest = NetworkRequest {cartRepository.getClientAddresses()}
+    val getAddress = getClientAddressRequest.liveData
+
     fun loadCart(){
         getCartItemsRequest.call()
     }
 
     fun loadAddress(){
-        clientAddresses.call()
+        getClientAddressRequest.call()
     }
 
     private val clearCartRequest = NetworkRequest { cartRepository.clearCart() }
@@ -57,6 +60,14 @@ class CartViewModel @Inject constructor(
         getDeliveryCostRequest.call { cartRepository.getDeliveryCost(addressName) }
     }
 
+    private val getInstallmentRequest = NetworkRequest { mainRepository.getInstallment() }
+    val getInstallment = getInstallmentRequest.liveData
+
+    fun installment() {
+        getInstallmentRequest.call()
+    }
+
+
     val clientPoints = NetworkRequest { cartRepository.getClientPoints() }
     val paymentCards = NetworkRequest { cartRepository.getPaymentCards() }
     val deliveryTypes = NetworkRequest { cartRepository.getDeliveryTypes() }
@@ -70,9 +81,10 @@ class CartViewModel @Inject constructor(
     fun placeOrder(baskets: List<String>,
                    deliverySlug: String,
                    paymentSlug: String,
+                   installment_uuid : String,
                    addressSlug: String,
                    priceProduct: Int,
                    quota: Int){
-        placeOrderRequest.call { mainRepository.placeOrder(baskets, deliverySlug, paymentSlug, addressSlug, priceProduct, quota)}
+        placeOrderRequest.call { mainRepository.placeOrder(baskets, deliverySlug, paymentSlug, installment_uuid, addressSlug, priceProduct, quota)}
     }
 }

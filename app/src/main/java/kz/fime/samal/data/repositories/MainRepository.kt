@@ -29,11 +29,12 @@ class MainRepository (private val service: SamalApi) {
 
     suspend fun getOrders() = call { service.getOrders() }
 
-    suspend fun placeOrder(baskets: List<String>, deliverySlug: String, paymentSlug: String, addressSlug: String, priceProduct: Int, quota: Int) = call {
+    suspend fun placeOrder(baskets: List<String>, deliverySlug: String, paymentSlug: String, installment_uuid: String, addressSlug: String, priceProduct: Int, quota: Int) = call {
         val body = hashMapOf(
             "baskets" to baskets,
             "price_product" to priceProduct,
             "payment_slug" to paymentSlug,
+            "installment_uuid" to installment_uuid,
 //            "cart" to null,
             "delivery_slug" to deliverySlug,
             "address_slug" to addressSlug,
@@ -43,6 +44,8 @@ class MainRepository (private val service: SamalApi) {
         )
         service.placeOrder(body)
     }
+
+    suspend fun getInstallment() = call {service.getInstallment()}
 
     suspend fun getOrderDetails(orderId: String) = call { service.getOrderDetails(orderId) }
 
@@ -67,7 +70,7 @@ class MainRepository (private val service: SamalApi) {
         service.addClientAddress(body)
     }
 
-    suspend fun updateClientAddress(addressId: String, cityId: Int, name: String, street: String, houseNumber: String, apartment: String, isDefault: Boolean) = call {
+    suspend fun updateClientAddress(addressId: String, cityId: Int, name: String, street: String, houseNumber: String, apartment: String, isDefault: Boolean, latitude: String, longitude: String ) = call {
         val body = Item()
         body["city_id"] = cityId
         body["name"] = name
@@ -75,6 +78,8 @@ class MainRepository (private val service: SamalApi) {
         body["house_number"] = houseNumber
         body["apartment"] = apartment
         body["default"] = isDefault
+        body["latitude"] = latitude
+        body["longitude"] = longitude
         service.updateClientAddress(addressId, body)
     }
 

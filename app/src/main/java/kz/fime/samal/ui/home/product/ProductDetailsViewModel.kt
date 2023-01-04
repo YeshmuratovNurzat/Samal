@@ -1,5 +1,6 @@
 package kz.fime.samal.ui.home.product
 
+import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kz.fime.samal.data.models.Product
 import kz.fime.samal.data.models.ProductDetailed
@@ -15,6 +16,8 @@ class ProductDetailsViewModel @Inject constructor(
     private val catalogRepository: CatalogRepository,
     private val mainRepository: MainRepository
 ): BaseViewModel() {
+
+    val fetchProducts: MutableLiveData<Item> = MutableLiveData()
 
     private val getProductDetailedRequest = NetworkRequest<ProductDetailed>()
     val productDetailed = getProductDetailedRequest.liveData
@@ -45,11 +48,11 @@ class ProductDetailsViewModel @Inject constructor(
         addCartItemRequest.call { catalogRepository.addCartItem(shopId, productSlug, productVariant) }
     }
 
-    private val getTypeSortRequest = NetworkRequestEvent<Item>()
+    private val getTypeSortRequest = NetworkRequest{ catalogRepository.getTypeSort()}
     val getTypeSort = getTypeSortRequest.liveData
 
-    fun getTypeSort(name : String, sortBy : String, sortDir : String){
-        getTypeSortRequest.call { catalogRepository.getTypeSort(name, sortBy, sortDir) }
+    fun getSort(){
+        getTypeSortRequest.call()
     }
 
     private val toggleFavoritesRequest = NetworkRequestEvent<Nothing>()
