@@ -1,8 +1,10 @@
 package kz.fime.samal.ui.catalog.category
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,9 +16,11 @@ import kz.fime.samal.data.models.custom.Status
 import kz.fime.samal.databinding.FragmentCatalogProductsBinding
 import kz.fime.samal.ui.base.observeState
 import kz.fime.samal.ui.catalog.adapters.CategoryProductsAdapter
+import kz.fime.samal.ui.home.product.ProductDetailsViewModel
 import kz.fime.samal.utils.binding.BindingFragment
 import kz.fime.samal.utils.components.BottomBar
 import kz.fime.samal.utils.extensions.ITEM_ARG
+import kz.fime.samal.utils.extensions.InnerItem
 import kz.fime.samal.utils.extensions.Item
 import kz.fime.samal.utils.extensions.getOrNull
 import kz.fime.samal.utils.gridItemDecorator
@@ -26,9 +30,12 @@ import timber.log.Timber
 class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(FragmentCatalogProductsBinding::inflate) {
 
     private val viewModel: CategoryProductsViewModel by viewModels()
+    private val activityViewModel: ProductDetailsViewModel by activityViewModels()
 
     private var isLoading = false
     private var objects: MutableList<Item> = mutableListOf()
+    private var sort: Item = hashMapOf(Pair("sortDir", ""), Pair("sortBy", ""))
+    private lateinit var slug: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,9 +48,9 @@ class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(
                 findNavController().navigate(R.id.filtersDialog)
             }
 
-            val slug = arguments?.getString("slug")!!
+            slug = arguments?.getString("slug")!!
 
-            viewModel.getProducts(slug, null)
+            viewModel.getProducts(slug, null, sort)
 
             val productsAdapter = CategoryProductsAdapter {
                 findNavController().navigate(
@@ -64,12 +71,14 @@ class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(
                 productsAdapter.submitList(it.result)
             })
             viewModel.resultProducts.observe(viewLifecycleOwner) {
+                Timber.d("resultProducts: %s", it)
                 when (it.status) {
                     Status.LOADING -> {
+
                     }
                     Status.SUCCESS -> {
                         it.data?.let {
-                            it.data?.let { it1 -> objects.addAll(it1) }
+                            it.data?.let { it1 -> objects.addAll(it1)}
                             productsAdapter.submitList(objects)
                             isLoading = false
                             rvProducts.addOnScrollListener(object :
@@ -95,7 +104,7 @@ class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(
                                                         val pages = nextPage.split("?")
                                                         var page = pages[pages.lastIndex]
                                                         page = page.substring(5)
-                                                        viewModel.getProducts(slug, page)
+                                                        viewModel.getProducts(slug, page, sort)
                                                         isLoading = true
                                                     }
                                                 }
@@ -110,8 +119,15 @@ class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(
                     }
                 }
             }
+
+            activityViewModel.fetchProducts.observe(viewLifecycleOwner) {
+                objects.clear()
+                val sBy: Any = it.getOrNull("sortBy", "") ?: "min_price"
+                val sDir: Any = it.getOrNull("sortDir", "") ?: "desc"
+                sort = hashMapOf(Pair("sortDir", sDir), Pair("sortBy", sBy))
+                viewModel.getProducts(slug, null, sort)
+            }
+
         }
     }
-
-
 }
