@@ -1,6 +1,7 @@
 package kz.fime.samal.ui.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -25,7 +26,7 @@ class CardDeleteDialog:  BindingBottomSheetFragment<DialogCardDeleteBinding>(Dia
             cardNumber.text = cardHash.toString()
 
             btnDeleteCard.setOnClickListener {
-                viewModel.deleteCard(cardName.text.toString())
+                viewModel.deleteCard(cardId.toString())
             }
 
             observeViewModel()
