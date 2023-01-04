@@ -53,9 +53,30 @@
         app:destination="@id/add_address"/>
 
     <dialog
-        android:id="@+id/order_successful"
-        android:name="kz.fime.samal.ui.cart.order.OrderSuccessfulDialog" />
+        android:id="@+id/order_info"
+        android:name="kz.fime.samal.ui.cart.order.OrderInfoDialog" />
     <action
-        android:id="@+id/action_global_order_successful"
-        app:destination="@id/order_successful"/>
+        android:id="@+id/action_global_order_info"
+        app:destination="@id/order_info"/>
+    <fragment
+        android:id="@+id/cardsFragment2"
+        android:name="kz.fime.samal.ui.profile.CardsFragment"
+        android:label="CardsFragment" />
+    <action
+        android:id="@+id/action_global_cardsFragment2"
+        app:destination="@id/cardsFragment2" />
+    <fragment
+        android:id="@+id/addCardFragment2"
+        android:name="kz.fime.samal.ui.profile.AddCardFragment"
+        android:label="AddCardFragment" />
+    <action
+        android:id="@+id/action_global_addCardFragment2"
+        app:destination="@id/addCardFragment2" />
+    <fragment
+        android:id="@+id/installmentFragment"
+        android:name="kz.fime.samal.ui.cart.InstallmentFragment"
+        android:label="InstallmentFragment" />
+    <action
+        android:id="@+id/action_global_installmentFragment"
+        app:destination="@id/installmentFragment" />
 </navigation>
