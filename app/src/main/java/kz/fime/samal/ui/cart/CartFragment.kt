@@ -11,6 +11,7 @@ import kz.fime.samal.databinding.FragmentCartBinding
 import kz.fime.samal.ui.base.observeEvent
 import kz.fime.samal.ui.base.observeState
 import kz.fime.samal.ui.cart.adapters.CartAdapter
+import kz.fime.samal.ui.cart.order.OrderInfoDialog
 import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingFragment
 import kz.fime.samal.utils.components.BottomBar
@@ -72,10 +73,21 @@ class CartFragment: BindingFragment<FragmentCartBinding>(FragmentCartBinding::in
 
             viewModel.placeOrder.observeEvent(viewLifecycleOwner, {
                 MessageUtils.postMessage("Успешно")
-                findNavController().navigate(R.id.action_global_order_successful)
                 viewModel.loadCart()
+                if (it.result.getOrNull("url","") != null){
+                    val bundle = bundleOf("url_installment" to it.result.getOrNull("url",""))
+                    findNavController().navigate(R.id.action_global_installmentFragment, bundle)
+                }else {
+                    findNavController().navigate(R.id.action_global_order_info)
+                }
+            },{
+                val bundle = bundleOf(
+                    OrderInfoDialog.KEY_TITLE to "Ошибка",
+                    OrderInfoDialog.KEY_DESC to it.message,
+                    OrderInfoDialog.KEY_BUTTON_TEXT to "Понятно, закрыть",
+                    OrderInfoDialog.KEY_IMAGE to R.drawable.ic_cat_order_error)
+                findNavController().navigate(R.id.action_global_order_info, bundle)
             })
-
         }
     }
 
