@@ -1,5 +1,9 @@
 package kz.fime.samal.api
 
+import android.app.Application
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kz.fime.samal.utils.API
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,7 +19,7 @@ import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
 import kotlin.jvm.Throws
 
-class ApiBuilder {
+class ApiBuilder(@ApplicationContext val context: Context? = null) {
 
     private val loggingInterceptor: HttpLoggingInterceptor
         get() {
@@ -66,6 +70,9 @@ class ApiBuilder {
                 // Create an ssl socket factory with our all-trusting manager
                 val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
                 val builder = OkHttpClient.Builder()
+                context?.let {
+                    builder.addInterceptor(ChuckerInterceptor(it))
+                }
                 builder.sslSocketFactory(sslSocketFactory,
                         trustAllCerts[0] as X509TrustManager)
                 builder.hostnameVerifier { _, _ -> true }

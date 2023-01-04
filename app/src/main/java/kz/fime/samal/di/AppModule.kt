@@ -26,8 +26,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideServiceApi(): SamalApi {
-        return ApiBuilder().buildService(SamalApi::class.java)
+    fun provideServiceApi(@ApplicationContext context: Context): SamalApi {
+        return ApiBuilder(context).buildService(SamalApi::class.java)
     }
 
     @Singleton

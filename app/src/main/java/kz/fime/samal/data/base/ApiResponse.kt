@@ -2,6 +2,7 @@ package kz.fime.samal.data.base
 
 import com.google.gson.Gson
 import kotlinx.coroutines.*
+import kz.fime.samal.App
 import kz.fime.samal.api.ApiBuilder
 import kz.fime.samal.api.ApiResponse
 import kz.fime.samal.api.SamalApi
