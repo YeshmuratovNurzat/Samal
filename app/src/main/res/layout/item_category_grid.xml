@@ -7,8 +7,8 @@
 
     <com.github.florent37.shapeofview.shapes.RoundRectView
         android:id="@+id/vg_image"
-        android:layout_height="120dp"
-        android:layout_width="135dp"
+        android:layout_height="140dp"
+        android:layout_width="155dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginStart="20dp"
@@ -23,6 +23,7 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
+            android:layout_margin="2dp"
             android:src="@drawable/temp_product"
             tools:ignore="ContentDescription" />
 

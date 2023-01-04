@@ -43,4 +43,11 @@
         android:visibility="gone"
         android:src="@drawable/ic_check" />
 
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:background="#F8F8FA" />
+
 </RelativeLayout>

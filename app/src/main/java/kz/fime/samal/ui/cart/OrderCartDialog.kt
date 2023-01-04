@@ -3,6 +3,7 @@ package kz.fime.samal.ui.cart
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import kz.fime.samal.R
@@ -10,17 +11,13 @@ import kz.fime.samal.data.base.State
 import kz.fime.samal.databinding.DialogCartOrderBinding
 import kz.fime.samal.ui.base.observeEvent
 import kz.fime.samal.ui.base.observeState
-import kz.fime.samal.ui.cart.adapters.CardAdapter
-import kz.fime.samal.ui.cart.adapters.CartItem
-import kz.fime.samal.ui.cart.adapters.CartOptionAdapter
-import kz.fime.samal.ui.cart.adapters.PaymentOptionAdapter
+import kz.fime.samal.ui.cart.adapters.*
+import kz.fime.samal.ui.cart.order.OrderInfoDialog
 import kz.fime.samal.ui.profile.address.AddressesAdapter
-import kz.fime.samal.ui.profile.address.AddressesViewModel
 import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingBottomSheetFragment
 import kz.fime.samal.utils.extensions.InnerItem
 import kz.fime.samal.utils.extensions.getOrNull
-import okhttp3.internal.trimSubstring
 import timber.log.Timber
 
 class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(DialogCartOrderBinding::inflate) {
@@ -34,9 +31,13 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
     private var deliverySlug = ""
     private var paymentSlug = ""
     private var addressSlug = ""
+    private var installmentId = ""
+    private var installmentPercent = 1
     private var baskets = listOf<String>()
     private var priceProduct = 0
     private var quota = 0
+    private var price = 0
+    private lateinit var list : MutableList<CartItem>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.run {
@@ -47,12 +48,44 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
                 tvPaymentMethod.text = "Картой\n•••• ${it.getOrNull("card_hash","")?.substring(12,16)}"
                 iv.setImageResource(R.drawable.ic_master_card)
                 paymentSlug = it.getOrNull("slug","card")!!
+                calculatePrice(cartOptionsAdapter)
             }
             rvCard.adapter = cardAdapter
 
+            val installmentAdapter = InstallmentAdapter {
+                tvPaymentMethod.text = it.getOrNull("short_description", "")
+                iv.setImageResource(R.drawable.ic_home_credit_bank)
+                paymentSlug = it.getOrNull("slug", "installment")!!
+                installmentId = it.getOrNull("uuid","")!!
+                it.getOrNull("percent","")?.toIntOrNull()?.let {
+                    installmentPercent = it
+                    calculatePrice(cartOptionsAdapter, it)
+                }
+            }
+            rvInstallment.adapter = installmentAdapter
+
             val paymentOptionsAdapter = PaymentOptionAdapter {
+                when(it.getOrNull("payment_id",1.0)){
+
+                    1.0 -> {
+                        iv.setImageResource(R.drawable.ic_cash)
+                        rvInstallment.visibility = View.GONE
+                    }
+
+                    2.0 -> {
+                        iv.setImageResource(R.drawable.ic_baseline_add_24)
+                        rvInstallment.visibility = View.GONE
+                        findNavController().navigate(R.id.action_global_cardsFragment2)
+                    }
+
+                    5.0 -> {
+                        iv.setImageResource(R.drawable.ic_installment)
+                        rvInstallment.visibility = View.VISIBLE
+                    }
+                }
                 tvPaymentMethod.text = it.getOrNull("name", "")
                 paymentSlug = it.getOrNull("slug", "")!!
+                calculatePrice(cartOptionsAdapter)
             }
             rvPaymentOptions.adapter = paymentOptionsAdapter
 
@@ -72,35 +105,42 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
             }
             viewModel.deliveryCost.observeEvent(viewLifecycleOwner, {
                 val price = it.result?.getOrNull("quota", 0)!!
+                list = cartOptionsAdapter.getList() as MutableList
                 quota = price
-                val list = cartOptionsAdapter.getList() as MutableList
-                if (list.firstOrNull()?.count == -1) {
-                    list.removeAt(0)
+                for(i in 0 until list.size) {
+                    if (list[i].count == -1) {
+                        list.removeAt(i)
+                    }
                 }
-                list.add(0, CartItem(-1, "Доставка", price))
+                list.add(list.lastIndex + 1, CartItem(-1, "Доставка", price))
                 cartOptionsAdapter.submitList(list)
                 tvToPay.text = "К оплате ${priceProduct + price}₸"
+            }, {
+                val bundle = bundleOf(
+                    OrderInfoDialog.KEY_TITLE to "Ошибка",
+                    OrderInfoDialog.KEY_DESC to it.message,
+                    OrderInfoDialog.KEY_BUTTON_TEXT to "Понятно, закрыть",
+                    OrderInfoDialog.KEY_IMAGE to R.drawable.ic_cat_order_error)
+                findNavController().navigate(R.id.action_global_order_info, bundle)
             })
             rvDeliveryOptions.adapter = addressesAdapter
 
-            vgDeliveryPickUp.setOnClickListener {
+            vgDeliveryPickUp.setOnClickListener {}
 
-            }
             vgAddNewAddress.setOnClickListener {
                 findNavController().navigate(R.id.action_global_add_address)
             }
 
-            btnOk.setOnClickListener {
-                if (baskets.isEmpty() || deliverySlug.isEmpty() || paymentSlug.isEmpty() || addressSlug.isEmpty()) {
-                    MessageUtils.postMessage("Заполните все поля")
-                    return@setOnClickListener
-                }
-                viewModel.placeOrder(baskets, deliverySlug, paymentSlug, addressSlug, priceProduct, quota)
-                dismiss()
-            }
-            viewModel.placeOrder.observeEvent(viewLifecycleOwner, {
-                MessageUtils.postMessage("Успешно")
+            viewModel.installment()
+
+            viewModel.getInstallment.observeState(viewLifecycleOwner,{
+                Timber.d("Installment: %s", it)
+                installmentAdapter.submitList(it.result)
             })
+
+            btnOk.setOnClickListener {
+                viewModel.placeOrder(baskets, deliverySlug, paymentSlug, installmentId, addressSlug, priceProduct, quota)
+            }
 
             viewModel.run {
                 clientPoints.call()
@@ -127,12 +167,15 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
                 clientAddresses.liveData.observeState(viewLifecycleOwner, {
                     Timber.d("Addresses: %s", it)
                     addressesAdapter.submitList(it.result)
-                    viewModel.loadAddress()
                 })
                 pickUpLocations.liveData.observeState(viewLifecycleOwner, {
                     Timber.d("Pickups: %s", it)
                 })
 
+                placeOrder.observeEvent(viewLifecycleOwner, {
+                    MessageUtils.postMessage("Успешно")
+                    dismiss()
+                })
 
                 viewModel.cartItems.observeState(viewLifecycleOwner, {
                     var toPay = 0
@@ -146,6 +189,7 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
                                 it.getOrNull("price", 0, safe = true)!!)
                             items.add(item)
                             toPay += item.price
+                            price = toPay
                         }
                     }
                     baskets = list
@@ -175,11 +219,41 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
                 showDeliveryMethod = !showDeliveryMethod
                 showDeliveryMethods(showDeliveryMethod)
             }
-
-//            btnOk.setOnClickListener {
-//                dismiss()
-//            }
         }
+    }
+
+    private fun calculatePrice(cartOptionsAdapter: CartOptionAdapter, percent: Int? = null) {
+        list = cartOptionsAdapter.getList() as MutableList
+
+        if(percent != null){
+
+            priceProduct = price + (price * percent / 100)
+
+            val installmentPrice = price * percent / 100
+
+            for (i in 0 until list.size) {
+                if (list[i].title == "Комиссия банка") {
+                    list.removeAt(i)
+                    break
+                }
+            }
+
+            if(list.lastOrNull()?.title == "Доставка"){
+                list.add(list.size - 1,CartItem(-2,"Комиссия банка", installmentPrice))
+            }else{
+                list.add(CartItem(-2,"Комиссия банка", installmentPrice))
+            }
+            binding.tvToPay.text = "К оплате ${priceProduct}₸"
+        }else{
+            for (i in 0 until list.size) {
+                if (list[i].title == "Комиссия банка") {
+                    list.removeAt(i)
+                    break
+                }
+            }
+            binding.tvToPay.text = "К оплате ${price + quota}₸"
+        }
+        cartOptionsAdapter.submitList(list)
     }
 
     private fun showDeliveryMethods(show: Boolean) {

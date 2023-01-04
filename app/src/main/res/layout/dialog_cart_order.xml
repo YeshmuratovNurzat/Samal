@@ -154,6 +154,13 @@
                 android:nestedScrollingEnabled="false"
                 style="@style/RecyclerView" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_installment"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
+                style="@style/RecyclerView" />
+
             <RelativeLayout
                 android:id="@+id/vg_delivery_method"
                 android:layout_height="match_parent"

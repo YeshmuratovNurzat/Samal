@@ -53,12 +53,12 @@ class LogoutDialog : BottomSheetDialogFragment() {
     }
 
     override fun setupDialog(dialog: Dialog, style: Int) {
-        binding = DataBindingUtil.inflate(
-            LayoutInflater.from(context),
-            R.layout.dialog_log_out,
-            null,
-            false
-        )
+//        binding = DataBindingUtil.inflate(
+//            LayoutInflater.from(context),
+//            R.layout.dialog_log_out,
+//            null,
+//            false
+//        )
 
         dialog.setContentView(binding.root)
         setBottomSheetCallback(binding.root)

@@ -31,5 +31,21 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/card_checked"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:padding="6dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_check" />
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:background="#F8F8FA" />
 
 </RelativeLayout>
