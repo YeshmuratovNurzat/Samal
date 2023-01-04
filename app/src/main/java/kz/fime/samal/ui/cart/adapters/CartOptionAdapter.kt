@@ -15,15 +15,34 @@ class CartOptionAdapter: BindingRvAdapter<CartItem, ItemCartOptionBinding>(ItemC
     override fun bind(item: CartItem, binding: ItemCartOptionBinding) {
         binding.run {
 
-            if (item.count == -1) {
-                tvPrice.text = "${item.price}₸"
-                tvProduct.text = "${item.title}"
-            } else {
-                tvPrice.text = "${item.count*item.price}₸"
-                tvProduct.text = "${item.count} x ${item.title}"
+            when(item.count){
+
+                -1 -> {
+                    tvPrice.text = "${item.price}₸"
+                    tvProduct.text = "${item.title}"
+                }
+
+                -2 -> {
+                    tvPrice.text = "${item.price}₸"
+                    tvProduct.text = "${item.title}"
+                }
+
+                else -> {
+                    tvPrice.text = "${item.count*item.price}₸"
+                    tvProduct.text = "${item.count} x ${item.title}"
+                }
             }
 
+
+//            if (item.count == -1) {
+//                tvPrice.text = "${item.price}₸"
+//                tvProduct.text = "${item.title}"
+//            }else if(item.count == -2){
+//
+//            } else {
+//                tvPrice.text = "${item.count*item.price}₸"
+//                tvProduct.text = "${item.count} x ${item.title}"
+//            }
         }
     }
-
 }
