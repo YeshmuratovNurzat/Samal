@@ -6,8 +6,6 @@ import androidx.lifecycle.Transformations
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kz.fime.samal.api.ApiResponse
 import kz.fime.samal.data.models.CategoryModel
-import kz.fime.samal.data.models.Product
-import kz.fime.samal.data.models.ProductDetailed
 import kz.fime.samal.data.models.custom.Resource
 import kz.fime.samal.data.repositories.CatalogRepository
 import kz.fime.samal.data.repositories.ProfileRepository
@@ -36,11 +34,10 @@ class CategoryProductsViewModel @Inject constructor(
             profileRepository.loadSubcategory(it)
         }
 
-    fun getProducts(categorySlug: String, page: String?){
+    fun getProducts(categorySlug: String, page: String?, item: Item){
         _loadCategoryProducts.postValue(
             CategoryProductsRequestModel(
-            categorySlug, page, hashMapOf(Pair("sortDir", "desc"), Pair("sortBy", "min_price"))
-        ))
+            categorySlug, page, item))
     }
 
     fun getSubcategory(categorySlug: String) {
