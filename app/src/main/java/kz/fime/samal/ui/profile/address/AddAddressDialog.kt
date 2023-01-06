@@ -55,15 +55,14 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
                 val longitude = 73.085485
 
                 val currentLatLng = LatLng(latitude, longitude)
-                val markerOptions = MarkerOptions()
-                markerOptions.position(currentLatLng)
-                markerOptions.icon(getBitmapDescriptorFromVector(requireContext(), R.drawable.ic_location))
-                mGoogleMap.addMarker(markerOptions)
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,10f))
+                mGoogleMap.uiSettings.isScrollGesturesEnabled = false
+                mGoogleMap.uiSettings.isZoomGesturesEnabled = false
+                mGoogleMap.uiSettings.isMapToolbarEnabled = false
 
                 googleMap.setOnMapClickListener {
                     findNavController().navigate(R.id.action_global_googleMapDialog,
-                        bundleOf(Pair("latitude",latitude),Pair("longitude",longitude)))
+                        bundleOf(Pair("latitude", it.latitude.toString()),Pair("longitude", it.longitude.toString())))
                 }
             }
 
@@ -90,21 +89,8 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
                             it.getOrNull("longitude","")
                         }
 
-                    mapFragment.getMapAsync { googleMap ->
-                        mGoogleMap = googleMap
-
                         val currentLatLng = LatLng(latitude?.toDouble() ?: 0.0,longitude?.toDouble() ?: 0.0)
-                        val markerOptions = MarkerOptions()
-                        markerOptions.position(currentLatLng)
-                        markerOptions.icon(getBitmapDescriptorFromVector(requireContext(), R.drawable.ic_location))
-                        mGoogleMap.addMarker(markerOptions)
                         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,10f))
-
-                        googleMap.setOnMapClickListener {
-                            findNavController().navigate(R.id.action_global_googleMapDialog,
-                                bundleOf(Pair("latitude",latitude),Pair("longitude",longitude)))
-                        }
-                    }
                 }
             }
 
@@ -132,7 +118,7 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
         }
     }
 
-    fun getBitmapDescriptorFromVector(context: Context, @DrawableRes vectorDrawableResourceId: Int): BitmapDescriptor? {
+    private fun getBitmapDescriptorFromVector(context: Context, @DrawableRes vectorDrawableResourceId: Int): BitmapDescriptor? {
 
         val vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId)
         val bitmap = Bitmap.createBitmap(
