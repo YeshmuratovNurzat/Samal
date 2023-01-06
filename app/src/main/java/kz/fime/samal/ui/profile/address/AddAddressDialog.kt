@@ -46,6 +46,27 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
                 etCity.setAdapter(adapter)
             })
 
+            val mapFragment = childFragmentManager.findFragmentById(R.id.location) as SupportMapFragment
+
+            mapFragment.getMapAsync { googleMap ->
+                mGoogleMap = googleMap
+
+                val latitude = 49.806406
+                val longitude = 73.085485
+
+                val currentLatLng = LatLng(latitude, longitude)
+                val markerOptions = MarkerOptions()
+                markerOptions.position(currentLatLng)
+                markerOptions.icon(getBitmapDescriptorFromVector(requireContext(), R.drawable.ic_location))
+                mGoogleMap.addMarker(markerOptions)
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,10f))
+
+                googleMap.setOnMapClickListener {
+                    findNavController().navigate(R.id.action_global_googleMapDialog,
+                        bundleOf(Pair("latitude",latitude),Pair("longitude",longitude)))
+                }
+            }
+
             etCity.setOnDismissListener {
                 val cityName = etCity.text.toString()
                 if (viewModel.cities.value is State.Success) {
@@ -69,13 +90,14 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
                             it.getOrNull("longitude","")
                         }
 
-                    val mapFragment = childFragmentManager.findFragmentById(R.id.location) as SupportMapFragment
-
                     mapFragment.getMapAsync { googleMap ->
                         mGoogleMap = googleMap
 
-                        val currentLatLng = LatLng(latitude?.toDouble() ?: 0.0,
-                            longitude?.toDouble() ?: 0.0)
+                        val currentLatLng = LatLng(latitude?.toDouble() ?: 0.0,longitude?.toDouble() ?: 0.0)
+                        val markerOptions = MarkerOptions()
+                        markerOptions.position(currentLatLng)
+                        markerOptions.icon(getBitmapDescriptorFromVector(requireContext(), R.drawable.ic_location))
+                        mGoogleMap.addMarker(markerOptions)
                         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,10f))
 
                         googleMap.setOnMapClickListener {
@@ -108,5 +130,19 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
                 }
             }
         }
+    }
+
+    fun getBitmapDescriptorFromVector(context: Context, @DrawableRes vectorDrawableResourceId: Int): BitmapDescriptor? {
+
+        val vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId)
+        val bitmap = Bitmap.createBitmap(
+            vectorDrawable!!.intrinsicWidth,
+            vectorDrawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        vectorDrawable.setBounds(0, 0, canvas.width, canvas.height)
+        vectorDrawable.draw(canvas)
+
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 }
