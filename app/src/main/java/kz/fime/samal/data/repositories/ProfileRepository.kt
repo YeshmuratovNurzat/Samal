@@ -11,6 +11,7 @@ import kz.fime.samal.api.SamalApi
 import kz.fime.samal.data.base.call
 import kz.fime.samal.data.models.*
 import kz.fime.samal.data.models.custom.Resource
+import kz.fime.samal.data.models.order_detail.ClientAddress
 import kz.fime.samal.utils.extensions.Item
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -128,6 +129,22 @@ class ProfileRepository constructor(private val service: SamalApi, gson: Gson) :
         val tempLiveData: MutableLiveData<Resource<Response<CardsResponse>>> = MutableLiveData()
         service
             .getCards()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { tempLiveData.postValue(Resource.loading(null)) }
+            .subscribe({
+                tempLiveData.postValue(Resource.success(it))
+            }, {
+                tempLiveData.postValue(getError(it))
+            })
+        return tempLiveData
+    }
+
+    @SuppressLint("CheckResult")
+    fun getAddress() : LiveData<Resource<Response<AddressResponse>>> {
+        val tempLiveData: MutableLiveData<Resource<Response<AddressResponse>>> = MutableLiveData()
+        service
+            .getAddress()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { tempLiveData.postValue(Resource.loading(null)) }

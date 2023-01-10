@@ -9,11 +9,16 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import kz.fime.samal.R
 import kz.fime.samal.data.SessionManager
+import kz.fime.samal.data.entities.Address
+import kz.fime.samal.data.models.AddCardResponse
+import kz.fime.samal.data.models.AddressResponse
 import kz.fime.samal.data.models.CardsResponse
 import kz.fime.samal.data.models.custom.Status
+import kz.fime.samal.data.models.order_detail.ClientAddress
 import kz.fime.samal.databinding.FragmentProfileBinding
 import kz.fime.samal.ui.AuthActivity
 import kz.fime.samal.ui.base.observeState
+import kz.fime.samal.ui.profile.address.AddressesViewModel
 import kz.fime.samal.utils.EditTextUtils
 import kz.fime.samal.utils.EventObserver
 import kz.fime.samal.utils.FragmentResultKeys.Companion.CHANGE_EMAIL_BUNDLE_KEY
@@ -74,6 +79,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(FragmentProfileB
 
             viewModel.loadData(false)
             viewModel2.loadCards()
+            viewModel2.loadAddress()
             srl.setOnRefreshListener {
                 viewModel.loadData(true)
             }
@@ -122,6 +128,22 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(FragmentProfileB
                 }
             }
         })
+
+        viewModel2.resultLoadAddress.observe(viewLifecycleOwner, Observer {
+            when (it.status){
+                Status.LOADING -> {
+
+                }
+                Status.SUCCESS -> {
+                    it.data?.let {
+                        drawAddress(it)
+                    }
+                }
+                Status.ERROR -> {
+
+                }
+            }
+        })
     }
 
     private fun drawCards(data: Response<CardsResponse>) {
@@ -132,6 +154,18 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(FragmentProfileB
             binding.cardHint.visibility = View.VISIBLE
             data.body()?.let {
                 binding.tvCard.text = it.data[0].card_id
+            }
+        }
+    }
+
+    private fun drawAddress(data: Response<AddressResponse>) {
+        if (data.code() == 204) {
+            binding.addressHint.visibility = View.GONE
+            binding.tvAddress.text = getString(R.string.add_delivery_address)
+        } else if (data.code() == 200) {
+            binding.addressHint.visibility = View.VISIBLE
+            data.body()?.let {
+                binding.tvAddress.text = it.data[0].name
             }
         }
     }

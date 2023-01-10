@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kz.fime.samal.api.ApiResponse
 import kz.fime.samal.data.models.*
 import kz.fime.samal.data.models.custom.Resource
+import kz.fime.samal.data.models.order_detail.ClientAddress
 import kz.fime.samal.data.repositories.ProfileRepository
 import kz.fime.samal.ui.base.BaseViewModel
 import okhttp3.MultipartBody
@@ -65,6 +66,12 @@ class ProfileViewModel2 @Inject constructor(
             profileRepository.getCards()
         }
 
+    private val _loadAddress = MutableLiveData<Unit>()
+    val resultLoadAddress: LiveData<Resource<Response<AddressResponse>>> = Transformations
+        .switchMap(_loadAddress) {
+            profileRepository.getAddress()
+        }
+
     private val _addCard = MutableLiveData<Unit>()
     val resultAddCard: LiveData<Resource<AddCardResponse>> = Transformations
         .switchMap(_addCard) {
@@ -104,6 +111,10 @@ class ProfileViewModel2 @Inject constructor(
 
     fun loadCards() {
         _loadCards.postValue(Unit)
+    }
+
+    fun loadAddress() {
+        _loadAddress.postValue(Unit)
     }
 
     fun addCard() {

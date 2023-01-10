@@ -4,6 +4,7 @@ import retrofit2.Response
 import io.reactivex.Observable
 import kz.fime.samal.data.entities.Profile
 import kz.fime.samal.data.models.*
+import kz.fime.samal.data.models.order_detail.ClientAddress
 import kz.fime.samal.data.models.order_detail.OrderDetailResponse
 import kz.fime.samal.utils.extensions.Item
 import okhttp3.MultipartBody
@@ -187,6 +188,9 @@ interface SamalApi {
 
     @GET("client/card")
     fun getCards(): Observable<Response<CardsResponse>>
+
+    @GET("client/address")
+    fun getAddress(): Observable<Response<AddressResponse>>
 
     @POST("client/card")
     fun addCard(): Observable<AddCardResponse>
