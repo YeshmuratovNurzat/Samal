@@ -75,6 +75,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(FragmentProfileB
             vgProfileInfo.visibility = isAuthorizedVisibility
             vgOrders.visibility = isAuthorizedVisibility
             vgOrdersInfo.visibility = isAuthorizedVisibility
+            logOutIcon.visibility = isAuthorizedVisibility
 
 
             viewModel.loadData(false)
