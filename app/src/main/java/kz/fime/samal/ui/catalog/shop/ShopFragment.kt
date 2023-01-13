@@ -26,11 +26,11 @@ class ShopFragment: BindingFragment<FragmentShopDetailsBinding>(FragmentShopDeta
             toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
             viewModel.getShop(arguments?.getString("id", "")!!)
 
-            val categoriesAdapter = CategoriesAdapter {
+            val shopAdapter = ShopAdapter {
                 Timber.d("Got: %s", it)
                 findNavController().navigate(R.id.action_global_category_products, bundleOf(Pair("name", it.getOrNull("name", "")), Pair("slug", it.getOrNull("category_slug", ""))))
             }
-            rvCategories.adapter = categoriesAdapter
+            rvCategories.adapter = shopAdapter
 
             val imagesAdapter = ImagesAdapter()
             setUpVpAdapter(vpImages, imagesAdapter, dotsImages)
@@ -44,7 +44,7 @@ class ShopFragment: BindingFragment<FragmentShopDetailsBinding>(FragmentShopDeta
             }, {}, {})
 
             viewModel.shopCategories.observeState(viewLifecycleOwner, {
-                categoriesAdapter.submitList(it.result)
+                shopAdapter.submitList(it.result)
             }, {}, {})
         }
     }
