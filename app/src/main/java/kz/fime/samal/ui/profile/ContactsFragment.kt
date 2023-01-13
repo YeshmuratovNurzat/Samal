@@ -13,6 +13,7 @@ import kz.fime.samal.data.models.custom.Status
 import kz.fime.samal.databinding.FragmentContactsBinding
 import kz.fime.samal.utils.EditTextUtils
 import kz.fime.samal.utils.binding.BindingFragment
+import kz.fime.samal.utils.extensions.asHtml
 import kz.fime.samal.utils.extensions.loadUrl
 
 class ContactsFragment : BindingFragment<FragmentContactsBinding>(FragmentContactsBinding::inflate) {
@@ -67,7 +68,7 @@ class ContactsFragment : BindingFragment<FragmentContactsBinding>(FragmentContac
             callIntent.data =  Uri.parse("tel: ${binding.phone2.text}")
             startActivity(callIntent)
         }
-        binding.aboutCompany.text = about.description
+        binding.aboutCompany.text = about.description.replace("<p>","").replace("</p>","")
     }
 
 }

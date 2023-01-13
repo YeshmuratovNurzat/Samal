@@ -28,7 +28,7 @@ class FaqFragment : BindingFragment<FragmentFaqBinding>(FragmentFaqBinding::infl
     }
 
     private fun observeViewModel() {
-        viewModel.resultLoadFaq.observe(viewLifecycleOwner, {
+        viewModel.resultLoadFaq.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let {
@@ -42,7 +42,7 @@ class FaqFragment : BindingFragment<FragmentFaqBinding>(FragmentFaqBinding::infl
 
                 }
             }
-        })
+        }
     }
 
     private fun drawFaq(faqList: FaqResponse) {

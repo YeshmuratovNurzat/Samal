@@ -14,7 +14,7 @@ class FaqAdapter(
 
     override fun bind(item: FaqItem, binding: ItemFaqBinding) {
         binding.run {
-            answer.text = item.answer
+            answer.text = item.answer.replace("<p>","").replace("</p>","")
             question.text = item.question
             if (item.isExpanded) {
                 parentlayout.setBackgroundColor(ContextCompat.getColor(context, R.color.gray_98))
