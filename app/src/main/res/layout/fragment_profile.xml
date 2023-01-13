@@ -537,6 +537,7 @@
                                 android:layout_centerVertical="true">
 
                                 <TextView
+                                    android:id="@+id/addressHint"
                                     android:text="Основной адрес"
                                     android:layout_marginBottom="8dp"
                                     style="@style/Text.C3" />

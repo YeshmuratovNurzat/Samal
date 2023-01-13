@@ -1,6 +1,9 @@
 package kz.fime.samal.ui.profile
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -30,7 +33,7 @@ class ContactsFragment : BindingFragment<FragmentContactsBinding>(FragmentContac
     }
 
     private fun observeViewModel() {
-        viewModel.resultLoadAbout.observe(viewLifecycleOwner, {
+        viewModel.resultLoadAbout.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let {
@@ -44,7 +47,7 @@ class ContactsFragment : BindingFragment<FragmentContactsBinding>(FragmentContac
 
                 }
             }
-        })
+        }
     }
 
     private fun drawAbout(about: AboutResponse) {
@@ -52,6 +55,18 @@ class ContactsFragment : BindingFragment<FragmentContactsBinding>(FragmentContac
         binding.addressTv.text = about.address
         binding.phone1.text = EditTextUtils.getPhoneMasked(about.phone1)
         binding.phone2.text = EditTextUtils.getPhoneMasked(about.phone2)
+        binding.phone1.setOnClickListener {
+            Log.d("MyLog","click")
+            val callIntent = Intent(Intent.ACTION_DIAL)
+            callIntent.data = Uri.parse("tel: ${binding.phone1.text}")
+            startActivity(callIntent)
+        }
+
+        binding.phone2.setOnClickListener {
+            val callIntent = Intent(Intent.ACTION_DIAL)
+            callIntent.data =  Uri.parse("tel: ${binding.phone2.text}")
+            startActivity(callIntent)
+        }
         binding.aboutCompany.text = about.description
     }
 
