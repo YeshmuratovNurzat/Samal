@@ -57,7 +57,6 @@ class ContactsFragment : BindingFragment<FragmentContactsBinding>(FragmentContac
         binding.phone1.text = EditTextUtils.getPhoneMasked(about.phone1)
         binding.phone2.text = EditTextUtils.getPhoneMasked(about.phone2)
         binding.phone1.setOnClickListener {
-            Log.d("MyLog","click")
             val callIntent = Intent(Intent.ACTION_DIAL)
             callIntent.data = Uri.parse("tel: ${binding.phone1.text}")
             startActivity(callIntent)
