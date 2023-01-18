@@ -2,6 +2,7 @@ package kz.fime.samal.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -33,6 +34,9 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(FragmentLoginBinding
             }
             EditTextUtils.setPhoneMask(etPhone)
             progressButton(btnLogin)
+            viewModel.getPhoneNumber().observe(viewLifecycleOwner) {
+                etPhone.setText("7${it}")
+            }
             btnLogin.setOnClickListener {
                 if (etPhone.text.toString()
                         .isNotEmpty() && etPassword.text.toString().isNotEmpty()
