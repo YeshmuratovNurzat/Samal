@@ -1,7 +1,10 @@
 package kz.fime.samal.ui.catalog.subcategory
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -11,18 +14,16 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kz.fime.samal.R
 import kz.fime.samal.data.models.custom.Status
+import kz.fime.samal.databinding.FragmentSubcategory2Binding
 import kz.fime.samal.databinding.FragmentSubcategoryBinding
 import kz.fime.samal.ui.catalog.category.CategoryProductsViewModel
 import kz.fime.samal.utils.binding.BindingFragment
-
 @AndroidEntryPoint
-class SubcategoryFragment: BindingFragment<FragmentSubcategoryBinding>(FragmentSubcategoryBinding::inflate) {
+class Subcategory2Fragment : BindingFragment<FragmentSubcategory2Binding>(FragmentSubcategory2Binding::inflate) {
 
     private val viewModel: CategoryProductsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         binding.run {
             toolbar.title = arguments?.getString("name")
             toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
@@ -35,6 +36,7 @@ class SubcategoryFragment: BindingFragment<FragmentSubcategoryBinding>(FragmentS
         }
     }
 
+
     private fun observeViewModel() {
         viewModel.resultSubcategory.observe(viewLifecycleOwner, Observer {
             when (it.status) {
@@ -43,12 +45,12 @@ class SubcategoryFragment: BindingFragment<FragmentSubcategoryBinding>(FragmentS
                 Status.SUCCESS -> {
                     it.data?.let {
                         val adapter = SubcategoryAdapter {
-                            findNavController().navigate(R.id.action_global_subcategory2Fragment, bundleOf(Pair("name", it.name), Pair("slug", it.category_slug)))
+                            findNavController().navigate(R.id.action_global_category_products, bundleOf(Pair("name", it.name), Pair("slug", it.category_slug)))
                         }
                         adapter.submitList(it.data)
                         binding.run {
-                            subcategoryRv.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                            subcategoryRv.adapter = adapter
+                            subcategory2Rv.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                            subcategory2Rv.adapter = adapter
                         }
                     }
                 }
@@ -57,5 +59,4 @@ class SubcategoryFragment: BindingFragment<FragmentSubcategoryBinding>(FragmentS
             }
         })
     }
-
 }

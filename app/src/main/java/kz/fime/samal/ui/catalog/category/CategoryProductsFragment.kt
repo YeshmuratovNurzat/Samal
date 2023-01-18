@@ -16,6 +16,7 @@ import kz.fime.samal.data.models.custom.Status
 import kz.fime.samal.databinding.FragmentCatalogProductsBinding
 import kz.fime.samal.ui.base.observeState
 import kz.fime.samal.ui.catalog.adapters.CategoryProductsAdapter
+import kz.fime.samal.ui.catalog.subcategory.SubcategoryAdapter
 import kz.fime.samal.ui.home.product.ProductDetailsViewModel
 import kz.fime.samal.utils.binding.BindingFragment
 import kz.fime.samal.utils.components.BottomBar

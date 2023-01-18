@@ -96,6 +96,7 @@
         android:id="@+id/rv_categories"
         style="@style/RecyclerView"
         tools:listitem="@layout/item_category"
+        android:paddingBottom="40dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

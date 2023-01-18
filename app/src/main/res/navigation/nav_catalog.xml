@@ -49,4 +49,12 @@
     <action
         android:id="@+id/action_global_filtersDialog"
         app:destination="@id/filtersDialog" />
+    <fragment
+        android:id="@+id/subcategory2Fragment"
+        android:name="kz.fime.samal.ui.catalog.subcategory.Subcategory2Fragment"
+        android:label="fragment_subcategory2"
+        tools:layout="@layout/fragment_subcategory2" />
+    <action
+        android:id="@+id/action_global_subcategory2Fragment"
+        app:destination="@id/subcategory2Fragment" />
 </navigation>
