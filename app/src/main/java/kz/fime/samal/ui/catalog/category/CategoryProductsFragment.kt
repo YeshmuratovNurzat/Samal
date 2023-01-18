@@ -34,7 +34,7 @@ class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(
 
     private var isLoading = false
     private var objects: MutableList<Item> = mutableListOf()
-    private var sort: Item = hashMapOf(Pair("sortDir", ""), Pair("sortBy", ""))
+    private var sort: Item = hashMapOf(Pair("sortDir", "asc"), Pair("sortBy", "min_price"))
     private lateinit var slug: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

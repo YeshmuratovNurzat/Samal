@@ -2,6 +2,7 @@ package kz.fime.samal.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
@@ -44,7 +45,11 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(FragmentProfileB
         BottomBar.getBottomBar()?.showMain()
         binding.run {
 
-            toolbar.setUpMenu(R.id.log_out to { findNavController().navigate(R.id.action_global_log_out) })
+            //toolbar.setUpMenu(R.id.log_out to { findNavController().navigate(R.id.action_global_log_out) })
+
+            logOutIcon.setOnClickListener {
+                findNavController().navigate(R.id.action_global_log_out)
+            }
 
             btnAuth.setOnClickListener {
                 startActivity(Intent(requireActivity(), AuthActivity::class.java))
@@ -66,16 +71,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(FragmentProfileB
             vgFaq.setOnClickListener { findNavController().navigate(R.id.toFaqFragment) }
             vgContacts.setOnClickListener {  }
 
-            val isAuthorizedVisibility = if (SessionManager.token.isEmpty()) View.GONE else View.VISIBLE
-            val isNotAuthorizedVisibility = if (isAuthorizedVisibility == View.VISIBLE) View.GONE else View.VISIBLE
-            cvAuth.visibility = isNotAuthorizedVisibility
-            vgUserInfo.visibility = isAuthorizedVisibility
-            cvPages.visibility = isAuthorizedVisibility
-            vgProfile.visibility = isAuthorizedVisibility
-            vgProfileInfo.visibility = isAuthorizedVisibility
-            vgOrders.visibility = isAuthorizedVisibility
-            vgOrdersInfo.visibility = isAuthorizedVisibility
-            logOutIcon.visibility = isAuthorizedVisibility
+            showItems()
 
 
             viewModel.loadData(false)
@@ -103,14 +99,41 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(FragmentProfileB
                 srl.isRefreshing = it
             })
 
-            viewModel.logOut.observe(viewLifecycleOwner, EventObserver {
-                SessionManager.logOut()
-                startActivity(Intent(requireActivity(), AuthActivity::class.java))
-                requireActivity().finish()
+//            viewModel.logOut.observe(viewLifecycleOwner, EventObserver {
+//                SessionManager.logOut()
+//                //startActivity(Intent(requireActivity(), AuthActivity::class.java))
+//                //requireActivity().finish()
+//            })
+            viewModel2.resultLogout.observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                    }
+                    Status.SUCCESS -> {
+                        SessionManager.logOut()
+                        binding.showItems()
+                    }
+                    Status.ERROR -> {
+
+                    }
+                }
             })
         }
         observeFragmentResults()
         observeViewModel()
+    }
+
+    private fun FragmentProfileBinding.showItems() {
+        val isAuthorizedVisibility = if (SessionManager.token.isEmpty()) View.GONE else View.VISIBLE
+        val isNotAuthorizedVisibility =
+            if (isAuthorizedVisibility == View.VISIBLE) View.GONE else View.VISIBLE
+        cvAuth.visibility = isNotAuthorizedVisibility
+        vgUserInfo.visibility = isAuthorizedVisibility
+        cvPages.visibility = isAuthorizedVisibility
+        vgProfile.visibility = isAuthorizedVisibility
+        vgProfileInfo.visibility = isAuthorizedVisibility
+        vgOrders.visibility = isAuthorizedVisibility
+        vgOrdersInfo.visibility = isAuthorizedVisibility
+        logOutIcon.visibility = isAuthorizedVisibility
     }
 
     private fun observeViewModel() {

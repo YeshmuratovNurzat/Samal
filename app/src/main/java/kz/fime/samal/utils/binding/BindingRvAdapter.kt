@@ -10,7 +10,7 @@ abstract class BindingRvAdapter<M: Any, V: ViewBinding>(
     private val inflate: (inflater: LayoutInflater, parent: ViewGroup?, attachToParent: Boolean) -> V
 ) : RecyclerView.Adapter<BindingRvAdapter.ViewHolder<M, V>>() {
 
-    protected var items: List<M> = listOf()
+    var items: List<M> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<M, V> {
         val view = inflate.invoke(LayoutInflater.from(parent.context), parent, false)

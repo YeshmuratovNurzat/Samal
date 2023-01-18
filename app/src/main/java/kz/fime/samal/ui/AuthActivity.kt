@@ -3,7 +3,6 @@ package kz.fime.samal.ui
 import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
 import kz.fime.samal.databinding.ActivityAuthBinding
-import kz.fime.samal.databinding.ActivityMainBinding
 import kz.fime.samal.utils.EventObserver
 import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingActivity

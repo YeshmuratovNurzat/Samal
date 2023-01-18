@@ -29,8 +29,10 @@ object SessionManager {
         set(value) = sharedPreferences.edit().putBoolean("is_first_launch", value).apply()
 
     fun logOut(){
+        token = ""
         sharedPreferences.edit().putString("token", "").apply()
         UserManager.logOut()
+        UserManager.profile = null
     }
 
     fun getPhone() = sharedPreferences.getString("phone", "")

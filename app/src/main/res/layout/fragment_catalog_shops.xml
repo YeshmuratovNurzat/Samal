@@ -33,7 +33,10 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_shops"
-                style="@style/RecyclerView" />
+                style="@style/RecyclerView"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:paddingBottom="35dp"/>
 
             <include
                 android:id="@+id/content_loading"

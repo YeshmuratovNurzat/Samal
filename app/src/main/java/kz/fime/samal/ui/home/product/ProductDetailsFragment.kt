@@ -9,13 +9,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kz.fime.samal.R
+import kz.fime.samal.data.SessionManager
 import kz.fime.samal.data.models.Product
 import kz.fime.samal.databinding.FragmentProductDetailsBinding
+import kz.fime.samal.ui.AuthActivity
 import kz.fime.samal.ui.base.observeEvent
 import kz.fime.samal.ui.base.observeState
 import kz.fime.samal.ui.home.product.pages.DescriptionFragment
 import kz.fime.samal.ui.home.product.pages.ReviewsFragment
 import kz.fime.samal.ui.profile.favorites.Favorites
+import kz.fime.samal.ui.profile.favorites.FavoritesViewModel
 import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingFragment
 import kz.fime.samal.utils.components.BottomBar
@@ -49,11 +52,6 @@ class ProductDetailsFragment: BindingFragment<FragmentProductDetailsBinding>(Fra
             setUpVpAdapter(vpImages, imagesAdapter, dotsImages)
             setUpPagesAdapter(vpDetails, listOf(DescriptionFragment(), ReviewsFragment()), Pair(listOf("Описание", "Отзывы"), tabs))
 
-            viewModel.toggleFavorites.observeEvent(viewLifecycleOwner, {
-                MessageUtils.postMessage(it.message)
-                toggle = !toggle
-                updateFav()
-            })
             viewModel.productDetailed.observeState(viewLifecycleOwner, {
                 Timber.d("Got: %s", it)
                 it.result?.let { productDetailed ->
@@ -63,22 +61,33 @@ class ProductDetailsFragment: BindingFragment<FragmentProductDetailsBinding>(Fra
                     tvPrice.text = "${productDetailed.price.getOrNull("min", "")} ₸"
 
                     BottomBar.getBottomBar()?.showProductDetails({ findNavController().navigateUp() }, like = {
-                        viewModel.toggleFavorites(product.shop_slug!!, product.product_slug!!)
-                        BottomBar.getBottomBar()?.getBinding()?.btnLike?.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_like)
-                    }, addToCart = {
-                        Timber.d("Adding Item: %s", product.product_slug)
-                        if (productDetailed.options.isNullOrEmpty()){
-
-                        viewModel.addCartItem(
-                            //productDetailed.shop_uuid!!   -> shop_uuid возвращает null ошибка NullPointerException
-                            product.shop_slug,
-                            product.product_slug,
-                            productDetailed.product_variants!![0].product_variant_id
-                        )
+                        if(SessionManager.token.isEmpty()){
+                            startActivity(Intent(requireActivity(), AuthActivity::class.java))
+                            requireActivity().finish()
+                        }else {
+                            viewModel.toggleFavorites(product.shop_slug!!, product.product_slug!!)
+                            BottomBar.getBottomBar()?.getBinding()?.btnLike?.icon =
+                                ContextCompat.getDrawable(requireContext(), R.drawable.ic_like)
                         }
-                        else{
-                            findNavController().navigate(R.id.action_global_options, bundleOf(Pair("shop_uuid",productDetailed.shop_uuid), Pair("product_slug", product.product_slug),
-                                Pair("variants", productDetailed.product_variants)))
+                    }, addToCart = {
+                        if(SessionManager.token.isEmpty()){
+                            startActivity(Intent(requireActivity(), AuthActivity::class.java))
+                            requireActivity().finish()
+                        }else{
+                            Timber.d("Adding Item: %s", product.product_slug)
+                            if (productDetailed.options.isNullOrEmpty()){
+
+                                viewModel.addCartItem(
+                                    //productDetailed.shop_uuid!!   -> shop_uuid возвращает null ошибка NullPointerException
+                                    product.shop_slug,
+                                    product.product_slug,
+                                    productDetailed.product_variants!![0].product_variant_id
+                                )
+                            }
+                            else{
+                                findNavController().navigate(R.id.action_global_options, bundleOf(Pair("shop_uuid",productDetailed.shop_uuid), Pair("product_slug", product.product_slug),
+                                    Pair("variants", productDetailed.product_variants)))
+                            }
                         }
                     }, share = {
                         val text: String =
@@ -98,6 +107,16 @@ class ProductDetailsFragment: BindingFragment<FragmentProductDetailsBinding>(Fra
 
             viewModel.addCartItem.observeEvent(viewLifecycleOwner, {
                 MessageUtils.postMessage("Товар добавлен")
+            })
+
+            viewModel.toggleFavorites.observeEvent(viewLifecycleOwner, {
+                if(!toggle) {
+                    MessageUtils.postMessage("Товар добавлен в избранное")
+                }else{
+                    MessageUtils.postMessage("Товар удален из избранного")
+                }
+                toggle = !toggle
+                updateFav()
             })
         }
     }

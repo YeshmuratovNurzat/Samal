@@ -589,11 +589,11 @@
 
                         <TextView
                             android:id="@+id/_tv_about"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginStart="10dp"
-                            android:text="О компании"
                             style="@style/Text.H5"
-                            android:layout_toEndOf="@id/_iv_about"/>
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_toEndOf="@id/_iv_about"
+                            android:text="О компании" />
 
                         <TextView
                             android:layout_marginBottom="20dp"
