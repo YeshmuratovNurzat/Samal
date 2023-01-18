@@ -63,7 +63,9 @@ interface SamalApi {
     ): Observable<ApiResponse<List<Item>>>
 
     @POST("client/shops")
-    suspend fun getShops(): Response<ApiResponse<List<Item>>>
+    fun getShops(
+        @Query("page") page: String?
+    ): Observable<ApiResponse<List<Item>>>
 
     @GET("client/shop/{id}")
     suspend fun getShop(@Path("id") shopId: String): Response<ApiResponse<Item>>

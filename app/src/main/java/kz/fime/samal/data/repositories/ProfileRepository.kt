@@ -253,6 +253,22 @@ class ProfileRepository constructor(private val service: SamalApi, gson: Gson) :
     }
 
     @SuppressLint("CheckResult")
+    fun loadShops(page: String?) : LiveData<Resource<ApiResponse<List<Item>>>> {
+        val tempLiveData: MutableLiveData<Resource<ApiResponse<List<Item>>>> = MutableLiveData()
+        service
+            .getShops(page)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { tempLiveData.postValue(Resource.loading(null)) }
+            .subscribe({
+                tempLiveData.postValue(Resource.success(it))
+            }, {
+                tempLiveData.postValue(getError(it))
+            })
+        return tempLiveData
+    }
+
+    @SuppressLint("CheckResult")
     fun loadSubcategory(categorySlug: String) : LiveData<Resource<CategoryModel>> {
         val tempLiveData: MutableLiveData<Resource<CategoryModel>> = MutableLiveData()
         service
@@ -300,4 +316,19 @@ class ProfileRepository constructor(private val service: SamalApi, gson: Gson) :
         return tempLiveData
     }
 
+    @SuppressLint("CheckResult")
+    fun loadCategoriesSearch(text: String) : LiveData<Resource<ApiResponse<List<Item>>>> {
+        val tempLiveData: MutableLiveData<Resource<ApiResponse<List<Item>>>> = MutableLiveData()
+        service
+            .productSearch(SearchRequest(text))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { tempLiveData.postValue(Resource.loading(null)) }
+            .subscribe({
+                tempLiveData.postValue(Resource.success(it))
+            }, {
+                tempLiveData.postValue(getError(it))
+            })
+        return tempLiveData
+    }
 }
