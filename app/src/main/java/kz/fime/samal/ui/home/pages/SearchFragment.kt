@@ -42,7 +42,7 @@ class SearchFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //BottomBar.getBottomBar()?.hide()
+        BottomBar.getBottomBar()?.showMain()
         val type = arguments?.getString("type", "")!!
         binding.run {
             etSearch.requestFocusAndShowKeyboard()
