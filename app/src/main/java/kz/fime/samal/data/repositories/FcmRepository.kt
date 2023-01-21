@@ -1,5 +1,7 @@
 package kz.fime.samal.data.repositories
 
+import android.os.Build
+import kz.fime.samal.BuildConfig
 import kz.fime.samal.api.SamalApi
 import kz.fime.samal.data.base.call
 
@@ -9,7 +11,8 @@ class FcmRepository (private val service: SamalApi) {
         service.addPushToken(
             hashMapOf(
                 Pair("device_token", token),
-                Pair("device_type", 2)
+                Pair("device_type", 3),
+                Pair("user_agent", Build.DEVICE + ", " + Build.BOARD + ", "+ Build.MANUFACTURER)
             )
         )
     }
@@ -18,7 +21,8 @@ class FcmRepository (private val service: SamalApi) {
         service.editPushToken(
             hashMapOf(
                 Pair("device_token", token),
-                Pair("device_type", 2)
+                Pair("device_type", 3),
+                Pair("user_agent", Build.DEVICE + ", " + Build.BOARD + ", "+ Build.MANUFACTURER)
             )
         )
     }
