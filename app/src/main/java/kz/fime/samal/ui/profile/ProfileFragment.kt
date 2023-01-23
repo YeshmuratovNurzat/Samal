@@ -177,7 +177,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(FragmentProfileB
         } else if (data.code() == 200) {
             binding.cardHint.visibility = View.VISIBLE
             data.body()?.let {
-                binding.tvCard.text = it.data[0].card_id
+                binding.tvCard.text = it.data[0].card_hash
             }
         }
     }
