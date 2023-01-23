@@ -29,6 +29,10 @@ class WidgetsFragment: BindingFragment<FragmentHomeWidgetsBinding>(FragmentHomeW
             toolbar.setTitle(arguments?.getString("name"))
             toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
+            etSearch.setOnClickListener {
+                findNavController().navigate(R.id.search, bundleOf(Pair("type", "product")))
+            }
+
             val slug = arguments?.getString("slug")!!
 
             viewModel.getProducts(slug)

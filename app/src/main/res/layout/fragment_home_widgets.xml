@@ -15,15 +15,29 @@
         android:layout_width="match_parent"
         app:title="Хит продаж"
         app:titleCentered="true"
-        app:menu="@menu/menu_home_widget"
         app:titleTextAppearance="@style/Text.H3"
         app:navigationIcon="@drawable/ic_back_24dp"/>
 
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/SearchInputLayout"
+        android:id="@+id/search"
+        android:layout_below="@id/toolbar"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_search"
+            style="@style/EditText"
+            android:imeOptions="actionDone"
+            android:focusable="false"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srl"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/search"
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
 
