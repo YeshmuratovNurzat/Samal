@@ -47,6 +47,7 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
             val cardAdapter = CardAdapter {
                 tvPaymentMethod.text = "Картой\n•••• ${it.getOrNull("card_hash","")?.substring(12,16)}"
                 iv.setImageResource(R.drawable.ic_master_card)
+                rvInstallment.visibility = View.GONE
                 paymentSlug = it.getOrNull("slug","card")!!
                 calculatePrice(cartOptionsAdapter)
             }
@@ -125,7 +126,9 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
             })
             rvDeliveryOptions.adapter = addressesAdapter
 
-            vgDeliveryPickUp.setOnClickListener {}
+            vgDeliveryPickUp.setOnClickListener {
+                findNavController().navigate(R.id.action_global_pickUpLocationsDialog)
+            }
 
             vgAddNewAddress.setOnClickListener {
                 findNavController().navigate(R.id.action_global_add_address)
@@ -243,7 +246,7 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
             }else{
                 list.add(CartItem(-2,"Комиссия банка", installmentPrice))
             }
-            binding.tvToPay.text = "К оплате ${priceProduct}₸"
+            binding.tvToPay.text = "К оплате ${priceProduct + quota}₸"
         }else{
             for (i in 0 until list.size) {
                 if (list[i].title == "Комиссия банка") {
