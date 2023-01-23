@@ -32,6 +32,15 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_check_20"
+        android:visibility="invisible"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"/>
+
     <View
         android:layout_height="1dp"
         android:layout_width="match_parent"
