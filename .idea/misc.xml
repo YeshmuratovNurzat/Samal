@@ -67,6 +67,7 @@
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/dialog_order_info.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/dialog_order_successfull.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/dialog_otp.xml" value="0.22239583333333332" />
+        <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/dialog_pick_up_locations.xml" value="0.1919191919191919" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/filter_dialog.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_add_card.xml" value="0.21822916666666667" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_addresses.xml" value="0.22239583333333332" />
@@ -93,6 +94,7 @@
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_product_details_reviews.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_profile.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_qr.xml" value="0.22239583333333332" />
+        <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_registration.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_shop_details.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_subcategory.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_subcategory2.xml" value="0.22239583333333332" />
@@ -117,6 +119,7 @@
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/item_order.xml" value="0.4" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/item_order_detail.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/item_payment_option.xml" value="0.2" />
+        <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/item_pick_up.xml" value="0.22135416666666666" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/item_product.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/item_product2.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/item_product_options.xml" value="0.22239583333333332" />

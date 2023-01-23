@@ -33,7 +33,7 @@
     <string name="add_card">Привязать карту</string>
 
     <string name="registration_text">Похоже, мы с вами незнакомы. Укажите свое имя, чтобы мы знали как к вам обращаться</string>
-    <string name="otp_text">%s, мы отправили вам SMS с кодом подтверждения на номер %s</string>
+    <string name="otp_text">Мы отправили вам SMS с кодом подтверждения на номер %s</string>
     <string name="you_changing_number">Вы меняете номер на %s. Мы отправили вам SMS с кодом подтверждения на ваш старый номер %s</string>
 
     <string name="x_balance">%1s Б</string>

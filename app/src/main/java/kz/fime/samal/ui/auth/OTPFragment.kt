@@ -27,18 +27,19 @@ class OTPFragment : BindingFragment<FragmentOtpBinding>(FragmentOtpBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
-            viewModel.getPhoneNumber().observe(viewLifecycleOwner, {
+            viewModel.getPhoneNumber().observe(viewLifecycleOwner) {
                 viewModel.getOTP(it)
                 phone = it
-            })
-            viewModel.getUserName().observe(viewLifecycleOwner, {
-                name = it
-                binding.registrationLabel.text = String.format(
-                    getString(R.string.registration_text),
-                    name,
-                    EditTextUtils.getPhoneSecretMasked(phone.substring(1))
-                )
-            })
+                registrationLabel.text = registrationLabel.text.toString().replace("%s", EditTextUtils.getPhoneMasked(phone))
+            }
+//            viewModel.getUserName().observe(viewLifecycleOwner) {
+//                name = it
+//                binding.registrationLabel.text = String.format(
+//                    getString(R.string.registration_text),
+//                    name,
+//                    EditTextUtils.getPhoneSecretMasked(phone.substring(1))
+//                )
+//            }
 
         }
         observeViewModel()
