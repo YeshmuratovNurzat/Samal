@@ -9,11 +9,12 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kz.fime.samal.R
 import kz.fime.samal.utils.BASE_URL
 
-fun ImageView.loadMapScreenshot(lat: Double, lng: Double, zoom: Int=16){
+fun ImageView.loadMapScreenshot(lat: Double, lng: Double, zoom: Int=17){
     val lang = "en-US"
     val width = 600
-    val height = 450
-    loadUrl("http://static-maps.yandex.ru/1.x/?lang=$lang&ll=$lng,$lat&size=$width,$height&z=$zoom&l=map")
+    val height = 320
+    //loadUrl("http://static-maps.yandex.ru/1.x/?lang=$lang&ll=$lng,$lat&size=$width,$height&z=$zoom&l=map")
+    loadMap("https://static-maps.yandex.ru/1.x/?ll=$lng,$lat&size=$width,$height&z=$zoom&l=map&pt=$lat,$lat&lang=ru_RU")
 }
 
 fun ImageView.loadUrl(url: String?, @DrawableRes resId: Int? = null) {
@@ -22,6 +23,19 @@ fun ImageView.loadUrl(url: String?, @DrawableRes resId: Int? = null) {
     } else {
         Glide.with(this)
             .load(BASE_URL + url)
+            .placeholder(resId ?: R.drawable.ic_image_placeholder)
+            .fallback(resId ?: R.drawable.ic_image_placeholder)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(this)
+    }
+}
+
+fun ImageView.loadMap(url: String?, @DrawableRes resId: Int? = null) {
+    if (url.isNullOrEmpty()) {
+        loadDrawable(resId ?: R.drawable.bg_image_placeholder)
+    } else {
+        Glide.with(this)
+            .load(url)
             .placeholder(resId ?: R.drawable.ic_image_placeholder)
             .fallback(resId ?: R.drawable.ic_image_placeholder)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
