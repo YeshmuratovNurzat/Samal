@@ -19,6 +19,7 @@ import kz.fime.samal.utils.binding.BindingFragment
 class SubcategoryFragment: BindingFragment<FragmentSubcategoryBinding>(FragmentSubcategoryBinding::inflate) {
 
     private val viewModel: CategoryProductsViewModel by viewModels()
+    private var shopId: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,6 +29,7 @@ class SubcategoryFragment: BindingFragment<FragmentSubcategoryBinding>(FragmentS
             toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
             val slug = arguments?.getString("slug")!!
+            shopId = arguments?.getString("shop_id")
 
             viewModel.getSubcategory(slug)
 
@@ -39,11 +41,12 @@ class SubcategoryFragment: BindingFragment<FragmentSubcategoryBinding>(FragmentS
         viewModel.resultSubcategory.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
+
                 }
                 Status.SUCCESS -> {
                     it.data?.let {
                         val adapter = SubcategoryAdapter {
-                            findNavController().navigate(R.id.action_global_subcategory2Fragment, bundleOf(Pair("name", it.name), Pair("slug", it.category_slug)))
+                            findNavController().navigate(R.id.action_global_subcategory2Fragment, bundleOf(Pair("name", it.name), Pair("slug", it.category_slug), Pair("shop_id", shopId)))
                         }
                         adapter.submitList(it.data)
                         binding.run {

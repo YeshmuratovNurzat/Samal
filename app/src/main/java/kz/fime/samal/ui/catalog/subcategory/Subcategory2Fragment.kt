@@ -22,15 +22,21 @@ import kz.fime.samal.utils.binding.BindingFragment
 class Subcategory2Fragment : BindingFragment<FragmentSubcategory2Binding>(FragmentSubcategory2Binding::inflate) {
 
     private val viewModel: CategoryProductsViewModel by viewModels()
+    private var shopId: String? = null
+    private var slug: String? = null
+    private var name: String? = null
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.run {
             toolbar.title = arguments?.getString("name")
             toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
-            val slug = arguments?.getString("slug")!!
+            slug = arguments?.getString("slug")
+            shopId = arguments?.getString("shop_id")
+            name = arguments?.getString("name")
 
-            viewModel.getSubcategory(slug)
+            viewModel.getSubcategory(slug.toString())
 
             observeViewModel()
         }
@@ -39,13 +45,14 @@ class Subcategory2Fragment : BindingFragment<FragmentSubcategory2Binding>(Fragme
 
     private fun observeViewModel() {
         viewModel.resultSubcategory.observe(viewLifecycleOwner, Observer {
+            it.data
             when (it.status) {
                 Status.LOADING -> {
                 }
                 Status.SUCCESS -> {
                     it.data?.let {
                         val adapter = SubcategoryAdapter {
-                            findNavController().navigate(R.id.action_global_category_products, bundleOf(Pair("name", it.name), Pair("slug", it.category_slug)))
+                            findNavController().navigate(R.id.action_global_category_products, bundleOf(Pair("name", it.name), Pair("slug", it.category_slug), Pair("shop_id", shopId)))
                         }
                         adapter.submitList(it.data)
                         binding.run {
@@ -55,6 +62,8 @@ class Subcategory2Fragment : BindingFragment<FragmentSubcategory2Binding>(Fragme
                     }
                 }
                 Status.ERROR -> {
+                    findNavController().popBackStack()
+                    findNavController().navigate(R.id.action_global_category_products, bundleOf(Pair("name", name),Pair("slug", slug),Pair("shop_id", shopId)))
                 }
             }
         })
