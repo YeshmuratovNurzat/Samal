@@ -4,12 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import kz.fime.samal.data.SessionManager
-import kz.fime.samal.data.models.custom.Status
 import kz.fime.samal.databinding.FragmentPasswordBinding
 import kz.fime.samal.ui.MainActivity
-import kz.fime.samal.ui.base.handleException
 import kz.fime.samal.ui.base.observeEvent
 import kz.fime.samal.utils.binding.BindingFragment
 import kz.fime.samal.utils.extensions.isLoading
@@ -75,7 +72,10 @@ class PasswordFragment :
         viewModel.registerUser.observeEvent(viewLifecycleOwner, {
             it.result?.let { data ->
                 SessionManager.token = data["token"].toString()
-                startActivity(Intent(requireActivity(), MainActivity::class.java))
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+                //startActivity(Intent(requireActivity(), MainActivity::class.java))
                 requireActivity().finish()
             }
         }, {}, {
@@ -86,7 +86,10 @@ class PasswordFragment :
             {
                 it.result?.let { data ->
                     SessionManager.token = data["token"].toString()
-                    startActivity(Intent(requireActivity(), MainActivity::class.java))
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                    //startActivity(Intent(requireActivity(), MainActivity::class.java))
                     requireActivity().finish()
                 }
             }, {}, {
