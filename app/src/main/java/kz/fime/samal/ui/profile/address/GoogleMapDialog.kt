@@ -1,24 +1,17 @@
 package kz.fime.samal.ui.profile.address
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.content.IntentSender
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.location.Address
 import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.annotation.DrawableRes
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -26,19 +19,17 @@ import com.google.android.gms.maps.model.*
 import kz.fime.samal.R
 import kz.fime.samal.databinding.FragmentGoogleMapDialogBinding
 import kz.fime.samal.utils.binding.BindingBottomSheetFragment
-import java.io.IOException
-
+import java.util.*
 
 class GoogleMapDialog : BindingBottomSheetFragment<FragmentGoogleMapDialogBinding>(FragmentGoogleMapDialogBinding::inflate) {
 
+    private val viewModel: AddressesViewModel by activityViewModels()
     private lateinit var mGoogleMap: GoogleMap
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var lastLocation: Location
-    private lateinit var locationCallback: LocationCallback
-    private lateinit var locationRequest: LocationRequest
-    private var locationUpdateState = false
     private lateinit var markerCenter: Marker
-
+    private var mPositionLatitude : Double = 0.0
+    private var mPositionLongitude : Double = 0.0
+    private var addressName : String = ""
+    private var addressNumber : String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.run {
@@ -48,8 +39,7 @@ class GoogleMapDialog : BindingBottomSheetFragment<FragmentGoogleMapDialogBindin
             val latitude = arguments?.getString("latitude")
             val longitude = arguments?.getString("longitude")
 
-            val mapFragment =
-                childFragmentManager.findFragmentById(R.id.location_map) as SupportMapFragment
+            val mapFragment = childFragmentManager.findFragmentById(R.id.location_map) as SupportMapFragment
 
             mapFragment.getMapAsync { googleMap ->
                 mGoogleMap = googleMap
@@ -65,9 +55,24 @@ class GoogleMapDialog : BindingBottomSheetFragment<FragmentGoogleMapDialogBindin
                 }
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
 
+                mGoogleMap.setOnCameraIdleListener {
+                    val mPosition = mGoogleMap.cameraPosition.target
+                    val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                    val addresses = geocoder.getFromLocation(mPosition.latitude, mPosition.longitude, 1)
+                    val address = addresses[0].getAddressLine(0)
+                    val title = "$address"
+                    if(addresses[0].thoroughfare != null && addresses[0].subThoroughfare != null){
+                        addressName = addresses[0].thoroughfare
+                        addressNumber = addresses[0].subThoroughfare
+                    }
+                    mPositionLatitude = mPosition.latitude
+                    mPositionLongitude = mPosition.longitude
+                    locationInfo.text = title
+                }
             }
 
             btn.setOnClickListener {
+                viewModel.addressMap?.value = mapOf("addressName" to addressName, "addressNumber" to addressNumber)
                 dismiss()
             }
         }
