@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.annotation.DrawableRes
@@ -18,11 +19,11 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import kz.fime.samal.R
 import kz.fime.samal.data.base.State
 import kz.fime.samal.databinding.DialogAddAddressBinding
 import kz.fime.samal.ui.base.observeState
+import kz.fime.samal.ui.cart.order.OrderInfoDialog
 import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingBottomSheetFragment
 import kz.fime.samal.utils.extensions.InnerItem
@@ -33,6 +34,8 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
 
     private val viewModel: AddressesViewModel by activityViewModels()
     private lateinit var mGoogleMap: GoogleMap
+    private var lat: Double = 0.0
+    private var lon: Double = 0.0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.run {
@@ -51,10 +54,10 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
             mapFragment.getMapAsync { googleMap ->
                 mGoogleMap = googleMap
 
-                val latitude = 49.806406
-                val longitude = 73.085485
+                lat = 49.806406
+                lon = 73.085485
 
-                val currentLatLng = LatLng(latitude, longitude)
+                val currentLatLng = LatLng(lat, lon)
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,10f))
                 mGoogleMap.uiSettings.isScrollGesturesEnabled = false
                 mGoogleMap.uiSettings.isZoomGesturesEnabled = false
@@ -67,30 +70,47 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
             }
 
             etCity.setOnDismissListener {
-                val cityName = etCity.text.toString()
-                if (viewModel.cities.value is State.Success) {
+                if (etCity.text.isNotEmpty()) {
+                    val cityName = etCity.text.toString()
+                    if (viewModel.cities.value is State.Success) {
 
-                    val cityId =
-                        ((viewModel.cities.value as State.Success<List<Item>>).result?.first() {
-                            it.getOrNull("name", "")!! == cityName
-                        }).getOrNull("id", 0)!!
+                        val cityId =
+                            ((viewModel.cities.value as State.Success<List<Item>>).result?.first() {
+                                it.getOrNull("name", "")!! == cityName
+                            }).getOrNull("id", 0)!!
 
-                    val latitude =
-                        ((viewModel.cities.value as State.Success<List<Item>>).result?.first {
-                            it.getOrNull("id", 0)!! == cityId
-                        })?.getOrNull<InnerItem>("point").let {
-                            it.getOrNull("latitude","")
-                        }
+                        val latitude =
+                            ((viewModel.cities.value as State.Success<List<Item>>).result?.first {
+                                it.getOrNull("id", 0)!! == cityId
+                            })?.getOrNull<InnerItem>("point").let {
+                                it.getOrNull("latitude", "")
+                            }
+                        lat = latitude?.toDouble() ?: 49.806406
 
-                    val longitude =
-                        ((viewModel.cities.value as State.Success<List<Item>>).result?.first {
-                            it.getOrNull("id", 0)!! == cityId
-                        })?.getOrNull<InnerItem>("point").let {
-                            it.getOrNull("longitude","")
-                        }
+                        val longitude =
+                            ((viewModel.cities.value as State.Success<List<Item>>).result?.first {
+                                it.getOrNull("id", 0)!! == cityId
+                            })?.getOrNull<InnerItem>("point").let {
+                                it.getOrNull("longitude", "")
+                            }
+                        lon = longitude?.toDouble() ?: 73.085485
 
-                        val currentLatLng = LatLng(latitude?.toDouble() ?: 0.0,longitude?.toDouble() ?: 0.0)
-                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,10f))
+                        val currentLatLng =
+                            LatLng(latitude?.toDouble() ?: 0.0, longitude?.toDouble() ?: 0.0)
+                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 10f))
+                    }
+                }else{
+                    return@setOnDismissListener
+                }
+            }
+
+            viewModel.addressMap?.observe(viewLifecycleOwner) {
+                val addressNumber = it?.get("addressNumber")
+                val addressName = it?.get("addressName")
+
+                if(addressName != null) {
+                    etStreet.setText(addressName.toString())
+                    etHouse.setText(addressNumber.toString())
                 }
             }
 
@@ -102,7 +122,12 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
                 val apartment = etApartment.text.toString()
 
                 if (name.isEmpty() || city.isEmpty() || street.isEmpty() || houseNumber.isEmpty() || apartment.isEmpty()) {
-                    MessageUtils.postMessage("Заполните все поля!")
+                    val bundle = bundleOf(
+                        OrderInfoDialog.KEY_TITLE to "Ошибка",
+                        OrderInfoDialog.KEY_DESC to "Заполните все поля!",
+                        OrderInfoDialog.KEY_BUTTON_TEXT to "Понятно, закрыть",
+                        OrderInfoDialog.KEY_IMAGE to R.drawable.ic_cat_order_error)
+                    findNavController().navigate(R.id.action_global_order_info, bundle)
                     return@setOnClickListener
                 }
                 if (viewModel.cities.value is State.Success) {
@@ -111,11 +136,16 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
                             it.getOrNull("name", "")!! == city
                         }).getOrNull("id", 0)!!
 
-                    viewModel.addAddress(cityId, name, street, houseNumber, apartment, false, "49.806406", "73.085485")
+                    viewModel.addAddress(cityId, name, street, houseNumber, apartment, false, latitude = lat.toString(), longitude = lon.toString())
                     dismiss()
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.addressMap?.value = null
     }
 
     private fun getBitmapDescriptorFromVector(context: Context, @DrawableRes vectorDrawableResourceId: Int): BitmapDescriptor? {
