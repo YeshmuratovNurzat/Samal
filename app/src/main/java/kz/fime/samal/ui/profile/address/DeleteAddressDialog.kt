@@ -20,9 +20,9 @@ class DeleteAddressDialog: BindingBottomSheetFragment<DialogAddressDeleteBinding
             tvMainAddress.text = "Вы действительно хотите удалить адрес $name, $street, $houseNumber, $apartment?"
 
             btnDelete.setOnClickListener {
+                dismiss()
                 val addressSlug = arguments?.getString("address_slug")
                 viewModel.deleteAddress(addressSlug!!)
-                dismiss()
             }
         }
     }
