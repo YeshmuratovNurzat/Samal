@@ -5,6 +5,7 @@ import io.reactivex.Observable
 import kz.fime.samal.data.entities.Profile
 import kz.fime.samal.data.models.*
 import kz.fime.samal.data.models.order_detail.ClientAddress
+import kz.fime.samal.data.models.order_detail.Order
 import kz.fime.samal.data.models.order_detail.OrderDetailResponse
 import kz.fime.samal.utils.extensions.Item
 import okhttp3.MultipartBody
@@ -161,12 +162,15 @@ interface SamalApi {
     suspend fun getInstallment(): Response<ApiResponse<List<Item>>>
 
     @GET("client/order")
-    suspend fun getOrders(): Response<ApiResponse<List<Item>>>
+    fun getOrders(@Query("page") page: String?): Observable<ApiResponse<List<Item>>>
+
+    @GET("client/order")
+    suspend fun getOrders(): Response<ApiResponse<List<Order>>>
 
     @GET("client/order/{id}")
     suspend fun getOrderDetails(@Path("id") orderId: String): Response<ApiResponse<OrderDetailResponse>>
 
-    @GET("client/order/{id}")
+    @DELETE("client/order/{id}")
     suspend fun cancelOrder(@Path("id") orderId: String): Response<ApiResponse<Nothing>>
 
     //Profile
@@ -231,4 +235,13 @@ interface SamalApi {
     // Text Examples
     @GET("client/category/all")
     suspend fun postSomething(@Body data: HashMap<String, Any>): Response<ApiResponse<List<HashMap<String, Any>>>>
+
+    // notifications
+
+    @GET("client/notifications")
+    fun getNotifications(@Query("page") page: String?) : Observable<ApiResponse<List<Item>>>
+
+    @GET("client/notifications/read_all")
+    suspend fun notificationsReadAll() : Response<ApiResponse<List<Item>>>
+
 }

@@ -17,7 +17,7 @@ class CatalogRepository (private val service: SamalApi) {
 
     suspend fun getWidgetProducts(categorySlug: String) = call { service.getWidgetProducts(categorySlug) }
 
-    suspend fun getShops() = call { service.getShops() }
+    //suspend fun getShops() = call { service.getShops() }
 
     suspend fun postSomething() = call { service.postSomething(hashMapOf(
             Pair("key1", "val1"),

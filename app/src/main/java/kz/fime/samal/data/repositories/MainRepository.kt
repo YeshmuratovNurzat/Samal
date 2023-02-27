@@ -29,7 +29,7 @@ class MainRepository (private val service: SamalApi) {
 
     suspend fun getOrders() = call { service.getOrders() }
 
-    suspend fun placeOrder(baskets: List<String>, deliverySlug: String, paymentSlug: String, installment_uuid: String, addressSlug: String, priceProduct: Int, quota: Int) = call {
+    suspend fun placeOrder(baskets: List<String>, deliverySlug: String, pick_up_point_slug: String, paymentSlug: String, installment_uuid: String, addressSlug: String, priceProduct: Int, quota: Int) = call {
         val body = hashMapOf(
             "baskets" to baskets,
             "price_product" to priceProduct,
@@ -38,7 +38,7 @@ class MainRepository (private val service: SamalApi) {
 //            "cart" to null,
             "delivery_slug" to deliverySlug,
             "address_slug" to addressSlug,
-//            "pick_up_point_slug" to "",
+            "pick_up_point_slug" to pick_up_point_slug,
             "quota" to quota,
             "cost_total" to (quota + priceProduct)
         )
@@ -84,5 +84,9 @@ class MainRepository (private val service: SamalApi) {
     }
 
     suspend fun deleteClientAddress(addressId: String) = call { service.deleteClientAddress(addressId) }
+
+//    suspend fun notifications() = call {service.notifications()}
+
+    suspend fun notificationsReadAll() = call {service.notificationsReadAll()}
 
 }

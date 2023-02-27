@@ -47,4 +47,8 @@ object SessionManager {
 
     fun getPushToken() = sharedPreferences.getString("pushtoken", "")!!
 
+    fun getUrlAddCard() = sharedPreferences.getString("urlAddCard", "")
+
+    fun setUrlAddCard(url: String) = sharedPreferences.edit().putString("urlAddCard", url).apply()
+
 }

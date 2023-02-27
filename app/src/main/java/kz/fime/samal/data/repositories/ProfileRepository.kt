@@ -253,6 +253,22 @@ class ProfileRepository constructor(private val service: SamalApi, gson: Gson) :
     }
 
     @SuppressLint("CheckResult")
+    fun loadNotifications(page: String?): LiveData<Resource<ApiResponse<List<Item>>>>{
+        val tempLiveData: MutableLiveData<Resource<ApiResponse<List<Item>>>> = MutableLiveData()
+        service
+            .getNotifications(page)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { tempLiveData.postValue(Resource.loading(null)) }
+            .subscribe({
+                tempLiveData.postValue(Resource.success(it))
+            }, {
+                tempLiveData.postValue(getError(it))
+            })
+        return tempLiveData
+    }
+
+    @SuppressLint("CheckResult")
     fun loadShops(page: String?) : LiveData<Resource<ApiResponse<List<Item>>>> {
         val tempLiveData: MutableLiveData<Resource<ApiResponse<List<Item>>>> = MutableLiveData()
         service
@@ -321,6 +337,22 @@ class ProfileRepository constructor(private val service: SamalApi, gson: Gson) :
         val tempLiveData: MutableLiveData<Resource<ApiResponse<List<Item>>>> = MutableLiveData()
         service
             .productSearch(SearchRequest(text))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { tempLiveData.postValue(Resource.loading(null)) }
+            .subscribe({
+                tempLiveData.postValue(Resource.success(it))
+            }, {
+                tempLiveData.postValue(getError(it))
+            })
+        return tempLiveData
+    }
+
+    @SuppressLint("CheckResult")
+    fun getOrders(page: String?): LiveData<Resource<ApiResponse<List<Item>>>>{
+        val tempLiveData: MutableLiveData<Resource<ApiResponse<List<Item>>>> = MutableLiveData()
+        service
+            .getOrders(page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { tempLiveData.postValue(Resource.loading(null)) }
