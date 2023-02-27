@@ -54,7 +54,7 @@
             <ImageView
                 android:id="@+id/image_pick_up"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"/>
+                android:layout_height="170dp"/>
 
         </androidx.cardview.widget.CardView>
 
