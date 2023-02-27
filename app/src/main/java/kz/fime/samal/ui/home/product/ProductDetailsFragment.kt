@@ -18,7 +18,6 @@ import kz.fime.samal.ui.base.observeState
 import kz.fime.samal.ui.home.product.pages.DescriptionFragment
 import kz.fime.samal.ui.home.product.pages.ReviewsFragment
 import kz.fime.samal.ui.profile.favorites.Favorites
-import kz.fime.samal.ui.profile.favorites.FavoritesViewModel
 import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingFragment
 import kz.fime.samal.utils.components.BottomBar
@@ -63,7 +62,7 @@ class ProductDetailsFragment: BindingFragment<FragmentProductDetailsBinding>(Fra
                     BottomBar.getBottomBar()?.showProductDetails({ findNavController().navigateUp() }, like = {
                         if(SessionManager.token.isEmpty()){
                             startActivity(Intent(requireActivity(), AuthActivity::class.java))
-                            requireActivity().finish()
+                            //requireActivity().finish()
                         }else {
                             viewModel.toggleFavorites(product.shop_slug!!, product.product_slug!!)
                             BottomBar.getBottomBar()?.getBinding()?.btnLike?.icon =
@@ -72,7 +71,7 @@ class ProductDetailsFragment: BindingFragment<FragmentProductDetailsBinding>(Fra
                     }, addToCart = {
                         if(SessionManager.token.isEmpty()){
                             startActivity(Intent(requireActivity(), AuthActivity::class.java))
-                            requireActivity().finish()
+                            //requireActivity().finish()
                         }else{
                             Timber.d("Adding Item: %s", product.product_slug)
                             if (productDetailed.options.isNullOrEmpty()){
@@ -85,7 +84,7 @@ class ProductDetailsFragment: BindingFragment<FragmentProductDetailsBinding>(Fra
                                 )
                             }
                             else{
-                                findNavController().navigate(R.id.action_global_options, bundleOf(Pair("shop_uuid",productDetailed.shop_uuid), Pair("product_slug", product.product_slug),
+                                findNavController().navigate(R.id.action_global_optionsDialogFragment, bundleOf(Pair("shop_uuid", product.shop_slug), Pair("product_slug", product.product_slug),
                                     Pair("variants", productDetailed.product_variants)))
                             }
                         }
@@ -106,7 +105,7 @@ class ProductDetailsFragment: BindingFragment<FragmentProductDetailsBinding>(Fra
             })
 
             viewModel.addCartItem.observeEvent(viewLifecycleOwner, {
-                MessageUtils.postMessage("Товар добавлен")
+                MessageUtils.postMessage("Товар добавлен в корзину")
             })
 
             viewModel.toggleFavorites.observeEvent(viewLifecycleOwner, {

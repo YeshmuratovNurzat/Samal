@@ -32,15 +32,15 @@ class OptionsDialogFragment :
                     }
             }, {}, {})
 
-            productOptionsAdapter.complete.observe(viewLifecycleOwner, {
+            productOptionsAdapter.complete.observe(viewLifecycleOwner) {
                 btnAddToCart.isEnabled = it
                 val price =
                     variants?.first { it.product_variant_id == productOptionsAdapter.productVariantId.first() }?.price
 
-               if(it) btnAddToCart.text = "В корзину за $price ₸"
+                if (it) btnAddToCart.text = "В корзину за $price ₸"
                 else btnAddToCart.text = "Добавить в корзину"
 
-            })
+            }
 
             btnAddToCart.setOnClickListener {
                 if (shopUuid != null) {
