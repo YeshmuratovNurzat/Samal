@@ -18,7 +18,7 @@ class CardDeleteDialog:  BindingBottomSheetFragment<DialogCardDeleteBinding>(Dia
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
-            progressButton(btnDeleteCard)
+            //progressButton(btnDeleteCard)
             val cardId = arguments?.getString("card_id")
             val cardHash = arguments?.getString("card_hash")
 
@@ -27,6 +27,7 @@ class CardDeleteDialog:  BindingBottomSheetFragment<DialogCardDeleteBinding>(Dia
 
             btnDeleteCard.setOnClickListener {
                 viewModel.deleteCard(cardId.toString())
+                dismiss()
             }
 
             observeViewModel()
@@ -37,13 +38,13 @@ class CardDeleteDialog:  BindingBottomSheetFragment<DialogCardDeleteBinding>(Dia
         viewModel.resultDeleteCard.observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    binding.btnDeleteCard.isLoading(true)
+                    //binding.btnDeleteCard.isLoading(true)
                 }
                 Status.SUCCESS -> {
-                    binding.btnDeleteCard.isLoading(false)
+                    //binding.btnDeleteCard.isLoading(false)
                 }
                 Status.ERROR -> {
-                    binding.btnDeleteCard.isLoading(false)
+                    //binding.btnDeleteCard.isLoading(false)
                 }
             }
         })

@@ -19,7 +19,7 @@ class AddCardFragment : BindingFragment<FragmentAddCardBinding>(FragmentAddCardB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.setOnClickListener { findNavController().navigateUp() }
+        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         initWebView()
     }
 
