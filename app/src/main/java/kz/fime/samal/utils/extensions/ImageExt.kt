@@ -12,7 +12,7 @@ import kz.fime.samal.utils.BASE_URL
 fun ImageView.loadMapScreenshot(lat: Double, lng: Double, zoom: Int=17){
     val lang = "en-US"
     val width = 600
-    val height = 320
+    val height = 290
     //loadUrl("http://static-maps.yandex.ru/1.x/?lang=$lang&ll=$lng,$lat&size=$width,$height&z=$zoom&l=map")
     loadMap("https://static-maps.yandex.ru/1.x/?ll=$lng,$lat&size=$width,$height&z=$zoom&l=map&pt=$lat,$lat&lang=ru_RU")
 }
