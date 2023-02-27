@@ -27,8 +27,13 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_items"
-                android:paddingBottom="140dp"
-                style="@style/RecyclerView" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:clipToPadding="false"
+                android:scrollbars="none"
+                android:paddingBottom="40dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"  />
 
             <include
                 android:id="@+id/content_empty"
