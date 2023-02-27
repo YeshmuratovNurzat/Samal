@@ -40,7 +40,7 @@ class QRFragment: BindingFragment<FragmentQrBinding>(FragmentQrBinding::inflate)
             setUpToolbar(true)
             binding.btnAuth.setOnClickListener {
                 startActivity(Intent(requireActivity(), AuthActivity::class.java))
-                requireActivity().finish()
+                //requireActivity().finish()
             }
         } else {
             BottomBar.getBottomBar()?.hide()
