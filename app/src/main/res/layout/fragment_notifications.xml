@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         app:title="Уведомления"
         app:titleCentered="true"
+        app:menu="@menu/menu_notifications"
         app:titleTextAppearance="@style/Text.H3"
         app:navigationIcon="@drawable/ic_back_24dp"/>
 
@@ -28,8 +29,13 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_items"
-                android:paddingBottom="140dp"
-                style="@style/RecyclerView" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:clipToPadding="false"
+                android:scrollbars="none"
+                android:paddingBottom="35dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </FrameLayout>
 
