@@ -16,12 +16,10 @@ import kz.fime.samal.data.models.custom.Status
 import kz.fime.samal.databinding.FragmentCatalogProductsBinding
 import kz.fime.samal.ui.base.observeState
 import kz.fime.samal.ui.catalog.adapters.CategoryProductsAdapter
-import kz.fime.samal.ui.catalog.subcategory.SubcategoryAdapter
 import kz.fime.samal.ui.home.product.ProductDetailsViewModel
 import kz.fime.samal.utils.binding.BindingFragment
 import kz.fime.samal.utils.components.BottomBar
 import kz.fime.samal.utils.extensions.ITEM_ARG
-import kz.fime.samal.utils.extensions.InnerItem
 import kz.fime.samal.utils.extensions.Item
 import kz.fime.samal.utils.extensions.getOrNull
 import kz.fime.samal.utils.gridItemDecorator
@@ -36,7 +34,8 @@ class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(
     private var isLoading = false
     private var objects: MutableList<Item> = mutableListOf()
     private var sort: Item = hashMapOf(Pair("sortDir", "asc"), Pair("sortBy", "min_price"))
-    private lateinit var slug: String
+    private var slug: String? = null
+    private var shopId: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,13 +44,23 @@ class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(
             toolbar.setTitle(arguments?.getString("name"))
             toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
+            srl.setOnRefreshListener {
+                isLoading = false
+            }
+
             filterIcon.setOnClickListener {
                 findNavController().navigate(R.id.filtersDialog)
             }
 
-            slug = arguments?.getString("slug")!!
+            slug = arguments?.getString("slug")
+            shopId = arguments?.getString("shop_id")
 
-            viewModel.getProducts(slug, null, sort)
+            shopId?.let {
+                sort = hashMapOf(Pair("shop_uuid", it),Pair("sortDir", "asc"), Pair("sortBy", "min_price"))
+            }
+            slug?.let {
+                viewModel.getProducts(it, null, sort)
+            }
 
             val productsAdapter = CategoryProductsAdapter {
                 findNavController().navigate(
@@ -79,7 +88,12 @@ class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(
                     }
                     Status.SUCCESS -> {
                         it.data?.let {
-                            it.data?.let { it1 -> objects.addAll(it1)}
+                            it.data?.let { it1 ->
+                                if(objects.containsAll(it1)){
+                                }else{
+                                    objects.addAll(it1)
+                                }
+                            }
                             productsAdapter.submitList(objects)
                             isLoading = false
                             rvProducts.addOnScrollListener(object :
@@ -91,12 +105,10 @@ class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(
                                 ) {
                                     super.onScrolled(recyclerView, dx, dy)
                                     if (dy > 0) {
-                                        val linearLayoutManager =
-                                            recyclerView.layoutManager as LinearLayoutManager?
+                                        val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager?
                                         val visibleItemCount = linearLayoutManager?.childCount
                                         val totalItemCount = linearLayoutManager?.itemCount
-                                        val pastVisibleItems =
-                                            linearLayoutManager?.findFirstVisibleItemPosition()
+                                        val pastVisibleItems = linearLayoutManager?.findFirstVisibleItemPosition()
                                         val nextPage = it.links.getOrNull("next", "")
                                         if (nextPage != null) {
                                             if (!isLoading) {
@@ -105,7 +117,7 @@ class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(
                                                         val pages = nextPage.split("?")
                                                         var page = pages[pages.lastIndex]
                                                         page = page.substring(5)
-                                                        viewModel.getProducts(slug, page, sort)
+                                                        viewModel.getProducts(slug!!, page, sort)
                                                         isLoading = true
                                                     }
                                                 }
@@ -125,8 +137,13 @@ class CategoryProductsFragment: BindingFragment<FragmentCatalogProductsBinding>(
                 objects.clear()
                 val sBy: Any = it.getOrNull("sortBy", "") ?: "min_price"
                 val sDir: Any = it.getOrNull("sortDir", "") ?: "desc"
-                sort = hashMapOf(Pair("sortDir", sDir), Pair("sortBy", sBy))
-                viewModel.getProducts(slug, null, sort)
+                val shopId: String? = shopId
+                if (shopId != null){
+                    sort = hashMapOf(Pair("shop_uuid", shopId),Pair("sortDir", sDir), Pair("sortBy", sBy))
+                }else{
+                    sort = hashMapOf(Pair("sortDir", sDir), Pair("sortBy", sBy))
+                }
+                viewModel.getProducts(slug!!, null, sort)
             }
 
         }

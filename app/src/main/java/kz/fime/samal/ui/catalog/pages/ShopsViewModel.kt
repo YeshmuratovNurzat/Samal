@@ -47,8 +47,8 @@ class ShopsViewModel @Inject constructor(
         val page: String?,
     )
 
-//    init {
-//        getShops()
-//    }
+    init {
+        getShops("1")
+    }
 
 }

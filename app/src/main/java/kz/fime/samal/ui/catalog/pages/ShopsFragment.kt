@@ -1,6 +1,7 @@
 package kz.fime.samal.ui.catalog.pages
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -11,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kz.fime.samal.R
 import kz.fime.samal.data.models.custom.Status
 import kz.fime.samal.databinding.FragmentCatalogShopsBinding
+import kz.fime.samal.ui.base.observeState
 import kz.fime.samal.ui.catalog.adapters.ShopsAdapter
 import kz.fime.samal.utils.binding.BindingFragment
 import kz.fime.samal.utils.components.BottomBar
@@ -26,6 +28,7 @@ class ShopsFragment: BindingFragment<FragmentCatalogShopsBinding>(FragmentCatalo
     private var objects: MutableList<Item> = mutableListOf()
     private var isLoading = false
     private var page: String = "0"
+    private var nextPage: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         BottomBar.getBottomBar()?.showMain()
@@ -40,11 +43,13 @@ class ShopsFragment: BindingFragment<FragmentCatalogShopsBinding>(FragmentCatalo
             }
             rvShops.adapter = shopsAdapter
 
+            srl.setOnRefreshListener {
+                srl.isRefreshing = false
+            }
+
             etSearch.setOnClickListener {
                 findNavController().navigate(R.id.search, bundleOf(Pair("type", "shop")))
             }
-
-            viewModel.getShops(null)
 
             viewModel.resultShops.observe(viewLifecycleOwner) {
                 Timber.d("resultShops: %s", it)
@@ -62,14 +67,14 @@ class ShopsFragment: BindingFragment<FragmentCatalogShopsBinding>(FragmentCatalo
                         rvShops.visibility = View.VISIBLE
                         it.data?.let {
                             it.data?.let { it1 ->
-                                objects.addAll(it1)
-                                if (size == 0) {
-                                    shopsAdapter.submitList(objects)
+                                if (objects.containsAll(it1)) {
+
                                 } else {
-                                    shopsAdapter.items = objects
-                                    shopsAdapter.notifyItemRangeInserted(size, it1.size)
+                                    objects.addAll(it1)
                                 }
                             }
+                            shopsAdapter.submitList(objects)
+                            srl.isRefreshing = false
                             isLoading = false
                             rvShops.addOnScrollListener(object :
                                 RecyclerView.OnScrollListener() {
@@ -84,18 +89,17 @@ class ShopsFragment: BindingFragment<FragmentCatalogShopsBinding>(FragmentCatalo
                                         val visibleItemCount = linearLayoutManager?.childCount
                                         val totalItemCount = linearLayoutManager?.itemCount
                                         val pastVisibleItems = linearLayoutManager?.findFirstVisibleItemPosition()
-                                        val nextPage = it.links.getOrNull("next", "")
+                                        nextPage = it.links.getOrNull("next", "")
                                         if (nextPage != null) {
-                                            if (!isLoading) {
+                                            if (!isLoading) {  
                                                 if (visibleItemCount != null && pastVisibleItems != null && totalItemCount != null) {
                                                     if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-                                                        val pages = nextPage.split("?")
+                                                        val pages = nextPage!!.split("?")
                                                         if (page.toInt() < pages[pages.lastIndex].substring(5).toInt()) {
                                                             page = pages[pages.lastIndex].substring(5)
                                                             viewModel.getShops(page)
+                                                            srl.isRefreshing = true
                                                             isLoading = true
-                                                        } else {
-                                                            return
                                                         }
                                                     }
                                                 }
@@ -110,21 +114,5 @@ class ShopsFragment: BindingFragment<FragmentCatalogShopsBinding>(FragmentCatalo
                 }
             }
         }
-
-//                shopsAdapter.submitList(it.result)
-//            }, {
-//
-//            }, {
-//                srl.isRefreshing = it
-//                if (it) {
-//                    rvShops.visibility = View.GONE
-//                    contentLoading.root.visibility = View.VISIBLE
-//                } else {
-//                    rvShops.visibility = View.VISIBLE
-//                    contentLoading.root.stopShimmer()
-//                    contentLoading.root.visibility = View.GONE
-//                }
-//            })
-
-        }
     }
+}
