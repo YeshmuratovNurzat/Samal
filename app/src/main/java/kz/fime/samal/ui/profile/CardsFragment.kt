@@ -1,12 +1,15 @@
 package kz.fime.samal.ui.profile
 
 import android.os.Bundle
+import android.os.PerformanceHintManager
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import kz.fime.samal.R
+import kz.fime.samal.data.SessionManager
 import kz.fime.samal.data.models.CardsResponse
 import kz.fime.samal.data.models.custom.Status
 import kz.fime.samal.databinding.FragmentCardsBinding
@@ -18,6 +21,7 @@ import retrofit2.Response
 class CardsFragment : BindingFragment<FragmentCardsBinding>(FragmentCardsBinding::inflate) {
 
     private val viewModel: ProfileViewModel2 by activityViewModels()
+    private var url: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,10 +43,11 @@ class CardsFragment : BindingFragment<FragmentCardsBinding>(FragmentCardsBinding
     }
 
     private fun addCard() {
-        viewModel.addCard()
+        findNavController().navigate(R.id.addCardFragment, bundleOf("url" to url))
     }
 
     private fun observeViewModel() {
+        viewModel.addCard()
         viewModel.resultLoadCards.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -71,8 +76,10 @@ class CardsFragment : BindingFragment<FragmentCardsBinding>(FragmentCardsBinding
                 }
                 Status.SUCCESS -> {
                     it.data?.let {
-                        val bundle = bundleOf("url" to it.data.url)
-                        findNavController().navigate(R.id.addCardFragment, bundle)
+                        url = it.data.url
+                        SessionManager.setUrlAddCard(it.data.url)
+                        //val bundle = bundleOf("url" to it.data.url)
+                        //findNavController().navigate(R.id.addCardFragment, bundle)
                     }
                 }
                 Status.ERROR -> {
