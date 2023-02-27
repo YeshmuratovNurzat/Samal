@@ -53,7 +53,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(FragmentProfileB
 
             btnAuth.setOnClickListener {
                 startActivity(Intent(requireActivity(), AuthActivity::class.java))
-                requireActivity().finish()
+                //requireActivity().finish()
             }
 
             tvOrders.setOnClickListener { findNavController().navigate(R.id.action_global_orders) }
