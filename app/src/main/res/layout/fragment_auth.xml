@@ -7,9 +7,9 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
-        app:title="Авторизация"
+        style="@style/Toolbar"
         app:menu="@menu/menu_auth"
-        style="@style/Toolbar" />
+        app:title="Авторизация" />
 
     <ScrollView
         android:id="@+id/sv"
