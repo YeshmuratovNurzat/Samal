@@ -41,7 +41,9 @@ class AddressesFragment: BindingFragment<FragmentAddressesBinding>(FragmentAddre
                         Pair("apartment", it.getOrNull("apartment", "")),
                         Pair("default", it.getOrNull("default", false)),
                         Pair("city", it.getOrNull<InnerItem>("city").let { it.getOrNull("name", "") }),
-                        Pair("city_id", it.getOrNull<InnerItem>("city").let { it.getOrNull("city_id", 0) })))
+                        Pair("city_id", it.getOrNull<InnerItem>("city").let { it.getOrNull("city_id", 0) }),
+                        Pair("latitude",it.getOrNull<InnerItem>("point").let { it.getOrNull("latitude","") }),
+                        Pair("longitude",it.getOrNull<InnerItem>("point").let { it.getOrNull("longitude","")})))
             }
             rvItems.adapter = addressesAdapter
             viewModel.addresses.observeState(viewLifecycleOwner, {
@@ -64,7 +66,7 @@ class AddressesFragment: BindingFragment<FragmentAddressesBinding>(FragmentAddre
             }
 
             viewModel.deleteAddress.observeEvent(viewLifecycleOwner, {
-                MessageUtils.postMessage("Success")
+                Log.d("MyLog","deleteAddress == ${it.result}")
             })
 
             val addAddress = { _: View ->
