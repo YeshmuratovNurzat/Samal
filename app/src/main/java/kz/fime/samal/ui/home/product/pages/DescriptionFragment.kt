@@ -29,6 +29,8 @@ class DescriptionFragment: BindingFragment<FragmentProductDetailsDescriptionBind
                 it.result?.let { product ->
                     productPropertiesAdapter.submitList(product.properties)
                     tvContent.text = product.description?.trim().asHtml()
+                    viewStoreProducts.text = "Посмотреть все товары магазина"
+                    shopAddress.text = "Адрес магазина"
 
                     shopAddress.setOnClickListener {
                         val shopAddress = product.shop.two_gis
