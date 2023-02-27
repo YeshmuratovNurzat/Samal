@@ -3,6 +3,7 @@ package kz.fime.samal.ui.catalog.shop
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -24,6 +25,7 @@ class ShopFragment: BindingFragment<FragmentShopDetailsBinding>(FragmentShopDeta
 
     private val viewModel: ShopViewModel by viewModels()
     private var shopPhone : String? = null
+    private var shopUuid : String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.run {
@@ -32,7 +34,11 @@ class ShopFragment: BindingFragment<FragmentShopDetailsBinding>(FragmentShopDeta
 
             val shopAdapter = ShopAdapter {
                 Timber.d("Got: %s", it)
-                findNavController().navigate(R.id.action_global_category_products, bundleOf(Pair("name", it.getOrNull("name", "")), Pair("slug", it.getOrNull("category_slug", ""))))
+                findNavController().navigate(R.id.action_global_subcategories,
+                    bundleOf(
+                        Pair("name", it.getOrNull("name", "")),
+                        Pair("slug", it.getOrNull("category_slug", "")),
+                        Pair("shop_id", shopUuid)))
             }
             rvCategories.adapter = shopAdapter
 
@@ -51,6 +57,7 @@ class ShopFragment: BindingFragment<FragmentShopDetailsBinding>(FragmentShopDeta
                     tvAddress.text = it.getOrNull("address")
                     shopPhone = EditTextUtils.getPhoneMasked(it.getOrNull<String>("phone").toString())
                     imagesAdapter.submitList(it.getOrNull<List<InnerItem>>("images"))
+                    shopUuid = it.getOrNull("shop_uuid","")
                 }
             }, {}, {})
 
