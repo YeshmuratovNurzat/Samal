@@ -60,7 +60,10 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(FragmentLoginBinding
         viewModel.loginUser.observeEvent(viewLifecycleOwner, {
             it.result?.let { data ->
                 SessionManager.token = data["token"].toString()
-                startActivity(Intent(requireActivity(), MainActivity::class.java))
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+                //startActivity(Intent(requireActivity(), MainActivity::class.java))
                 requireActivity().finish()
             }
         }, {
