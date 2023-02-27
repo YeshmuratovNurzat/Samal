@@ -24,7 +24,6 @@
         android:layout_toStartOf="@id/_iv_arrow"
         android:layout_centerVertical="true"
         android:layout_marginStart="12dp"
-        android:layout_marginEnd="18dp"
         android:background="@drawable/bg_order_status"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
@@ -35,28 +34,28 @@
         style="@style/Text.C3" />
 
     <LinearLayout
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@id/tv_status"
         android:layout_centerVertical="true"
         android:layout_marginStart="20dp"
+        android:layout_toStartOf="@id/tv_status"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_title"
+            style="@style/Text.H5"
             android:layout_marginEnd="64dp"
             android:lines="1"
-            tools:text="№1244123213"
-            style="@style/Text.H5"/>
+            tools:text="№1244123213" />
 
         <TextView
             android:id="@+id/tv_subtitle"
+            style="@style/Text.P2"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="64dp"
             android:lines="1"
-            tools:text="11 521₸ "
-            style="@style/Text.P2"/>
+            tools:text="11 521₸ " />
 
     </LinearLayout>
 
