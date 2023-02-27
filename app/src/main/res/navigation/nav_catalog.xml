@@ -57,4 +57,11 @@
     <action
         android:id="@+id/action_global_subcategory2Fragment"
         app:destination="@id/subcategory2Fragment" />
+    <dialog
+        android:id="@+id/optionsDialogFragment"
+        android:name="kz.fime.samal.ui.home.product.OptionsDialogFragment"
+        android:label="OptionsDialogFragment" />
+    <action
+        android:id="@+id/action_global_optionsDialogFragment"
+        app:destination="@id/optionsDialogFragment" />
 </navigation>

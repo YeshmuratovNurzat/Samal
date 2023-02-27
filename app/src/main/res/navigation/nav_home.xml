@@ -50,13 +50,4 @@
         android:id="@+id/action_global_shop"
         app:destination="@id/shop" />
 
-    <dialog
-        android:id="@+id/options"
-        android:name="kz.fime.samal.ui.home.product.OptionsDialogFragment"
-        android:label="OptionsDialogFragment" />
-
-    <action
-        android:id="@+id/action_global_options"
-        app:destination="@id/options" />
-
 </navigation>

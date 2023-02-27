@@ -59,19 +59,19 @@
         android:id="@+id/action_global_order_info"
         app:destination="@id/order_info"/>
     <fragment
-        android:id="@+id/cardsFragment2"
+        android:id="@+id/cardsFragment"
         android:name="kz.fime.samal.ui.profile.CardsFragment"
         android:label="CardsFragment" />
     <action
-        android:id="@+id/action_global_cardsFragment2"
-        app:destination="@id/cardsFragment2" />
+        android:id="@+id/action_global_cardsFragment"
+        app:destination="@id/cardsFragment" />
     <fragment
-        android:id="@+id/addCardFragment2"
+        android:id="@+id/addCardFragment"
         android:name="kz.fime.samal.ui.profile.AddCardFragment"
         android:label="AddCardFragment" />
     <action
-        android:id="@+id/action_global_addCardFragment2"
-        app:destination="@id/addCardFragment2" />
+        android:id="@+id/action_global_addCardFragment"
+        app:destination="@id/addCardFragment" />
     <fragment
         android:id="@+id/installmentFragment"
         android:name="kz.fime.samal.ui.cart.InstallmentFragment"
@@ -79,4 +79,25 @@
     <action
         android:id="@+id/action_global_installmentFragment"
         app:destination="@id/installmentFragment" />
+    <dialog
+        android:id="@+id/pickUpLocationsDialog"
+        android:name="kz.fime.samal.ui.cart.PickUpLocationsDialog"
+        android:label="PickUpLocationsDialog" />
+    <action
+        android:id="@+id/action_global_pickUpLocationsDialog"
+        app:destination="@id/pickUpLocationsDialog" />
+    <dialog
+        android:id="@+id/googleMapDialog2"
+        android:name="kz.fime.samal.ui.profile.address.GoogleMapDialog"
+        android:label="GoogleMapDialog" />
+    <action
+        android:id="@+id/action_global_googleMapDialog"
+        app:destination="@id/googleMapDialog2" />
+    <dialog
+        android:id="@+id/cardDeleteDialog"
+        android:name="kz.fime.samal.ui.profile.CardDeleteDialog"
+        android:label="CardDeleteDialog" />
+    <action
+        android:id="@+id/action_global_cardDeleteDialog"
+        app:destination="@id/cardDeleteDialog" />
 </navigation>

@@ -212,5 +212,26 @@
     <action
         android:id="@+id/action_global_deleteAddressDialog"
         app:destination="@id/deleteAddressDialog" />
+    <dialog
+        android:id="@+id/orderInfoDialog"
+        android:name="kz.fime.samal.ui.cart.order.OrderInfoDialog"
+        android:label="OrderInfoDialog" />
+    <action
+        android:id="@+id/action_global_order_info"
+        app:destination="@id/orderInfoDialog" />
+    <fragment
+        android:id="@+id/notificationsInfoFragment"
+        android:name="kz.fime.samal.ui.profile.notifications.NotificationsInfoFragment"
+        android:label="NotificationsInfoFragment" />
+    <action
+        android:id="@+id/action_global_notificationsInfoFragment"
+        app:destination="@id/notificationsInfoFragment" />
+    <dialog
+        android:id="@+id/deleteOrderDialog"
+        android:name="kz.fime.samal.ui.profile.orders.DeleteOrderDialog"
+        android:label="DeleteOrderDialog" />
+    <action
+        android:id="@+id/action_global_deleteOrderDialog"
+        app:destination="@id/deleteOrderDialog" />
 
 </navigation>
