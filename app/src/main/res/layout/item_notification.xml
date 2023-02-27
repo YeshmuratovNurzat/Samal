@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="80dp"
+    android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center_horizontal">
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:padding="6dp"
+        android:layout_marginStart="15dp"
+        android:src="@drawable/ic_notifications"/>
+
+    <ImageView
+        android:id="@+id/_iv_arrow"
+        android:layout_height="24dp"
+        android:layout_width="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_arrow_right_24"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@+id/iv"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Text.H5"
+            android:layout_marginEnd="20dp"
+            android:lines="1"
+            android:ems="12"
+            android:ellipsize="end"
+            tools:text="Заказ №412312412 в пути" />
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            style="@style/Text.P2"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="20dp"
+            android:lines="1"
+            android:ems="12"
+            android:ellipsize="end"
+            tools:text="Скоро он будет у вас" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:background="#F8F8FA" />
+
+</RelativeLayout>
+
