@@ -2,6 +2,7 @@ package kz.fime.samal.ui.cart
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
@@ -18,6 +19,8 @@ import kz.fime.samal.ui.cart.order.OrderInfoDialog
 import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingFragment
 import kz.fime.samal.utils.components.BottomBar
+import kz.fime.samal.utils.extensions.InnerItem
+import kz.fime.samal.utils.extensions.Item
 import kz.fime.samal.utils.extensions.getOrNull
 import kz.fime.samal.utils.extensions.setUpMenu
 import timber.log.Timber
@@ -35,7 +38,7 @@ class CartFragment: BindingFragment<FragmentCartBinding>(FragmentCartBinding::in
                 vgMain.visibility = View.INVISIBLE
                 binding.btnAuth.setOnClickListener {
                     startActivity(Intent(requireActivity(), AuthActivity::class.java))
-                    requireActivity().finish()
+                    //requireActivity().finish()
                 }
             } else {
                 toolbar.setUpMenu(R.id.clear to { findNavController().navigate(R.id.action_global_clear_cart) })
@@ -65,7 +68,6 @@ class CartFragment: BindingFragment<FragmentCartBinding>(FragmentCartBinding::in
                     viewModel.loadCart()
                 })
 
-                rvItems.adapter = cartAdapter
                 viewModel.cartItems.observeState(viewLifecycleOwner, {
                     if (it.result.isNullOrEmpty()) {
                         contentEmpty.root.visibility = View.VISIBLE
@@ -80,6 +82,7 @@ class CartFragment: BindingFragment<FragmentCartBinding>(FragmentCartBinding::in
                 }, {}, {
                     srl.isRefreshing = it
                 })
+                rvItems.adapter = cartAdapter
 
                 viewModel.clearCart.observeState(viewLifecycleOwner, {
                     contentEmpty.root.visibility = View.VISIBLE

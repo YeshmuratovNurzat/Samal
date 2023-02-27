@@ -217,6 +217,23 @@
                 android:layout_width="match_parent"
                 android:orientation="vertical">
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    app:cardCornerRadius="25dp">
+
+                    <ImageView
+                        android:id="@+id/image_pick_up"
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"/>
+
+                </androidx.cardview.widget.CardView>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_delivery_options"
                     android:layout_marginTop="10dp"
@@ -242,11 +259,11 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:layout_marginEnd="60dp"
+                        style="@style/Text.P2"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:text="Выбрать пункт самовывоза"
-                        style="@style/Text.P2" />
+                        android:layout_marginEnd="60dp"
+                        android:text="Выбрать пункт самовывоза" />
 
                     <View
                         android:layout_height="1px"
@@ -275,11 +292,11 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:layout_marginEnd="60dp"
+                        style="@style/Text.P2"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:text="Добавить новый адрес"
-                        style="@style/Text.P2" />
+                        android:layout_marginEnd="60dp"
+                        android:text="Добавить новый адрес" />
 
                     <View
                         android:layout_height="1px"

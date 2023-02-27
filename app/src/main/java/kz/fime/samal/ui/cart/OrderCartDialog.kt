@@ -2,11 +2,13 @@ package kz.fime.samal.ui.cart
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import kz.fime.samal.R
+import kz.fime.samal.data.SessionManager
 import kz.fime.samal.data.base.State
 import kz.fime.samal.databinding.DialogCartOrderBinding
 import kz.fime.samal.ui.base.observeEvent
@@ -14,33 +16,40 @@ import kz.fime.samal.ui.base.observeState
 import kz.fime.samal.ui.cart.adapters.*
 import kz.fime.samal.ui.cart.order.OrderInfoDialog
 import kz.fime.samal.ui.profile.address.AddressesAdapter
+import kz.fime.samal.ui.profile.address.AddressesViewModel
 import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingBottomSheetFragment
 import kz.fime.samal.utils.extensions.InnerItem
+import kz.fime.samal.utils.extensions.Item
 import kz.fime.samal.utils.extensions.getOrNull
+import kz.fime.samal.utils.extensions.loadMapScreenshot
 import timber.log.Timber
 
 class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(DialogCartOrderBinding::inflate) {
 
     private val viewModel: CartViewModel by activityViewModels()
+    private val addressViewModel: AddressesViewModel by activityViewModels()
 
     private var showPaymentMethod = false
     private var showDeliveryMethod = false
     private var useBonus = false
-
     private var deliverySlug = ""
     private var paymentSlug = ""
     private var addressSlug = ""
     private var installmentId = ""
+    private var pickUpPointSlug = ""
     private var installmentPercent = 1
     private var baskets = listOf<String>()
     private var priceProduct = 0
     private var quota = 0
     private var price = 0
+    private var priceTotal = 0
     private lateinit var list : MutableList<CartItem>
+    private lateinit var listAddress : MutableList<Item>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.run {
+
             val cartOptionsAdapter = CartOptionAdapter()
             rvItems.adapter = cartOptionsAdapter
 
@@ -67,18 +76,16 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
 
             val paymentOptionsAdapter = PaymentOptionAdapter {
                 when(it.getOrNull("payment_id",1.0)){
-
                     1.0 -> {
                         iv.setImageResource(R.drawable.ic_cash)
                         rvInstallment.visibility = View.GONE
                     }
-
                     2.0 -> {
                         iv.setImageResource(R.drawable.ic_baseline_add_24)
                         rvInstallment.visibility = View.GONE
-                        findNavController().navigate(R.id.action_global_cardsFragment2)
+                        //findNavController().navigate(R.id.addCardFragment, bundleOf("url" to SessionManager.getUrlAddCard()))
+                        findNavController().navigate(R.id.action_global_cardsFragment)
                     }
-
                     5.0 -> {
                         iv.setImageResource(R.drawable.ic_installment)
                         rvInstallment.visibility = View.VISIBLE
@@ -92,18 +99,22 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
 
             val addressesAdapter = AddressesAdapter {
                 tvDeliveryInfo.text = "Доставка курьером, ${it.getOrNull("name", "")}"
-                val a = it.getOrNull("address_slug", "")!!
-                addressSlug = a
-                viewModel.getDeliveryCost(a)
+                cardView.visibility = View.GONE
+                val address = it.getOrNull("address_slug", "")!!
+                addressSlug = address
+                viewModel.getDeliveryCost(address)
+                pickUpPointSlug = ""
                 if (viewModel.deliveryTypes.liveData.value is State.Success) {
                     val types = (viewModel.deliveryTypes.liveData.value as State.Success).result
                     types?.forEach {
                         if (it.getOrNull("delivery_id", 0)!! == 2) {
                             deliverySlug = it.getOrNull("slug", "")!!
-                    }
+                        }
                     }
                 }
             }
+            rvDeliveryOptions.adapter = addressesAdapter
+
             viewModel.deliveryCost.observeEvent(viewLifecycleOwner, {
                 val price = it.result?.getOrNull("quota", 0)!!
                 list = cartOptionsAdapter.getList() as MutableList
@@ -124,7 +135,6 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
                     OrderInfoDialog.KEY_IMAGE to R.drawable.ic_cat_order_error)
                 findNavController().navigate(R.id.action_global_order_info, bundle)
             })
-            rvDeliveryOptions.adapter = addressesAdapter
 
             vgDeliveryPickUp.setOnClickListener {
                 findNavController().navigate(R.id.action_global_pickUpLocationsDialog)
@@ -134,15 +144,11 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
                 findNavController().navigate(R.id.action_global_add_address)
             }
 
-            viewModel.installment()
-
-            viewModel.getInstallment.observeState(viewLifecycleOwner,{
-                Timber.d("Installment: %s", it)
-                installmentAdapter.submitList(it.result)
-            })
-
             btnOk.setOnClickListener {
-                viewModel.placeOrder(baskets, deliverySlug, paymentSlug, installmentId, addressSlug, priceProduct, quota)
+                if(baskets != null && paymentSlug != null && priceProduct != null){
+                    dismiss()
+                }
+                viewModel.placeOrder(baskets, deliverySlug, pickUpPointSlug, paymentSlug, installmentId, addressSlug, priceProduct, quota)
             }
 
             viewModel.run {
@@ -152,6 +158,7 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
                 paymentTypes.call()
                 clientAddresses.call()
                 pickUpLocations.call()
+                installment.call()
 
                 clientPoints.liveData.observeState(viewLifecycleOwner, {
                     tvBonus.text = "${it.result.getOrNull("points", "")} Б"
@@ -170,15 +177,24 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
                 clientAddresses.liveData.observeState(viewLifecycleOwner, {
                     Timber.d("Addresses: %s", it)
                     addressesAdapter.submitList(it.result)
+                    addressesAdapter.notifyDataSetChanged()
                 })
                 pickUpLocations.liveData.observeState(viewLifecycleOwner, {
                     Timber.d("Pickups: %s", it)
                 })
-
+                installment.liveData.observeState(viewLifecycleOwner,{
+                    Timber.d("Installment: %s", it)
+                    installmentAdapter.submitList(it.result)
+                })
                 placeOrder.observeEvent(viewLifecycleOwner, {
                     MessageUtils.postMessage("Успешно")
                     dismiss()
                 })
+
+                addressViewModel.addresses.observeState(viewLifecycleOwner,{
+                    addressesAdapter.submitList(it.result)
+                    addressesAdapter.notifyDataSetChanged()
+                }){}
 
                 viewModel.cartItems.observeState(viewLifecycleOwner, {
                     var toPay = 0
@@ -191,8 +207,9 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
                                 it.getOrNull("name", ""),
                                 it.getOrNull("price", 0, safe = true)!!)
                             items.add(item)
-                            toPay += item.price
+                            toPay += item.price * item.count
                             price = toPay
+                            priceTotal = item.count * item.price
                         }
                     }
                     baskets = list
@@ -203,6 +220,43 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
                     cartOptionsAdapter.submitList(items)
                 })
 
+                viewModel.fetchPickUp?.observe(viewLifecycleOwner) {
+                    if (it != null) {
+                        tvDeliveryInfo.text = "Пункт самовывоза, ${it.getOrNull("address", "")}"
+                        val location = it["location"]
+                        val loc = location as List<*>
+                        val latitude = loc[0] as Double
+                        val longitude = loc[1] as Double
+                        cardView.visibility = View.VISIBLE
+                        imagePickUp.loadMapScreenshot(latitude, longitude)
+
+                        list = cartOptionsAdapter.getList() as MutableList
+                        for (i in 0 until list.size) {
+                            if (list[i].title == "Доставка") {
+                                list.removeAt(i)
+                                break
+                            }
+                        }
+                        cartOptionsAdapter.submitList(list)
+
+                        addressSlug = ""
+                        quota = 0
+                        pickUpPointSlug = it.getOrNull("slug", "")!!
+                        val pricePickUp = it.getOrNull("price", 0)!!
+                        //priceProduct = price + pricePickUp
+                        tvToPay.text = "К оплате ${priceProduct}₸"
+
+                        if (viewModel.deliveryTypes.liveData.value is State.Success) {
+                            val types =
+                                (viewModel.deliveryTypes.liveData.value as State.Success).result
+                            types?.forEach {
+                                if (it.getOrNull("delivery_id", 0)!! == 1) {
+                                    deliverySlug = it.getOrNull("slug", "")!!
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             useBonuses(useBonus)
@@ -310,4 +364,10 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
             }
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.fetchPickUp?.value = null
+    }
+
 }
