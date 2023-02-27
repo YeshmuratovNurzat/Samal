@@ -1,17 +1,19 @@
 package kz.fime.samal.ui.profile.address
 
+import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kz.fime.samal.data.repositories.MainRepository
 import kz.fime.samal.ui.base.BaseViewModel
-import kz.fime.samal.utils.extensions.Item
 import javax.inject.Inject
 
 @HiltViewModel
 class AddressesViewModel @Inject constructor(
     private val mainRepository: MainRepository
 ): BaseViewModel() {
+
+    var addressMap: MutableLiveData<Map<String, String>>? = MutableLiveData()
 
     private val getAddressesRequest = NetworkRequest{ mainRepository.getClientAddresses() }
     val addresses = getAddressesRequest.liveData
