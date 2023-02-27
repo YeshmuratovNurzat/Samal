@@ -15,10 +15,12 @@ import kz.fime.samal.R
 import kz.fime.samal.data.base.State
 import kz.fime.samal.data.models.City
 import kz.fime.samal.databinding.AddressDetailDialogBinding
+import kz.fime.samal.ui.base.observeEvent
 import kz.fime.samal.ui.base.observeState
 import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingBottomSheetFragment
 import kz.fime.samal.utils.binding.BindingFragment
+import kz.fime.samal.utils.extensions.InnerItem
 import kz.fime.samal.utils.extensions.Item
 import kz.fime.samal.utils.extensions.getOrNull
 
@@ -27,13 +29,13 @@ class AddressDetailDialog : BindingBottomSheetFragment<AddressDetailDialogBindin
     private val viewModel: AddressesViewModel by activityViewModels()
     private lateinit var mGoogleMap: GoogleMap
     var idCity = 0
+    private var lat: Double = 0.0
+    private var lon: Double = 0.0
+    private var latitudeCity: String? = null
+    private var longitudeCity: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         binding.run {
-
-            val latitude = arguments?.getString("latitude")
-            val longitude = arguments?.getString("longitude")
 
             viewModel.cities.observeState(viewLifecycleOwner, {
                 val items = mutableListOf<String>()
@@ -44,20 +46,6 @@ class AddressDetailDialog : BindingBottomSheetFragment<AddressDetailDialogBindin
                 etCity.setAdapter(adapter)
             })
 
-            val mapFragment = childFragmentManager.findFragmentById(R.id.location) as SupportMapFragment
-
-            mapFragment.getMapAsync { googleMap ->
-                mGoogleMap = googleMap
-
-                val currentLatLng = LatLng(latitude?.toDouble() ?: 0.0,longitude?.toDouble() ?: 0.0)
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,10f))
-
-                googleMap.setOnMapClickListener {
-                    findNavController().navigate(R.id.action_global_googleMapDialog,
-                        bundleOf(Pair("latitude",latitude),Pair("longitude",longitude)))
-                }
-            }
-
             val addressSlug = arguments?.getString("address_slug")!!
             val addressId = arguments?.getString("address_id")!!
             val name = arguments?.getString("name")
@@ -67,12 +55,32 @@ class AddressDetailDialog : BindingBottomSheetFragment<AddressDetailDialogBindin
             val default = arguments?.getBoolean("default")!!
             val city = arguments?.getString("city")
             val cityId = arguments?.getInt("city_id")
+            latitudeCity = arguments?.getString("latitude")
+            longitudeCity = arguments?.getString("longitude")
 
             etName.setText(name.toString())
             etStreet.setText(street.toString())
             etHouse.setText(houseNumber.toString())
             etApartment.setText(apartment.toString())
             etCity.setText(city)
+
+            val mapFragment = childFragmentManager.findFragmentById(R.id.location) as SupportMapFragment
+
+            mapFragment.getMapAsync { googleMap ->
+                mGoogleMap = googleMap
+
+                val currentLatLng = LatLng(latitudeCity?.toDouble() ?: 0.0,longitudeCity?.toDouble() ?: 0.0)
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,10f))
+                mGoogleMap.uiSettings.isScrollGesturesEnabled = false
+                mGoogleMap.uiSettings.isZoomGesturesEnabled = false
+                mGoogleMap.uiSettings.isMapToolbarEnabled = false
+
+
+                googleMap.setOnMapClickListener {
+                    findNavController().navigate(R.id.action_global_googleMapDialog,
+                        bundleOf(Pair("latitude", it.latitude.toString()),Pair("longitude", it.longitude.toString())))
+                }
+            }
 
             addressDelete.setOnClickListener {
                 findNavController().navigate(R.id.action_global_deleteAddressDialog,
@@ -84,19 +92,55 @@ class AddressDetailDialog : BindingBottomSheetFragment<AddressDetailDialogBindin
                         (Pair("apartment", apartment))))
             }
 
+            viewModel.deleteAddress.observeEvent(viewLifecycleOwner) {
+                MessageUtils.postMessage("Адрес удалено")
+                dismiss()
+            }
+
             etCity.setOnDismissListener {
 
                 val cityName = etCity.text.toString()
 
                 if (viewModel.cities.value is State.Success) {
+                    idCity = ((viewModel.cities.value as State.Success<List<Item>>).result?.first() {
+                        it.getOrNull("name", "")!! == cityName }).getOrNull("id", 0)!!
 
-                    Log.d("MyLog","cityId = $cityId")
-                    idCity =
+                    val cityId =
                         ((viewModel.cities.value as State.Success<List<Item>>).result?.first() {
                             it.getOrNull("name", "")!! == cityName
                         }).getOrNull("id", 0)!!
+
+                    val latitude =
+                        ((viewModel.cities.value as State.Success<List<Item>>).result?.first {
+                            it.getOrNull("id", 0)!! == cityId
+                        })?.getOrNull<InnerItem>("point").let {
+                            it.getOrNull("latitude","")
+                        }
+                    latitudeCity = latitude
+
+                    val longitude =
+                        ((viewModel.cities.value as State.Success<List<Item>>).result?.first {
+                            it.getOrNull("id", 0)!! == cityId
+                        })?.getOrNull<InnerItem>("point").let {
+                            it.getOrNull("longitude","")
+                        }
+                    longitudeCity = longitude
+
+                    val currentLatLng = LatLng(latitudeCity?.toDouble() ?: 0.0,longitudeCity?.toDouble() ?: 0.0)
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,10f))
                 }
             }
+
+            viewModel.addressMap?.observe(viewLifecycleOwner) {
+                val addressNumber = it?.get("addressNumber")
+                val addressName = it?.get("addressName")
+
+                if(addressName != null) {
+                    etStreet.setText(addressName.toString())
+                    etHouse.setText(addressNumber.toString())
+                }
+            }
+
 
             btnSave.setOnClickListener {
 
@@ -114,9 +158,15 @@ class AddressDetailDialog : BindingBottomSheetFragment<AddressDetailDialogBindin
                     return@setOnClickListener
                 }
 
-                viewModel.updateAddress(addressSlug, idCity, tvName, tvStreet, tvHouseNumber, tvApartment, default,"49.806406", "73.085485")
+                viewModel.updateAddress(addressSlug, idCity, tvName, tvStreet, tvHouseNumber, tvApartment, default, latitudeCity.toString(), longitudeCity.toString())
                 dismiss()
             }
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.addressMap?.value = null
+    }
+
 }
