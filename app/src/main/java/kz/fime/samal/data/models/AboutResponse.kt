@@ -7,7 +7,7 @@ data class AboutResponse(
     val email: String,
     val location: List<Double>,
     val name: String,
-    val phone1: String,
-    val phone2: String,
+    val phone1: String?,
+    val phone2: String?,
     val url_map: String
 )

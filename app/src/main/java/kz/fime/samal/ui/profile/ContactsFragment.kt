@@ -54,8 +54,12 @@ class ContactsFragment : BindingFragment<FragmentContactsBinding>(FragmentContac
     private fun drawAbout(about: AboutResponse) {
         Glide.with(this).load(about.url_map).into(binding.mapImg)
         binding.addressTv.text = about.address
-        binding.phone1.text = EditTextUtils.getPhoneMasked(about.phone1)
-        binding.phone2.text = EditTextUtils.getPhoneMasked(about.phone2)
+        about.phone1?.let {    binding.phone1.text = EditTextUtils.getPhoneMasked(it)
+        } ?: kotlin.run {    binding.phone1.visibility = View.GONE}
+        about.phone2?.let {    binding.phone2.text = EditTextUtils.getPhoneMasked(it)
+        } ?: kotlin.run {    binding.phone2.visibility = View.GONE}
+//        binding.phone1.text = EditTextUtils.getPhoneMasked(about.phone1)
+//        binding.phone2.text = EditTextUtils.getPhoneMasked(about.phone2)
         binding.phone1.setOnClickListener {
             val callIntent = Intent(Intent.ACTION_DIAL)
             callIntent.data = Uri.parse("tel: ${binding.phone1.text}")
