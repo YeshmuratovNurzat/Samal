@@ -19,10 +19,7 @@ import kz.fime.samal.ui.profile.address.AddressesAdapter
 import kz.fime.samal.ui.profile.address.AddressesViewModel
 import kz.fime.samal.utils.MessageUtils
 import kz.fime.samal.utils.binding.BindingBottomSheetFragment
-import kz.fime.samal.utils.extensions.InnerItem
-import kz.fime.samal.utils.extensions.Item
-import kz.fime.samal.utils.extensions.getOrNull
-import kz.fime.samal.utils.extensions.loadMapScreenshot
+import kz.fime.samal.utils.extensions.*
 import timber.log.Timber
 
 class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(DialogCartOrderBinding::inflate) {
@@ -64,7 +61,7 @@ class OrderCartDialog: BindingBottomSheetFragment<DialogCartOrderBinding>(Dialog
 
             val installmentAdapter = InstallmentAdapter {
                 tvPaymentMethod.text = it.getOrNull("short_description", "")
-                iv.setImageResource(R.drawable.ic_home_credit_bank)
+                iv.loadUrl(it.getOrNull("logo",""))
                 paymentSlug = it.getOrNull("slug", "installment")!!
                 installmentId = it.getOrNull("uuid","")!!
                 it.getOrNull("percent","")?.toIntOrNull()?.let {

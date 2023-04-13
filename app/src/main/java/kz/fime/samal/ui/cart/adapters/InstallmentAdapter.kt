@@ -17,7 +17,7 @@ class InstallmentAdapter(private val onItemClick: (item: Item) -> Unit) : Bindin
     override fun bind(item: Item, binding: ItemInstallmentBinding) {
         binding.run {
             tvDescription.text = item.getOrNull("short_description", "")
-            iv.setImageResource(R.drawable.ic_home_credit_bank)
+            iv.loadUrl(item.getOrNull("logo",""))
             vgContainer.setOnClickListener { onItemClick.invoke(item) }
         }
     }

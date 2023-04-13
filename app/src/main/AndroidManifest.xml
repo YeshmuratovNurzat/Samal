@@ -22,7 +22,8 @@
 
         <activity
             android:name=".ui.LauncherActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,15 +32,18 @@
         </activity>
         <activity
             android:name=".ui.welcome.WelcomeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
         <activity
             android:name=".ui.AuthActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false"/>
         <activity
             android:name=".ui.MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false"/>
 
         <service
             android:name=".firebase.MyFirebaseMessagingService"
