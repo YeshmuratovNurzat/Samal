@@ -5,8 +5,8 @@ data class ClientAddress(
     val address_slug: String,
     val apartment: String,
     val city: City,
+    val point: Point,
     val default: Boolean,
     val house_number: String,
     val name: String,
-    val street: String
-)
+    val street: String, )
