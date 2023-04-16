@@ -233,5 +233,12 @@
     <action
         android:id="@+id/action_global_deleteOrderDialog"
         app:destination="@id/deleteOrderDialog" />
+    <dialog
+        android:id="@+id/notificationDetailFragment"
+        android:name="kz.fime.samal.ui.profile.notifications.NotificationDetailFragment"
+        android:label="NotificationDetailFragment" />
+    <action
+        android:id="@+id/action_global_notificationDetailFragment"
+        app:destination="@id/notificationDetailFragment" />
 
 </navigation>

@@ -69,7 +69,7 @@
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/content_orders_empty.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/content_shops_loading.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/dialog_add_address.xml" value="0.264" />
-        <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/dialog_address_delete.xml" value="0.1" />
+        <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/dialog_address_delete.xml" value="0.264" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/dialog_cancel_order.xml" value="0.22135416666666666" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/dialog_card_delete.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/dialog_cart.xml" value="0.22239583333333332" />
@@ -104,6 +104,7 @@
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_home_widgets.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_installment.xml" value="0.21822916666666667" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_login.xml" value="0.22239583333333332" />
+        <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_notification_detail.xml" value="0.264" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_notifications.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_notifications_info.xml" value="0.22239583333333332" />
         <entry key="..\:/gildas/SamalMarket/app/src/main/res/layout/fragment_order_detail.xml" value="0.22239583333333332" />
