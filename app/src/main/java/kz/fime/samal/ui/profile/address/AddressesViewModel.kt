@@ -4,8 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kz.fime.samal.data.models.order_detail.ClientAddress
 import kz.fime.samal.data.repositories.MainRepository
 import kz.fime.samal.ui.base.BaseViewModel
+import kz.fime.samal.utils.extensions.Item
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,6 +34,15 @@ class AddressesViewModel @Inject constructor(
     fun addAddress(cityId: Int, name: String, street: String, houseNumber: String, apartment: String, isDefault: Boolean, latitude: String, longitude: String){
         addAddressRequest.call { mainRepository.addClientAddress(cityId, name, street, houseNumber, apartment, isDefault, latitude, longitude) }
     }
+
+
+    private val getClientAddressDetailsRequest = NetworkRequest<ClientAddress>()
+    val clientAddressDetails = getClientAddressDetailsRequest.liveData
+
+    fun getClientAddressDetails(addressId: String){
+        getClientAddressDetailsRequest.call {mainRepository.getClientAddressDetails(addressId)}
+    }
+
 
     private val updateAddressRequest = NetworkRequestEvent<Nothing>(CoroutineScope(Dispatchers.IO), ::load)
     val updateAddress = updateAddressRequest.liveData

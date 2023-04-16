@@ -21,7 +21,12 @@ class AddressesAdapter(
     override fun bind(item: Item, binding: ItemAddressBinding) {
         binding.run {
             tvTitle.text = item.getOrNull("name", "")
-            tvSubtitle.text = "${item.getOrNull("street", "")}, ${item.getOrNull("house_number", "")}, ${item.getOrNull("apartment", "")}"
+            val apartment = item.getOrNull("apartment","")
+            if(apartment.toString() == "null"){
+                tvSubtitle.text = "${item.getOrNull("street", "")}, ${item.getOrNull("house_number", "")}"
+            }else{
+                tvSubtitle.text = "${item.getOrNull("street", "")}, ${item.getOrNull("house_number", "")}, ${item.getOrNull("apartment", "")}"
+            }
             //root.setOnClickListener { onItemClick.invoke(item) }
         }
     }

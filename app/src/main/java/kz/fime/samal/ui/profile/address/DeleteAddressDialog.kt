@@ -3,12 +3,14 @@ package kz.fime.samal.ui.profile.address
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import kz.fime.samal.data.models.order_detail.ClientAddress
 import kz.fime.samal.databinding.DialogAddressDeleteBinding
 import kz.fime.samal.utils.binding.BindingBottomSheetFragment
 
 class DeleteAddressDialog: BindingBottomSheetFragment<DialogAddressDeleteBinding>(DialogAddressDeleteBinding::inflate) {
 
     private val viewModel: AddressesViewModel by activityViewModels()
+    private lateinit var userAddress: ClientAddress
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.run {
@@ -17,7 +19,11 @@ class DeleteAddressDialog: BindingBottomSheetFragment<DialogAddressDeleteBinding
             val houseNumber = arguments?.getString("house_number")
             val apartment = arguments?.getString("apartment")
 
-            tvMainAddress.text = "Вы действительно хотите удалить адрес $name, $street, $houseNumber, $apartment?"
+            if(apartment.toString() == "null"){
+                tvMainAddress.text = "Вы действительно хотите удалить адрес $name, $street, $houseNumber?"
+            }else{
+                tvMainAddress.text = "Вы действительно хотите удалить адрес $name, $street, $houseNumber, $apartment?"
+            }
 
             btnDelete.setOnClickListener {
                 dismiss()

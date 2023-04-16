@@ -121,7 +121,7 @@ class AddAddressDialog: BindingBottomSheetFragment<DialogAddAddressBinding>(Dial
                 val houseNumber = etHouse.text.toString()
                 val apartment = etApartment.text.toString()
 
-                if (name.isEmpty() || city.isEmpty() || street.isEmpty() || houseNumber.isEmpty() || apartment.isEmpty()) {
+                if (name.isEmpty() || city.isEmpty() || street.isEmpty() || houseNumber.isEmpty()) {
                     val bundle = bundleOf(
                         OrderInfoDialog.KEY_TITLE to "Ошибка",
                         OrderInfoDialog.KEY_DESC to "Заполните все поля!",

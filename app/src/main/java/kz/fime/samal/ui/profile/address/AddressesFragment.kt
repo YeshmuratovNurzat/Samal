@@ -32,18 +32,7 @@ class AddressesFragment: BindingFragment<FragmentAddressesBinding>(FragmentAddre
 
             val addressesAdapter = AddressesAdapter {
                 findNavController().navigate(R.id.action_global_addressDetailDialog,
-                    bundleOf(
-                        Pair("name", it.getOrNull("name", "")),
-                        Pair("address_slug", it.getOrNull("address_slug", "")),
-                        Pair("address_id", it.getOrNull("address_id", "")),
-                        Pair("street", it.getOrNull("street", "")),
-                        Pair("house_number", it.getOrNull("house_number", "")),
-                        Pair("apartment", it.getOrNull("apartment", "")),
-                        Pair("default", it.getOrNull("default", false)),
-                        Pair("city", it.getOrNull<InnerItem>("city").let { it.getOrNull("name", "") }),
-                        Pair("city_id", it.getOrNull<InnerItem>("city").let { it.getOrNull("city_id", 0) }),
-                        Pair("latitude",it.getOrNull<InnerItem>("point").let { it.getOrNull("latitude","") }),
-                        Pair("longitude",it.getOrNull<InnerItem>("point").let { it.getOrNull("longitude","")})))
+                    bundleOf(Pair("address_slug", it.getOrNull("address_slug", ""))))
             }
             rvItems.adapter = addressesAdapter
             viewModel.addresses.observeState(viewLifecycleOwner, {
