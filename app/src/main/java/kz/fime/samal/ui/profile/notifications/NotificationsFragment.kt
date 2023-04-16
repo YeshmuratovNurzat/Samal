@@ -44,6 +44,9 @@ class NotificationsFragment: BindingFragment<FragmentNotificationsBinding>(Fragm
                 if(url != null){
                     val bundle = bundleOf("url" to it.getOrNull("url", ""))
                     findNavController().navigate(R.id.notificationsInfoFragment, bundle)
+                }else{
+                    val bundle = bundleOf("message" to it.getOrNull("message", ""))
+                    findNavController().navigate(R.id.notificationDetailFragment, bundle)
                 }
             }
             rvItems.adapter = adapter

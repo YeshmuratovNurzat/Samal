@@ -89,4 +89,6 @@ class MainRepository (private val service: SamalApi) {
 
     suspend fun notificationsReadAll() = call {service.notificationsReadAll()}
 
+    suspend fun notificationRead(notificationId: String) = call {service.notificationRead(notificationId)}
+
 }

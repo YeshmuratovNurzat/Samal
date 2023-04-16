@@ -44,6 +44,13 @@ class NotificationsViewModel @Inject constructor(
         getNotificationsReadAll.call()
     }
 
+    private val getNotificationReadRequest = NetworkRequest<Item>()
+    val notificationRead = getNotificationReadRequest.liveData
+
+    fun notificationRead(notificationId: String){
+        getNotificationReadRequest.call {mainRepository.notificationRead(notificationId)}
+    }
+
     data class NotificationsRequestModel(
         val page: String?,
     )

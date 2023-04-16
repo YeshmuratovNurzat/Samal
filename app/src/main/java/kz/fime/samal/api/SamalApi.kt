@@ -1,5 +1,6 @@
 package kz.fime.samal.api
 
+import io.reactivex.Notification
 import retrofit2.Response
 import io.reactivex.Observable
 import kz.fime.samal.data.entities.Profile
@@ -137,7 +138,7 @@ interface SamalApi {
     suspend fun getClientCities(): Response<ApiResponse<List<Item>>>
 
     @GET("client/address/{id}")
-    suspend fun getClientAddressDetails(@Path("id") addressId: String): Response<ApiResponse<Item>>
+    suspend fun getClientAddressDetails(@Path("id") addressId: String): Response<ApiResponse<ClientAddress>>
 
     @POST("client/address")
     suspend fun addClientAddress(@Body body: Item): Response<ApiResponse<Nothing>>
@@ -240,6 +241,9 @@ interface SamalApi {
 
     @GET("client/notifications")
     fun getNotifications(@Query("page") page: String?) : Observable<ApiResponse<List<Item>>>
+
+    @GET("client/notifications/read/{{notifications_id}}")
+    fun notificationRead(@Path("notifications_id") notificationId: String) : Response<ApiResponse<Item>>
 
     @GET("client/notifications/read_all")
     suspend fun notificationsReadAll() : Response<ApiResponse<List<Item>>>
