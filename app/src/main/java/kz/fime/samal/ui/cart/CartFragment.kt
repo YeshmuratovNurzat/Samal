@@ -32,6 +32,7 @@ class CartFragment: BindingFragment<FragmentCartBinding>(FragmentCartBinding::in
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         BottomBar.getBottomBar()?.showMain()
+//        findNavController().navigate(R.id.action_global_installmentFragment, null)
         binding.run {
             if (SessionManager.token.isEmpty()) {
                 vgErrorAuth.visibility = View.VISIBLE
