@@ -20,14 +20,11 @@ import androidx.navigation.fragment.findNavController
 import kz.fime.samal.databinding.FragmentInstallmentBinding
 import kz.fime.samal.utils.binding.BindingFragment
 
-
 class InstallmentFragment : BindingFragment<FragmentInstallmentBinding>(FragmentInstallmentBinding::inflate) {
 
     var url: String = ""
-    private val REQUEST_CAMERA_PERMISSION = 100
-    private val REQUEST_PHOTO_CAPTURE = 200
-    private lateinit var webView: WebView
-    private var filePathCallback: ValueCallback<Array<Uri>>? = null
+    private val CAMERA_PERMISSION_REQUEST_CODE = 100
+    var permissionsRequest: PermissionRequest? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,13 +35,10 @@ class InstallmentFragment : BindingFragment<FragmentInstallmentBinding>(Fragment
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWebView() {
         url = arguments?.getString("url_installment")!!
-//        url = "https://api.ffin.credit/ru/frames/cc1b4d82-accc-401d-9dec-640644009854/"
-        with(binding.webView.settings){
+        with(binding.webView.settings) {
             javaScriptEnabled = true
-            javaScriptCanOpenWindowsAutomatically = true
-            this.allowContentAccess = true
-            this.allowFileAccess = true
-
+            allowFileAccessFromFileURLs = true
+            allowUniversalAccessFromFileURLs = true
         }
         binding.webView.loadUrl(url)
         binding.webView.webChromeClient = object : WebChromeClient() {
@@ -52,19 +46,26 @@ class InstallmentFragment : BindingFragment<FragmentInstallmentBinding>(Fragment
                 super.onProgressChanged(view, newProgress)
             }
 
-            override fun onShowFileChooser(
-                webView: WebView?,
-                filePathCallback: ValueCallback<Array<Uri>>?,
-                fileChooserParams: FileChooserParams?
-            ): Boolean {
-                if (ContextCompat.checkSelfPermission( requireContext(), Manifest.permission.CAMERA ) != PackageManager.PERMISSION_GRANTED )
-                { ActivityCompat.requestPermissions( requireActivity(), arrayOf(Manifest.permission.CAMERA), REQUEST_CAMERA_PERMISSION )
-                    return false
+            override fun onPermissionRequest(request: PermissionRequest?) {
+                permissionsRequest = request
+                val permissions = request!!.resources
+
+                if (permissions.contains(PermissionRequest.RESOURCE_VIDEO_CAPTURE)) {
+                    val cameraPermission = Manifest.permission.CAMERA
+                    val hasCameraPermission = ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        cameraPermission
+                    ) == PackageManager.PERMISSION_GRANTED
+
+                    if (hasCameraPermission) {
+                        request.grant(arrayOf(PermissionRequest.RESOURCE_VIDEO_CAPTURE))
+                    } else {
+                        requestPermissions(
+                            arrayOf(cameraPermission),
+                            CAMERA_PERMISSION_REQUEST_CODE
+                        )
+                    }
                 }
-                this@InstallmentFragment.filePathCallback = filePathCallback
-                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(intent, REQUEST_PHOTO_CAPTURE)
-                return true
             }
         }
 
@@ -74,9 +75,19 @@ class InstallmentFragment : BindingFragment<FragmentInstallmentBinding>(Fragment
                 view!!.loadUrl(request!!.url.toString())
                 return true
             }
+        }
+    }
 
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                permissionsRequest?.grant(arrayOf(PermissionRequest.RESOURCE_VIDEO_CAPTURE))
+            } else {
+                binding.webView.reload()
             }
         }
     }
